@@ -1,7 +1,8 @@
 # app.py  —  Flask backend for Habit Tracker
 # Deploy on Ubuntu at 192.168.10.211
 
-from flask import Flask, request, jsonify
+from functools import wraps
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import sqlite3, json, os
 
@@ -9,9 +10,11 @@ app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
     static_url_path=""
 )
-CORS(app)
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super_secret_peter1947_key")
+CORS(app, supports_credentials=True)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "habit_tracker.db")
+APP_PASSWORD = os.environ.get("APP_PASSWORD", "1105")
 
 # ── DB init ────────────────────────────────────────────────────────────────────
 
@@ -31,9 +34,37 @@ def init_db():
         """)
         db.commit()
 
+# ── Auth ───────────────────────────────────────────────────────────────────────
+
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("logged_in"):
+            return jsonify({"error": "Unauthorized"}), 401
+        return f(*args, **kwargs)
+    return decorated
+
+@app.route("/api/auth/login", methods=["POST"])
+def login():
+    data = request.get_json(force=True)
+    if data.get("password") == APP_PASSWORD:
+        session["logged_in"] = True
+        return jsonify({"ok": True})
+    return jsonify({"error": "Invalid password"}), 401
+
+@app.route("/api/auth/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return jsonify({"ok": True})
+
+@app.route("/api/auth/status", methods=["GET"])
+def auth_status():
+    return jsonify({"logged_in": bool(session.get("logged_in"))})
+
 # ── Generic key/value API ──────────────────────────────────────────────────────
 
 @app.route("/api/data/<key>", methods=["GET"])
+@require_auth
 def get_data(key):
     with get_db() as db:
         row = db.execute("SELECT value FROM store WHERE key=?", (key,)).fetchone()
@@ -42,6 +73,7 @@ def get_data(key):
     return jsonify({"key": key, "value": None})
 
 @app.route("/api/data/<key>", methods=["POST"])
+@require_auth
 def set_data(key):
     payload = request.get_json(force=True)
     value   = json.dumps(payload.get("value"))
@@ -57,6 +89,7 @@ def set_data(key):
     return jsonify({"ok": True})
 
 @app.route("/api/data/<key>", methods=["DELETE"])
+@require_auth
 def del_data(key):
     with get_db() as db:
         db.execute("DELETE FROM store WHERE key=?", (key,))

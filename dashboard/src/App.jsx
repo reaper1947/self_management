@@ -1,12 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HabitTracker from './HabitTracker';
 import Scheduler from './Scheduler';
 import GymSchedule from './GymSchedule';
+import Login from './Login';
 import './index.css';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/auth/status')
+      .then(res => res.json())
+      .then(data => {
+        if (data.logged_in) setIsAuthenticated(true);
+        else setIsAuthenticated(false);
+      })
+      .catch(() => setIsAuthenticated(false));
+  }, []);
+
+  if (isAuthenticated === null) return <div style={{ color: '#39ff14', padding: '20px', fontFamily: '"Press Start 2P"' }}>LOADING...</div>;
+  if (!isAuthenticated) return <Login onLogin={() => setIsAuthenticated(true)} />;
+
+  const handleLogout = () => {
+    fetch('/api/auth/logout', { method: 'POST' }).then(() => setIsAuthenticated(false));
+  };
 
   const closeSidebar = () => setIsSidebarOpen(false);
 
@@ -41,6 +60,9 @@ function App() {
           </div>
           <div className={`nav-item ${activeTab === 'gym' ? 'active' : ''}`} onClick={() => handleTabClick('gym')}>
             <span className="nav-icon">🏋️</span> Gym Plan
+          </div>
+          <div className="nav-item" onClick={handleLogout} style={{ marginTop: '20px', color: '#ff0055', border: '2px solid #ff0055' }}>
+            <span className="nav-icon">🚪</span> Logout
           </div>
         </div>
 

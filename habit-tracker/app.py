@@ -5,6 +5,9 @@ from functools import wraps
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import sqlite3, json, os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
@@ -14,7 +17,7 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super_secret_peter1947_key"
 CORS(app, supports_credentials=True)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "habit_tracker.db")
-APP_PASSWORD = os.environ.get("APP_PASSWORD", "1105")
+APP_PASSWORD = os.environ.get("APP_PASSWORD")
 
 # ── DB init ────────────────────────────────────────────────────────────────────
 

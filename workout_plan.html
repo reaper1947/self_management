@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Peter's Calisthenics Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  body {
+    background-color: #111;
+    color: #39ff14;
+    font-family: 'Press Start 2P', monospace, cursive;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  h1 {
+    color: #ff00ff;
+    text-shadow: 4px 4px #00ffff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .status-bar {
+    background-color: #000;
+    border: 4px solid #fff;
+    padding: 15px;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    box-shadow: 6px 6px 0px #ff00ff;
+  }
+  .status-bar .hp { color: #ff0055; }
+  .status-bar .quests { color: #ffff00; }
+  
+  /* Stats Panel */
+  .stats-panel {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    background-color: #1a1a1a;
+    border: 4px solid #00ffff;
+    padding: 20px;
+    box-shadow: 6px 6px 0px #ff00ff;
+    text-align: left;
+  }
+  .stats-panel h2 {
+    color: #ffff00;
+    font-size: 16px;
+    margin-top: 0;
+    border-bottom: 2px dashed #555;
+    padding-bottom: 10px;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  .skill-item {
+    font-size: 10px;
+    color: #fff;
+  }
+  .skill-name-lvl {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  .skill-name-lvl .lvl {
+    color: #00ffff;
+  }
+  .exp-bar-bg {
+    background-color: #000;
+    border: 2px solid #555;
+    height: 10px;
+    width: 100%;
+    position: relative;
+  }
+  .exp-bar-fill {
+    background-color: #ff00ff;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #222;
+    border: 6px solid #fff;
+    box-shadow: 12px 12px 0px #00ffff;
+    padding: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 4px solid #555;
+    padding: 20px;
+    text-align: left;
+    line-height: 1.8;
+  }
+  th {
+    background-color: #00ffff;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  td {
+    font-size: 12px;
+    position: relative;
+  }
+  tr:hover {
+    background-color: #333;
+  }
+  .day {
+    color: #ffff00;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .focus {
+    color: #ff00ff;
+  }
+  .skill-badge {
+    color: #000;
+    background: #00ffff;
+    padding: 4px 8px;
+    display: inline-block;
+    margin-top: 10px;
+    border: 2px solid #fff;
+    font-weight: bold;
+  }
+  .day-complete-stamp {
+    color: #00ffff;
+    font-weight: bold;
+    display: none;
+    margin-top: 10px;
+    animation: blink 1.5s infinite;
+    text-shadow: 2px 2px #000;
+  }
+
+  /* Checkbox styling */
+  .quest {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quest:hover {
+    color: #fff;
+  }
+  input[type="checkbox"] {
+    appearance: none;
+    background-color: #000;
+    margin: 0 10px 0 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.5em;
+    height: 1.5em;
+    border: 2px solid #00ffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 5px;
+    cursor: pointer;
+  }
+  input[type="checkbox"]:checked {
+    background-color: #ff00ff;
+    border-color: #ff00ff;
+  }
+  input[type="checkbox"]:checked::before {
+    content: "X";
+    color: #fff;
+    font-size: 14px;
+  }
+  .quest.completed {
+    text-decoration: line-through;
+    color: #555;
+  }
+
+  /* Level Up Popup Overlay */
+  #levelup-popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    border: 6px solid #000;
+    padding: 20px 30px;
+    z-index: 950;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 12px 12px 0px #ff00ff;
+    pointer-events: none;
+    color: #000;
+  }
+  #levelup-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  #levelup-popup h2 {
+    color: #ff00ff;
+    margin: 0 0 10px 0;
+    font-size: 24px;
+  }
+
+  /* Daily Mini-Popup Overlay */
+  #daily-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #000;
+    border: 6px solid #ffff00;
+    padding: 30px 40px;
+    z-index: 900;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 12px 12px 0px #ff00ff;
+    pointer-events: none;
+  }
+  #daily-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  #daily-popup h2 {
+    color: #ffff00;
+    margin: 0 0 15px 0;
+    font-size: 28px;
+    text-shadow: 3px 3px #ff0055;
+    animation: float 2s ease-in-out infinite;
+  }
+  #daily-popup p {
+    color: #fff;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  /* Victory Screen Overlay */
+  #victory-screen {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: flashBg 0.5s infinite alternate;
+  }
+  #victory-screen h1 {
+    font-size: 50px;
+    color: #ffff00;
+    text-shadow: 5px 5px #ff00ff;
+    margin: 0;
+    animation: bounce 1s infinite;
+  }
+  #victory-screen p {
+    font-size: 20px;
+    color: #fff;
+    margin-top: 20px;
+  }
+  
+  /* Reset Button */
+  #reset-btn {
+    background: #ff00ff;
+    color: #fff;
+    font-family: inherit;
+    border: 4px solid #fff;
+    padding: 10px 20px;
+    margin-top: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  #reset-btn:hover {
+    background: #00ffff;
+    color: #000;
+  }
+
+  /* Animations */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes flashBg {
+    0% { background-color: rgba(0,0,0,0.9); }
+    100% { background-color: rgba(20,0,20,0.95); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #00ffff;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(100vh) rotate(720deg); }
+  }
+  
+  .sprite {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- Level Up Popup -->
+  <div id="levelup-popup">
+    <h2>LEVEL UP!</h2>
+    <p id="levelup-text">Handstand Control is now LVL 2</p>
+  </div>
+
+  <!-- Daily Popup -->
+  <div id="daily-popup">
+    <h2 id="daily-popup-text">DAY CLEARED!</h2>
+    <div class="sprite">⭐ 🍄 ⭐</div>
+    <p>+100 EXP BONUS</p>
+  </div>
+
+  <!-- Victory Screen -->
+  <div id="victory-screen">
+    <h1>STAGE CLEAR!</h1>
+    <div class="sprite">🏆 👾 🏆</div>
+    <p>Week Completed.</p>
+    <button id="reset-btn" onclick="restartWeek()">Bank EXP & Restart Week</button>
+  </div>
+
+  <h1>[ PLAYER 1: PETER ]<br>ADVANCED CALISTHENICS</h1>
+  
+  <div class="stats-panel">
+    <h2>CHARACTER SKILLS</h2>
+    <div class="skills-grid" id="skills-grid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span class="hp">HP: 100/100</span>
+    <span class="quests" id="quest-tracker">Quests Left: --</span>
+  </div>
+  
+  <div class="container">
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>Focus Area</th>
+        <th>Training Protocol (Sets x Reps)</th>
+      </tr>
+      <tr class="workout-row" data-skill="handstand">
+        <td class="day">Monday</td>
+        <td class="focus">Push (Vertical)</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> Handstand Press Practice (5 x 3)</label>
+          <label class="quest"><input type="checkbox" class="cb"> HSPU (4 x 5-8)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Pseudo Planche Push-ups (4 x 10)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Pike Push-ups (3 x 12)</label>
+          <div class="skill-badge">TRAINING: Handstand</div>
+          <div class="day-complete-stamp">⭐ MONDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="muscleup">
+        <td class="day">Tuesday</td>
+        <td class="focus">Pull (Levers)</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> Muscle-Up Technique (5 x 2-3)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Back Lever Holds (4 x 10s)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Front Lever Progressions (4 x 15s)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Weighted Pull-ups (4 x 5)</label>
+          <div class="skill-badge">TRAINING: Muscle-Ups</div>
+          <div class="day-complete-stamp">⭐ TUESDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="stamina">
+        <td class="day">Wednesday</td>
+        <td class="focus">Leg Day</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> 🏊 SWIMMING SESSION 🏊 (45 mins)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Freestyle Sprints (10 x 50m)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Kickboard Drills (5 x 100m)</label>
+          <div class="skill-badge">TRAINING: Stamina</div>
+          <div class="day-complete-stamp">⭐ WEDNESDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="planche">
+        <td class="day">Thursday</td>
+        <td class="focus">Push (Horizontal)</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> Planche Progressions (5 x 10s)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Weighted Dips (4 x 6-8)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Explosive Push-ups (4 x 10)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Triceps Extensions (3 x 12)</label>
+          <div class="skill-badge">TRAINING: Planche</div>
+          <div class="day-complete-stamp">⭐ THURSDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="backlever">
+        <td class="day">Friday</td>
+        <td class="focus">Pull (Volume)</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> High-volume Muscle-Ups (4 x Max)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Tuck Front Lever Rows (4 x 8-10)</label>
+          <label class="quest"><input type="checkbox" class="cb"> One-Arm Pull-up Negatives (3 x 3/arm)</label>
+          <div class="skill-badge">TRAINING: Back Lever</div>
+          <div class="day-complete-stamp">⭐ FRIDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="core">
+        <td class="day">Saturday</td>
+        <td class="focus">Skills & Core</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> Human Flag Practice (4 x 10s/side)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Dragon Flags (4 x 8-12)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Mobility Flow (15 mins)</label>
+          <div class="skill-badge">TRAINING: Core Strength</div>
+          <div class="day-complete-stamp">⭐ SATURDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+      <tr class="workout-row" data-skill="recovery">
+        <td class="day">Sunday</td>
+        <td class="focus">Rest</td>
+        <td>
+          <label class="quest"><input type="checkbox" class="cb"> RECOVER HP (Sleep 8+ hrs)</label>
+          <label class="quest"><input type="checkbox" class="cb"> Light Stretching / AFK</label>
+          <div class="skill-badge">TRAINING: Recovery</div>
+          <div class="day-complete-stamp">⭐ SUNDAY CLEARED ⭐</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    const skillNames = {
+      handstand: "Handstand Control",
+      muscleup: "Muscle-Ups",
+      stamina: "Stamina",
+      planche: "Planche",
+      backlever: "Back Lever",
+      core: "Core Strength",
+      recovery: "Recovery"
+    };
+
+    const checkboxes = document.querySelectorAll('.cb');
+    const questTracker = document.getElementById('quest-tracker');
+    const victoryScreen = document.getElementById('victory-screen');
+    const dailyPopup = document.getElementById('daily-popup');
+    const dailyPopupText = document.getElementById('daily-popup-text');
+    const levelupPopup = document.getElementById('levelup-popup');
+    const levelupText = document.getElementById('levelup-text');
+    const workoutRows = document.querySelectorAll('.workout-row');
+    const skillsGrid = document.getElementById('skills-grid');
+
+    // Load saved progress
+    const savedState = JSON.parse(localStorage.getItem('calisthenicsProgress')) || {};
+    let savedProfile = JSON.parse(localStorage.getItem('calisthenicsProfile')) || {
+      permanentExp: {
+        handstand: 0, muscleup: 0, stamina: 0, planche: 0, backlever: 0, core: 0, recovery: 0
+      }
+    };
+    
+    let previousLevels = {};
+    let completedDays = {};
+    
+    // Initialize completedDays
+    workoutRows.forEach((row, index) => {
+      completedDays[index] = false;
+    });
+
+    // Calculates Level based on total EXP (100 for LVL2, 200 more for LVL3, etc.)
+    function getLevelInfo(totalExp) {
+      let level = 1;
+      let expRequired = 100;
+      let currentExp = totalExp;
+      
+      while (currentExp >= expRequired) {
+        currentExp -= expRequired;
+        level++;
+        expRequired = level * 100;
+      }
+      return { level, currentExp, requiredExp: expRequired, percent: (currentExp/expRequired)*100 };
+    }
+
+    function renderSkills(currentWeekExp) {
+      skillsGrid.innerHTML = '';
+      
+      for (const [skillId, name] of Object.entries(skillNames)) {
+        const totalExp = (savedProfile.permanentExp[skillId] || 0) + (currentWeekExp[skillId] || 0);
+        const info = getLevelInfo(totalExp);
+        
+        // Detect Level Up during interaction (not on load)
+        if (previousLevels[skillId] && info.level > previousLevels[skillId]) {
+          showLevelUp(name, info.level);
+        }
+        previousLevels[skillId] = info.level;
+
+        const skillEl = document.createElement('div');
+        skillEl.className = 'skill-item';
+        skillEl.innerHTML = `
+          <div class="skill-name-lvl">
+            <span>${name}</span>
+            <span class="lvl">LVL ${info.level}</span>
+          </div>
+          <div class="exp-bar-bg" title="${info.currentExp} / ${info.requiredExp} EXP">
+            <div class="exp-bar-fill" style="width: ${info.percent}%"></div>
+          </div>
+        `;
+        skillsGrid.appendChild(skillEl);
+      }
+    }
+
+    function updateState(isInit = false) {
+      let total = checkboxes.length;
+      let completed = 0;
+      const stateObj = {};
+      
+      const currentWeekExp = {
+        handstand: 0, muscleup: 0, stamina: 0, planche: 0, backlever: 0, core: 0, recovery: 0
+      };
+
+      // Collect states and calculate current week EXP
+      workoutRows.forEach((row, index) => {
+        const skillId = row.getAttribute('data-skill');
+        const rowCbs = row.querySelectorAll('.cb');
+        const stamp = row.querySelector('.day-complete-stamp');
+        const dayName = row.querySelector('.day').innerText;
+        
+        let dayTotal = rowCbs.length;
+        let dayCompleted = 0;
+
+        rowCbs.forEach(cb => {
+          if (cb.checked) {
+            dayCompleted++;
+            completed++;
+            // Each checkbox gives 25 EXP
+            currentWeekExp[skillId] += 25; 
+          }
+        });
+        
+        const isDayComplete = (dayTotal > 0 && dayTotal === dayCompleted);
+        
+        if (isDayComplete) {
+          // Day clear bonus gives 100 EXP
+          currentWeekExp[skillId] += 100;
+          if (stamp) stamp.style.display = 'block';
+          
+          if (!completedDays[index]) {
+            if (!isInit && (total - completed) > 0) {
+              showDailySurprise(dayName);
+            }
+            completedDays[index] = true;
+          }
+        } else {
+          if (stamp) stamp.style.display = 'none';
+          completedDays[index] = false;
+        }
+      });
+
+      // UI updates for checkboxes
+      checkboxes.forEach((cb, index) => {
+        stateObj[index] = cb.checked;
+        const parentLabel = cb.parentElement;
+        if (cb.checked) {
+          parentLabel.classList.add('completed');
+        } else {
+          parentLabel.classList.remove('completed');
+        }
+      });
+
+      localStorage.setItem('calisthenicsProgress', JSON.stringify(stateObj));
+
+      const left = total - completed;
+      questTracker.textContent = `Quests Left: ${left}`;
+
+      // Re-render skills with new combined EXP
+      renderSkills(currentWeekExp);
+
+      // Check Full Victory Condition
+      if (left === 0 && total > 0) {
+        if(!isInit) showVictory();
+      } else {
+        victoryScreen.style.display = 'none';
+      }
+      
+      return currentWeekExp;
+    }
+
+    function showLevelUp(skillName, newLevel) {
+      levelupText.innerText = `${skillName} is now LVL ${newLevel}!`;
+      levelupPopup.classList.add('show');
+      setTimeout(() => { levelupPopup.classList.remove('show'); }, 3000);
+    }
+
+    function showDailySurprise(dayName) {
+      dailyPopupText.innerText = dayName + " CLEARED!";
+      dailyPopup.classList.add('show');
+      setTimeout(() => { dailyPopup.classList.remove('show'); }, 2000);
+    }
+
+    function showVictory() {
+      victoryScreen.style.display = 'flex';
+      createConfetti();
+    }
+
+    // Called when user clicks "Bank EXP & Restart Week" on the victory screen
+    function restartWeek() {
+      // Calculate final EXP for the week
+      const currentWeekExp = updateState(true);
+      
+      // Add current week EXP to permanent profile
+      for (const skillId in currentWeekExp) {
+        savedProfile.permanentExp[skillId] += currentWeekExp[skillId];
+      }
+      localStorage.setItem('calisthenicsProfile', JSON.stringify(savedProfile));
+
+      // Reset checkboxes
+      checkboxes.forEach(cb => cb.checked = false);
+      updateState(true);
+      
+      victoryScreen.style.display = 'none';
+      dailyPopup.classList.remove('show');
+      document.querySelectorAll('.confetti').forEach(el => el.remove());
+    }
+
+    function createConfetti() {
+      document.querySelectorAll('.confetti').forEach(el => el.remove());
+      const colors = ['#00ffff', '#ff00ff', '#ffff00', '#39ff14'];
+      for (let i = 0; i < 150; i++) {
+        let conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        conf.style.animationDelay = (Math.random() * 2) + 's';
+        victoryScreen.appendChild(conf);
+      }
+    }
+
+    // Initialize checkboxes on page load
+    checkboxes.forEach((cb, index) => {
+      if (savedState[index]) {
+        cb.checked = true;
+      }
+      cb.addEventListener('change', () => updateState(false));
+    });
+
+    // Run once to initialize
+    updateState(true);
+  </script>
+</body>
+</html>

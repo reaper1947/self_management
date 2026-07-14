@@ -1,0 +1,14 @@
+[Unit]
+Description=Habit Tracker Flask API
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/opt/habit-tracker
+ExecStart=/opt/habit-tracker/venv/bin/python app.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

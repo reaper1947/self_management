@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --bg: #111111;
-  --panel: #222222;
-  --panel-border: #ffffff;
-  --text-main: #39ff14; /* Neon green */
-  --text-muted: #888888;
-  --accent: #ff00ff; /* Magenta */
-  --accent-hover: #00ffff; /* Cyan */
+  --bg: #050505;
+  --panel: #140000;
+  --panel-border: #ff0000;
+  --text-main: #ffcccc;
+  --text-muted: #aa5555;
+  --accent: #ff0000;
+  --accent-hover: #00e5ff;
 }
 
 * {

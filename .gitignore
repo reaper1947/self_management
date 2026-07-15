@@ -31,3 +31,4 @@ cf/
 .vscode/
 .idea/
 *.log
+.env

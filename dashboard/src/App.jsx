@@ -3,6 +3,8 @@ import HabitTracker from './HabitTracker';
 import Scheduler from './Scheduler';
 import GymSchedule from './GymSchedule';
 import Login from './Login';
+import Home from './Home';
+import Chatbot from './Chatbot';
 import './index.css';
 
 function App() {
@@ -61,6 +63,9 @@ function App() {
           <div className={`nav-item ${activeTab === 'gym' ? 'active' : ''}`} onClick={() => handleTabClick('gym')}>
             <span className="nav-icon">🏋️</span> Gym Plan
           </div>
+          <div className={`nav-item ${activeTab === 'chat' ? 'active' : ''}`} onClick={() => handleTabClick('chat')}>
+            <span className="nav-icon">🤖</span> AI Terminal
+          </div>
           <div className="nav-item" onClick={handleLogout} style={{ marginTop: '20px', color: '#ff0055', border: '2px solid #ff0055' }}>
             <span className="nav-icon">🚪</span> Logout
           </div>
@@ -86,37 +91,24 @@ function App() {
           <h2><span>PLAYER 1:</span> PETER</h2>
         </div>
 
-        {activeTab === 'home' && (
-          <div>
-            <div className="header">
-              <h1>Welcome Back</h1>
-              <p>Your unified dashboard is ready. Select an app from the sidebar to get started.</p>
-            </div>
-            <div className="glass-panel">
-              <h2 style={{ marginBottom: '16px', fontWeight: 600 }}>Quick Stats</h2>
-              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                <div style={{ padding: '16px', background: '#333', border: '2px solid var(--panel-border)', flex: '1 1 150px' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '8px' }}>Habits Tracked</div>
-                  <div style={{ fontSize: '16px', color: 'var(--accent)' }}>Active</div>
-                </div>
-                <div style={{ padding: '16px', background: '#333', border: '2px solid var(--panel-border)', flex: '1 1 150px' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '8px' }}>Scheduler</div>
-                  <div style={{ fontSize: '16px', color: 'var(--accent)' }}>Active</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        {activeTab === 'home' && <Home />}
         {activeTab === 'habits' && (
           <div style={{ overflow: 'hidden', height: '100%', minHeight: 'calc(100vh - 120px)' }}>
             <HabitTracker />
           </div>
         )}
+        {activeTab === 'gym' && (
+          <div style={{ overflow: 'hidden', height: '100%', minHeight: 'calc(100vh - 120px)' }}>
+            <GymSchedule />
+          </div>
+        )}
+        {activeTab === 'chat' && (
+          <div style={{ overflow: 'hidden', height: '100%', minHeight: 'calc(100vh - 120px)' }}>
+            <Chatbot />
+          </div>
+        )}
         {activeTab === 'scheduler' && (
           <Scheduler />
-        )}
-        {activeTab === 'gym' && (
-          <GymSchedule />
         )}
       </div>
     </div>

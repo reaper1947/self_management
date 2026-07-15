@@ -29,20 +29,20 @@ export default function Login({ onLogin }) {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
-      backgroundColor: '#111',
-      color: '#39ff14',
+      backgroundColor: 'var(--bg)',
+      color: 'var(--text-main)',
       fontFamily: '"Press Start 2P", monospace',
       textAlign: 'center',
       padding: '20px'
     }}>
-      <h1 style={{ color: '#ff00ff', textShadow: '4px 4px #00ffff', marginBottom: '40px', lineHeight: '1.5' }}>
-        [ PLAYER 1: PETER ]<br/>SECURE TERMINAL
+      <h1 style={{ color: 'var(--accent)', textShadow: '4px 4px var(--accent-hover)', marginBottom: '40px', lineHeight: '1.5' }}>
+        [ THE UPSIDE DOWN ]<br/>SECURE TERMINAL
       </h1>
       
       <div style={{
-        background: '#222',
-        border: '6px solid #fff',
-        boxShadow: '12px 12px 0px #00ffff',
+        background: 'var(--panel)',
+        border: '6px solid var(--panel-border)',
+        boxShadow: '12px 12px 0px var(--accent)',
         padding: '40px',
         maxWidth: '400px',
         width: '100%'
@@ -59,7 +59,7 @@ export default function Login({ onLogin }) {
               padding: '15px',
               backgroundColor: '#000',
               border: '4px solid #555',
-              color: '#39ff14',
+              color: 'var(--text-main)',
               fontFamily: 'inherit',
               fontSize: '16px',
               textAlign: 'center',
@@ -77,8 +77,8 @@ export default function Login({ onLogin }) {
             style={{
               width: '100%',
               padding: '15px',
-              backgroundColor: '#ff00ff',
-              color: '#fff',
+              backgroundColor: 'var(--panel-border)',
+              color: '#000',
               border: '4px solid #fff',
               fontFamily: 'inherit',
               fontSize: '14px',

@@ -5,9 +5,6 @@ from functools import wraps
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import sqlite3, json, os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
@@ -63,6 +60,37 @@ def logout():
 @app.route("/api/auth/status", methods=["GET"])
 def auth_status():
     return jsonify({"logged_in": bool(session.get("logged_in"))})
+
+# ── AI Chat Integration ────────────────────────────────────────────────────────
+import urllib.request
+import urllib.error
+
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
+
+@app.route("/api/chat", methods=["POST"])
+@require_auth
+def chat():
+    payload = request.get_json(force=True)
+    messages = payload.get("messages", [])
+    
+    # We use the model the user requested
+    req_data = json.dumps({
+        "model": "google/gemma-4-31b-it:free",
+        "messages": messages
+    }).encode("utf-8")
+    
+    req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=req_data)
+    req.add_header("Authorization", f"Bearer {OPENROUTER_API_KEY}")
+    req.add_header("Content-Type", "application/json")
+    req.add_header("HTTP-Referer", "https://www.peter1947.space")
+    req.add_header("X-Title", "Self Management Dashboard")
+    
+    try:
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            return jsonify(result)
+    except urllib.error.HTTPError as e:
+        return jsonify({"error": str(e), "details": e.read().decode("utf-8")}), 500
 
 # ── Generic key/value API ──────────────────────────────────────────────────────
 

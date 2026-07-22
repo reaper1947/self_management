@@ -1,0 +1,13 @@
+[Unit]
+Description=ttyd Web Terminal
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ttyd -b /terminal -p 7681 -W bash
+Restart=always
+User=next
+Group=next
+WorkingDirectory=/home/next/peter_folder
+
+[Install]
+WantedBy=multi-user.target

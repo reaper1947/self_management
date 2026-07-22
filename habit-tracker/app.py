@@ -61,6 +61,12 @@ def logout():
 def auth_status():
     return jsonify({"logged_in": bool(session.get("logged_in"))})
 
+@app.route("/api/auth/verify_nginx", methods=["GET", "POST", "OPTIONS"])
+def auth_verify_nginx():
+    if not session.get("logged_in"):
+        return jsonify({"error": "Unauthorized"}), 401
+    return jsonify({"ok": True}), 200
+
 # ── AI Chat Integration ────────────────────────────────────────────────────────
 import asyncio
 from google.antigravity import Agent, LocalAgentConfig, CapabilitiesConfig

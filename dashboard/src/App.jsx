@@ -110,12 +110,28 @@ function App() {
           <Scheduler />
         )}
         {activeTab === 'terminal' && (
-          <div style={{ height: '100%', minHeight: 'calc(100vh - 120px)' }}>
-            <iframe 
-              src="/terminal/" 
-              style={{ width: '100%', height: '100%', border: 'none', background: '#000' }} 
-              title="Server Terminal" 
-            />
+          <div style={{ height: '100%', minHeight: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: '"Press Start 2P"' }}>
+            <h2 style={{ color: '#00ffcc', textAlign: 'center', marginBottom: '20px' }}>SYSTEM TERMINAL</h2>
+            <p style={{ color: '#fff', textAlign: 'center', marginBottom: '40px', lineHeight: '1.5' }}>
+              For security, the terminal must be opened in a new secure window. <br /><br />
+              Username: <span style={{ color: '#ff0055' }}>admin</span><br />
+              Password: <span style={{ color: '#ff0055' }}>1105</span>
+            </p>
+            <button 
+              onClick={() => window.open('/terminal/', '_blank')}
+              style={{
+                padding: '15px 30px',
+                fontSize: '16px',
+                fontFamily: '"Press Start 2P"',
+                backgroundColor: '#ff0055',
+                color: '#fff',
+                border: '4px solid #fff',
+                cursor: 'pointer',
+                boxShadow: '0 0 10px #ff0055'
+              }}
+            >
+              LAUNCH TERMINAL
+            </button>
           </div>
         )}
       </div>

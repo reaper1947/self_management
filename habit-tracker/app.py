@@ -72,10 +72,10 @@ OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 def chat():
     payload = request.get_json(force=True)
     messages = payload.get("messages", [])
+    model = payload.get("model", "meta-llama/llama-3-8b-instruct:free")
     
-    # We use the model the user requested
     req_data = json.dumps({
-        "model": "google/gemma-4-31b-it:free",
+        "model": model,
         "messages": messages
     }).encode("utf-8")
     
@@ -90,7 +90,9 @@ def chat():
             result = json.loads(response.read().decode("utf-8"))
             return jsonify(result)
     except urllib.error.HTTPError as e:
-        return jsonify({"error": str(e), "details": e.read().decode("utf-8")}), 500
+        details = e.read().decode("utf-8")
+        print(f"OpenRouter HTTP Error {e.code}: {details}")
+        return jsonify({"error": str(e), "details": details}), 500
 
 # ── Generic key/value API ──────────────────────────────────────────────────────
 

@@ -102,11 +102,7 @@ function App() {
             <GymSchedule />
           </div>
         )}
-        {activeTab === 'chat' && (
-          <div style={{ overflow: 'hidden', height: '100%', minHeight: 'calc(100vh - 120px)' }}>
-            <Chatbot />
-          </div>
-        )}
+        <Chatbot isActive={activeTab === 'chat'} />
         {activeTab === 'scheduler' && (
           <Scheduler />
         )}

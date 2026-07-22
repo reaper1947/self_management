@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-export default function Chatbot() {
+export default function Chatbot({ isActive }) {
+  const [selectedModel, setSelectedModel] = useState('openrouter/free');
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'UPLINK ESTABLISHED. AWAITING INPUT.' }
   ]);
@@ -13,8 +14,8 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (isActive) scrollToBottom();
+  }, [messages, isActive]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +30,10 @@ export default function Chatbot() {
     fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: newMessages.filter(m => m.role !== 'error') })
+      body: JSON.stringify({ 
+        model: selectedModel,
+        messages: newMessages.filter(m => m.role !== 'error') 
+      })
     })
       .then(res => res.json())
       .then(data => {
@@ -37,26 +41,48 @@ export default function Chatbot() {
         if (data.choices && data.choices[0]) {
           setMessages(prev => [...prev, data.choices[0].message]);
         } else if (data.error) {
-          setMessages(prev => [...prev, { role: 'error', content: `[ERROR]: ${data.error}` }]);
+          const detailStr = typeof data.details === 'string' ? data.details : JSON.stringify(data.details);
+          setMessages(prev => [...prev, { role: 'error', content: `[SYSTEM ERROR]\n${data.error}\n\n[DETAILS]\n${detailStr}` }]);
         }
       })
       .catch(err => {
         setIsLoading(false);
-        setMessages(prev => [...prev, { role: 'error', content: '[CONNECTION LOST]' }]);
+        setMessages(prev => [...prev, { role: 'error', content: `[CONNECTION LOST]\n${err.message}` }]);
       });
   };
 
   return (
-    <div style={{ height: '100%', minHeight: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column' }}>
-      <div className="header" style={{ marginBottom: '20px' }}>
-        <h1>AI Terminal</h1>
-        <p>Connected to OpenRouter: google/gemma-4-31b-it:free</p>
+    <div style={{ display: isActive ? 'flex' : 'none', height: 'calc(100vh - 120px)', flexDirection: 'column' }}>
+      <div className="header" style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+        <div>
+          <h1>AI Terminal</h1>
+          <p>Connected via OpenRouter</p>
+        </div>
+        <select 
+          value={selectedModel} 
+          onChange={(e) => setSelectedModel(e.target.value)}
+          style={{
+            padding: '10px',
+            backgroundColor: '#000',
+            border: '2px solid var(--panel-border)',
+            color: 'var(--text-main)',
+            fontFamily: 'inherit',
+            fontSize: '10px',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="openrouter/free">OpenRouter Auto (Best Free)</option>
+          <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B (Free)</option>
+          <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (Free)</option>
+          <option value="google/gemma-4-31b-it:free">Gemma 4 31B (Usually Busy)</option>
+        </select>
       </div>
 
-      <div className="glass-panel" style={{ flex: 1, display: 'flex', flexDirection: 'column', margin: 0 }}>
+      <div className="glass-panel" style={{ flex: 1, display: 'flex', flexDirection: 'column', margin: 0, minHeight: 0 }}>
         
         {/* Chat History */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '16px', backgroundColor: '#050505', border: '4px solid var(--panel-border)', marginBottom: '16px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px', backgroundColor: '#050505', border: '4px solid var(--panel-border)', marginBottom: '16px', minHeight: 0 }}>
           {messages.map((msg, idx) => (
             <div key={idx} style={{
               marginBottom: '20px',

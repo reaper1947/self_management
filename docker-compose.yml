@@ -5,7 +5,7 @@ services:
     build: .
     container_name: self_management_dashboard
     ports:
-      - "5055:5055"
+      - "5173:5055"
     volumes:
       # This maps the database outside the container so data is never lost when rebuilding
       - ./habit-tracker/habit_tracker.db:/app/habit-tracker/habit_tracker.db

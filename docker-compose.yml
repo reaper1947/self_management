@@ -4,8 +4,8 @@ services:
   dashboard:
     build: .
     container_name: self_management_dashboard
-    ports:
-      - "5173:5055"
+    expose:
+      - "5055"
     volumes:
       # This maps the database outside the container so data is never lost when rebuilding
       - ./habit-tracker/habit_tracker.db:/app/habit-tracker/habit_tracker.db
@@ -13,4 +13,16 @@ services:
       # Inject your passwords and keys here (Do not push real keys to GitHub)
       - APP_PASSWORD=${APP_PASSWORD:-1105}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: self_management_proxy
+    ports:
+      - "5173:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped

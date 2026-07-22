@@ -62,37 +62,46 @@ def auth_status():
     return jsonify({"logged_in": bool(session.get("logged_in"))})
 
 # ── AI Chat Integration ────────────────────────────────────────────────────────
-import urllib.request
-import urllib.error
-
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
+import asyncio
+from google.antigravity import Agent, LocalAgentConfig, CapabilitiesConfig
 
 @app.route("/api/chat", methods=["POST"])
 @require_auth
 def chat():
     payload = request.get_json(force=True)
     messages = payload.get("messages", [])
-    model = payload.get("model", "meta-llama/llama-3-8b-instruct:free")
     
-    req_data = json.dumps({
-        "model": model,
-        "messages": messages
-    }).encode("utf-8")
-    
-    req = urllib.request.Request("https://openrouter.ai/api/v1/chat/completions", data=req_data)
-    req.add_header("Authorization", f"Bearer {OPENROUTER_API_KEY}")
-    req.add_header("Content-Type", "application/json")
-    req.add_header("HTTP-Referer", "https://www.peter1947.space")
-    req.add_header("X-Title", "Self Management Dashboard")
-    
+    async def call_agy():
+        config = LocalAgentConfig(
+            system_instructions="You are Antigravity, integrated directly into Peter's web dashboard. You have the ability to run terminal commands inside the Docker container to assist the user. Keep answers concise unless asked to write code.",
+            capabilities=CapabilitiesConfig()
+        )
+        async with Agent(config) as agent:
+            # Format the conversation history for the stateless agent
+            history = "\n".join([f"[{m.get('role', 'user').upper()}]: {m.get('content', '')}" for m in messages])
+            prompt = f"Here is the conversation history. Please respond to the last USER message.\n\n{history}"
+            
+            response = await agent.chat(prompt)
+            full_text = ""
+            async for token in response:
+                full_text += token
+            return full_text
+
     try:
-        with urllib.request.urlopen(req) as response:
-            result = json.loads(response.read().decode("utf-8"))
-            return jsonify(result)
-    except urllib.error.HTTPError as e:
-        details = e.read().decode("utf-8")
-        print(f"OpenRouter HTTP Error {e.code}: {details}")
-        return jsonify({"error": str(e), "details": details}), 500
+        reply_text = asyncio.run(call_agy())
+        # Return in the exact format the React frontend expects
+        return jsonify({
+            "choices": [
+                {
+                    "message": {
+                        "content": reply_text
+                    }
+                }
+            ]
+        })
+    except Exception as e:
+        print(f"AGY SDK Error: {str(e)}")
+        return jsonify({"error": str(e), "details": str(e)}), 500
 
 # ── Generic key/value API ──────────────────────────────────────────────────────
 

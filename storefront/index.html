@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -94,6 +94,9 @@
             </div>
             <div class="course-grid">
                 <div class="course-info fade-in">
+                    <div class="course-image" style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                        <img src="calisthenics.jpg" alt="Calisthenics Mastery Action" style="width: 100%; display: block; border-radius: 12px; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
                     <p class="description">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
                     <div class="price-box glass-card">
                         <div class="price">$49</div>
@@ -123,8 +126,11 @@
     </section>
 
     <!-- Robotics Section -->
-    <section id="robotics" class="course-section robotics-bg">
-        <div class="container">
+    <section id="robotics" class="course-section robotics-bg" style="position: relative; overflow: hidden;">
+        <!-- Animated Robotics Background -->
+        <div class="robotics-animated-bg"></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
             <div class="section-header fade-in">
                 <h2>Robotics Engineering</h2>
                 <p>Build Real Robots — From Circuit to Code</p>
@@ -257,6 +263,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>

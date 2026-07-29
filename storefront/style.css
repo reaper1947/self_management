@@ -620,3 +620,24 @@ footer {
         text-align: center;
     }
 }
+
+/* Animated Robotics Background */
+.robotics-animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url("robotics.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 1;
+    animation: panRobotics 40s linear infinite alternate;
+}
+
+@keyframes panRobotics {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-20%); }
+}
+

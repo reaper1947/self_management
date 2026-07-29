@@ -641,3 +641,15 @@ footer {
     100% { transform: translateX(-20%); }
 }
 
+
+/* Animated Calisthenics Image */
+.calisthenics-animated-img {
+    animation: kenBurns 12s ease-in-out infinite alternate;
+    transform-origin: center;
+}
+
+@keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15) translate(-2%, 2%); }
+}
+

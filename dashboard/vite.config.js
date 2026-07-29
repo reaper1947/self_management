@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/dashboard/',
   plugins: [react()],
   server: {
     allowedHosts: ['www.peter1947.space', 'peter1947.space', 'localhost'],

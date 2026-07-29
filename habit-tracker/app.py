@@ -160,8 +160,8 @@ def health():
 
 # ── Serve React frontend ───────────────────────────────────────────────────────
 
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
+@app.route("/dashboard/", defaults={"path": ""})
+@app.route("/dashboard/<path:path>")
 def serve_frontend(path):
     target = os.path.join(app.static_folder, path)
     if path and os.path.exists(target):

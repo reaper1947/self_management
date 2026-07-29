@@ -652,7 +652,7 @@ footer {
     left: 0;
     width: 150%;
     height: 150%;
-    background-image: url("calisthenics.jpg");
+    background-image: url("calisthenics.jpg?v=2");
     background-size: cover;
     background-position: center top;
     opacity: 0.15;

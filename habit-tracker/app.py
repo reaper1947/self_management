@@ -8,7 +8,7 @@ import sqlite3, json, os
 
 app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
-    static_url_path=""
+    static_url_path="/dashboard/static"
 )
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super_secret_peter1947_key")
 CORS(app, supports_credentials=True)
@@ -160,13 +160,15 @@ def health():
 
 # ── Serve React frontend ───────────────────────────────────────────────────────
 
+DIST_DIR = os.path.join(os.path.dirname(__file__), "dist")
+
 @app.route("/dashboard/", defaults={"path": ""})
 @app.route("/dashboard/<path:path>")
 def serve_frontend(path):
-    target = os.path.join(app.static_folder, path)
+    target = os.path.join(DIST_DIR, path)
     if path and os.path.exists(target):
-        return app.send_static_file(path)
-    return app.send_static_file("index.html")
+        return send_from_directory(DIST_DIR, path)
+    return send_from_directory(DIST_DIR, "index.html")
 
 # ── Serve Storefront (Landing Page & Courses) ─────────────────────────────────
 

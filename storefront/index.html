@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -86,20 +86,20 @@
     </section>
 
     <!-- Calisthenics Section -->
-    <section id="calisthenics" class="course-section">
-        <div class="container">
+    <section id="calisthenics" class="course-section calisthenics-bg" style="position: relative; overflow: hidden;">
+        <!-- To use your own calisthenics background video, uncomment this <video> tag! Make sure you upload calisthenics.mp4 to the storefront folder -->
+        <!-- <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); opacity: 0.2; z-index: 1; object-fit: cover;">
+            <source src="calisthenics.mp4" type="video/mp4">
+        </video> -->
+        <div class="calisthenics-animated-bg"></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
             <div class="section-header fade-in">
                 <h2>Calisthenics Mastery</h2>
                 <p>From Zero to Hero — Build Strength Without a Gym</p>
             </div>
             <div class="course-grid">
-                    <div class="course-media" style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
-                        <!-- To use your own video, delete the <img> tag below and uncomment this <video> tag! -->
-                        <!-- <video autoplay loop muted playsinline style="width: 100%; display: block; border-radius: 12px;">
-                            <source src="calisthenics.mp4" type="video/mp4">
-                        </video> -->
-                        <img src="calisthenics.jpg" alt="Calisthenics Mastery Action" class="calisthenics-animated-img" style="width: 100%; display: block; border-radius: 12px;">
-                    </div>
+                <div class="course-info fade-in">
                     <p class="description">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
                     <div class="price-box glass-card">
                         <div class="price">$49</div>
@@ -269,6 +269,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=6"></script>
 </body>
 </html>

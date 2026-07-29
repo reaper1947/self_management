@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -93,13 +93,12 @@
                 <p>From Zero to Hero — Build Strength Without a Gym</p>
             </div>
             <div class="course-grid">
-                <div class="course-info fade-in">
-                    <div class="course-video-container" style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative; padding-bottom: 56.25%; height: 0;">
-                        <!-- Place your own video here: calisthenics.mp4 -->
-                        <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-man-doing-pull-ups-in-a-gym-43098-large.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="course-media" style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative;">
+                        <!-- To use your own video, delete the <img> tag below and uncomment this <video> tag! -->
+                        <!-- <video autoplay loop muted playsinline style="width: 100%; display: block; border-radius: 12px;">
+                            <source src="calisthenics.mp4" type="video/mp4">
+                        </video> -->
+                        <img src="calisthenics.jpg" alt="Calisthenics Mastery Action" style="width: 100%; display: block; border-radius: 12px; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                     </div>
                     <p class="description">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
                     <div class="price-box glass-card">
@@ -131,10 +130,11 @@
 
     <!-- Robotics Section -->
     <section id="robotics" class="course-section robotics-bg" style="position: relative; overflow: hidden;">
-        <!-- Animated Robotics Background Video -->
-        <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); opacity: 0.2; z-index: 1; object-fit: cover;">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-robotic-arm-moving-in-a-factory-42861-large.mp4" type="video/mp4">
-        </video>
+        <!-- To use your own robotics background video, uncomment this <video> tag! Make sure you upload robotics.mp4 to the storefront folder -->
+        <!-- <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); opacity: 0.2; z-index: 1; object-fit: cover;">
+            <source src="robotics.mp4" type="video/mp4">
+        </video> -->
+        <div class="robotics-animated-bg"></div>
         
         <div class="container" style="position: relative; z-index: 2;">
             <div class="section-header fade-in">
@@ -269,6 +269,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>

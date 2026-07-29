@@ -2,7 +2,7 @@
 # Deploy on Ubuntu at 192.168.10.211
 
 from functools import wraps
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 import sqlite3, json, os
 
@@ -167,6 +167,21 @@ def serve_frontend(path):
     if path and os.path.exists(target):
         return app.send_static_file(path)
     return app.send_static_file("index.html")
+
+# ── Serve Storefront (Landing Page & Courses) ─────────────────────────────────
+
+STOREFRONT_DIR = os.path.join(os.path.dirname(__file__), "..", "storefront")
+
+@app.route("/", defaults={"path": "index.html"})
+@app.route("/<path:path>")
+def serve_storefront(path):
+    # Don't catch /api/, /dashboard/, /terminal/ routes
+    if path.startswith(("api/", "dashboard/", "terminal/")):
+        return jsonify({"error": "Not found"}), 404
+    target = os.path.join(STOREFRONT_DIR, path)
+    if os.path.exists(target) and os.path.isfile(target):
+        return send_from_directory(STOREFRONT_DIR, path)
+    return send_from_directory(STOREFRONT_DIR, "index.html")
 
 # ── Entry point ────────────────────────────────────────────────────────────────
 

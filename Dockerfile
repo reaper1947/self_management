@@ -24,6 +24,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the backend code
 COPY habit-tracker/ .
 
+# Copy the storefront (landing page)
+COPY storefront/ /app/storefront/
+
 # Copy the built React app from Stage 1 into the backend's dist folder
 COPY --from=build /app/dashboard/dist /app/habit-tracker/dist
 

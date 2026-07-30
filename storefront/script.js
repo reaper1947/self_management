@@ -75,4 +75,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Stripe Checkout ---
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    
+    buyButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            // Get the course ID from the parent section
+            const courseId = btn.closest('.course-section').id;
+            
+            // Show loading state
+            const originalText = btn.innerText;
+            btn.innerText = 'Loading...';
+            btn.style.pointerEvents = 'none';
+            
+            try {
+                const res = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ course_id: courseId })
+                });
+                
+                const data = await res.json();
+                
+                if (data.url) {
+                    // Redirect to Stripe Checkout
+                    window.location.href = data.url;
+                } else {
+                    alert(data.error || 'Failed to initialize checkout. Please check server logs.');
+                    btn.innerText = originalText;
+                    btn.style.pointerEvents = 'auto';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error. Please try again.');
+                btn.innerText = originalText;
+                btn.style.pointerEvents = 'auto';
+            }
+        });
+    });
+
 });

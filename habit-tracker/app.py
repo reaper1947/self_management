@@ -4,7 +4,11 @@
 from functools import wraps
 from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
-import sqlite3, json, os
+import sqlite3, json, os, stripe
+
+# Configure Stripe
+stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 
 app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
@@ -157,6 +161,80 @@ def list_keys():
 @app.route("/api/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok"})
+
+# ── Stripe Payments ────────────────────────────────────────────────────────────
+
+@app.route("/api/create-checkout-session", methods=["POST"])
+def create_checkout_session():
+    if not stripe.api_key:
+        return jsonify({"error": "Stripe is not configured on the server. Please add STRIPE_SECRET_KEY to your environment."}), 500
+        
+    data = request.get_json(force=True)
+    course_id = data.get("course_id")
+    
+    courses = {
+        "calisthenics": {"name": "Calisthenics Mastery", "price": 4900},
+        "robotics": {"name": "Robotics Engineering", "price": 6900}
+    }
+    
+    if course_id not in courses:
+        return jsonify({"error": "Invalid course"}), 400
+        
+    course = courses[course_id]
+    
+    try:
+        # Use https:// manually since we are behind Cloudflare
+        base_url = f"https://{request.host}"
+        
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': course['name'],
+                    },
+                    'unit_amount': course['price'],
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=f"{base_url}/dashboard/?success=true&course={course_id}",
+            cancel_url=f"{base_url}/",
+            metadata={
+                'course_id': course_id
+            }
+        )
+        return jsonify({'url': session.url})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 403
+
+@app.route("/api/webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
+    
+    if not STRIPE_WEBHOOK_SECRET:
+        return "Webhook secret not configured", 400
+        
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        return "Invalid payload", 400
+    except stripe.error.SignatureVerificationError as e:
+        return "Invalid signature", 400
+        
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        course_id = session['metadata'].get('course_id')
+        customer_email = session['customer_details']['email']
+        
+        # Here we would create the user account or grant access!
+        print(f"[STRIPE] Payment successful! Customer {customer_email} bought {course_id}")
+        
+    return "Success", 200
 
 # ── Serve React frontend ───────────────────────────────────────────────────────
 

@@ -4,6 +4,7 @@
 from functools import wraps
 from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3, json, os, stripe, secrets
 
 # Configure Stripe
@@ -42,6 +43,25 @@ def init_db():
                 email TEXT UNIQUE NOT NULL,
                 courses TEXT NOT NULL,
                 magic_token TEXT
+            )
+        """)
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS students (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                name TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS purchases (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                student_id INTEGER NOT NULL,
+                course_id TEXT NOT NULL,
+                stripe_session TEXT,
+                purchased_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (student_id) REFERENCES students(id)
             )
         """)
         db.commit()
@@ -93,6 +113,134 @@ def auth_status():
         "email": session.get("email"),
         "courses": session.get("courses", [])
     })
+
+# ── Student Auth ───────────────────────────────────────────────────────────────
+
+@app.route("/api/student/signup", methods=["POST"])
+def student_signup():
+    data = request.get_json(force=True)
+    email = data.get("email")
+    password = data.get("password")
+    name = data.get("name")
+    
+    if not email or not password:
+        return jsonify({"error": "Email and password required"}), 400
+        
+    pwd_hash = generate_password_hash(password)
+    
+    try:
+        with get_db() as db:
+            cursor = db.execute("INSERT INTO students (email, password_hash, name) VALUES (?, ?, ?)", 
+                                (email, pwd_hash, name))
+            db.commit()
+            student_id = cursor.lastrowid
+            
+        session["student_logged_in"] = True
+        session["student_id"] = student_id
+        session["student_email"] = email
+        session["student_name"] = name
+        
+        return jsonify({"ok": True, "name": name, "email": email})
+    except sqlite3.IntegrityError:
+        return jsonify({"error": "Email already exists"}), 400
+
+@app.route("/api/student/login", methods=["POST"])
+def student_login():
+    data = request.get_json(force=True)
+    email = data.get("email")
+    password = data.get("password")
+    
+    with get_db() as db:
+        student = db.execute("SELECT * FROM students WHERE email=?", (email,)).fetchone()
+        
+        if student and check_password_hash(student["password_hash"], password):
+            # Get purchased courses
+            purchases = db.execute("SELECT course_id FROM purchases WHERE student_id=?", (student["id"],)).fetchall()
+            courses = [p["course_id"] for p in purchases]
+            
+            session["student_logged_in"] = True
+            session["student_id"] = student["id"]
+            session["student_email"] = student["email"]
+            session["student_name"] = student["name"]
+            
+            return jsonify({"ok": True, "name": student["name"], "email": student["email"], "courses": courses})
+            
+    return jsonify({"error": "Invalid email or password"}), 401
+
+@app.route("/api/student/logout", methods=["POST"])
+def student_logout():
+    session.pop("student_logged_in", None)
+    session.pop("student_id", None)
+    session.pop("student_email", None)
+    session.pop("student_name", None)
+    return jsonify({"ok": True})
+
+@app.route("/api/student/status", methods=["GET"])
+def student_status():
+    if not session.get("student_logged_in"):
+        return jsonify({"logged_in": False})
+        
+    with get_db() as db:
+        purchases = db.execute("SELECT course_id FROM purchases WHERE student_id=?", (session["student_id"],)).fetchall()
+        courses = [p["course_id"] for p in purchases]
+        
+    return jsonify({
+        "logged_in": True,
+        "name": session.get("student_name"),
+        "email": session.get("student_email"),
+        "courses": courses
+    })
+
+@app.route("/api/student/checkout", methods=["POST"])
+def student_checkout():
+    if not session.get("student_logged_in"):
+        return jsonify({"error": "Must be logged in"}), 401
+        
+    if not stripe.api_key:
+        return jsonify({"error": "Stripe is not configured"}), 500
+        
+    data = request.get_json(force=True)
+    course_id = data.get("course_id")
+    student_id = session.get("student_id")
+    
+    courses_dict = {
+        "calisthenics": {"name": "Calisthenics Mastery", "price": 4900},
+        "robotics": {"name": "Robotics Engineering", "price": 6900}
+    }
+    
+    if course_id not in courses_dict:
+        return jsonify({"error": "Invalid course"}), 400
+        
+    with get_db() as db:
+        purchased = db.execute("SELECT id FROM purchases WHERE student_id=? AND course_id=?", (student_id, course_id)).fetchone()
+        if purchased:
+            return jsonify({"error": "Already purchased"}), 400
+            
+    try:
+        base_url = f"https://{request.host}"
+        stripe_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': courses_dict[course_id]['name'],
+                    },
+                    'unit_amount': courses_dict[course_id]['price'],
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=f"{base_url}/academy/courses?success=true&course={course_id}",
+            cancel_url=f"{base_url}/academy/courses",
+            metadata={
+                'course_id': course_id,
+                'student_id': student_id
+            }
+        )
+        return jsonify({'url': stripe_session.url})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route("/api/auth/verify_nginx", methods=["GET", "POST", "OPTIONS"])
 def auth_verify_nginx():
@@ -258,23 +406,15 @@ def stripe_webhook():
     if event['type'] == 'checkout.session.completed':
         session_obj = event['data']['object']
         course_id = session_obj['metadata'].get('course_id')
-        customer_email = session_obj['customer_details']['email']
+        student_id = session_obj['metadata'].get('student_id')
+        stripe_session_id = session_obj.get('id')
         
-        with get_db() as db:
-            user = db.execute("SELECT * FROM users WHERE email=?", (customer_email,)).fetchone()
-            if user:
-                courses = json.loads(user["courses"])
-                if course_id not in courses:
-                    courses.append(course_id)
-                db.execute("UPDATE users SET courses=? WHERE email=?", (json.dumps(courses), customer_email))
-            else:
-                courses = [course_id]
-                magic_token = secrets.token_urlsafe(32)
-                db.execute("INSERT INTO users (email, courses, magic_token) VALUES (?, ?, ?)", 
-                           (customer_email, json.dumps(courses), magic_token))
-            db.commit()
-            
-        print(f"[STRIPE] Payment successful! Customer {customer_email} bought {course_id}")
+        if student_id and course_id:
+            with get_db() as db:
+                db.execute("INSERT INTO purchases (student_id, course_id, stripe_session) VALUES (?, ?, ?)", 
+                           (student_id, course_id, stripe_session_id))
+                db.commit()
+            print(f"[STRIPE] Payment successful! Student {student_id} bought {course_id}")
         
     return "Success", 200
 
@@ -301,6 +441,27 @@ def serve_frontend(path):
         return send_from_directory(DIST_DIR, path)
     return send_from_directory(DIST_DIR, "index.html")
 
+# ── Serve Academy Pages ────────────────────────────────────────────────────────
+
+ACADEMY_DIR = os.path.join(os.path.dirname(__file__), "..", "academy")
+
+@app.route("/academy/", defaults={"path": "index.html"})
+@app.route("/academy/<path:path>")
+def serve_academy(path):
+    # Map simple paths to their .html equivalents if needed
+    if path == "courses":
+        path = "courses.html"
+    elif path.startswith("course/"):
+        # e.g., course/calisthenics -> course_calisthenics.html
+        parts = path.split("/")
+        if len(parts) == 2:
+            path = f"course_{parts[1]}.html"
+            
+    target = os.path.join(ACADEMY_DIR, path)
+    if os.path.exists(target) and os.path.isfile(target):
+        return send_from_directory(ACADEMY_DIR, path)
+    return send_from_directory(ACADEMY_DIR, "index.html")
+
 # ── Serve Storefront (Landing Page & Courses) ─────────────────────────────────
 
 STOREFRONT_DIR = os.path.join(os.path.dirname(__file__), "..", "storefront")
@@ -308,8 +469,8 @@ STOREFRONT_DIR = os.path.join(os.path.dirname(__file__), "..", "storefront")
 @app.route("/", defaults={"path": "index.html"})
 @app.route("/<path:path>")
 def serve_storefront(path):
-    # Don't catch /api/, /dashboard/, /terminal/ routes
-    if path.startswith(("api/", "dashboard/", "terminal/")):
+    # Don't catch /api/, /dashboard/, /terminal/, /academy/ routes
+    if path.startswith(("api/", "dashboard/", "terminal/", "academy/")):
         return jsonify({"error": "Not found"}), 404
     target = os.path.join(STOREFRONT_DIR, path)
     if os.path.exists(target) and os.path.isfile(target):

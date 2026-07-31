@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Check login status
     try {
-        const res = await fetch('/api/student/status?t=' + Date.now());
+        const res = await fetch('/api/student/status?t=' + Date.now(), {
+            credentials: 'same-origin'
+        });
         const data = await res.json();
         
         if (!data.logged_in) {
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Handle Logout
     document.getElementById('logout-btn').addEventListener('click', async () => {
         try {
-            await fetch('/api/student/logout', { method: 'POST' });
+            await fetch('/api/student/logout', { method: 'POST', credentials: 'same-origin' });
             window.location.href = '/academy/';
         } catch (e) {
             console.error(e);
@@ -73,6 +75,7 @@ async function handleCheckout(courseId, btnElement) {
         const res = await fetch('/api/student/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
             body: JSON.stringify({ course_id: courseId })
         });
         

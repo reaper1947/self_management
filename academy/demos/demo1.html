@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Selection // SYSTEM TERMINAL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        :root {
+            --bg: #0a0a0a;
+            --neon-y: #fff000;
+            --neon-g: #00ff41;
+            --neon-p: #ff00ff;
+            --neon-c: #00ffff;
+            --border: 3px solid #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-y);
+            text-shadow: 4px 4px 0 var(--neon-p);
+            margin-bottom: 1rem;
+            animation: glitch 3s infinite;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--neon-c);
+            max-width: 600px;
+            margin: 0 auto;
+            border-left: 4px solid var(--neon-y);
+            padding-left: 1rem;
+            text-align: left;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .card {
+            background: #111;
+            border: var(--border);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 10px 10px 0 var(--neon-y);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.03) 20px
+            );
+            pointer-events: none;
+        }
+
+        .card:nth-child(2) {
+            box-shadow: 10px 10px 0 var(--neon-c);
+        }
+        .card:nth-child(2):hover {
+            box-shadow: 15px 15px 0 var(--neon-c);
+            border-color: var(--neon-c);
+        }
+
+        .card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 15px 15px 0 var(--neon-y);
+            border-color: var(--neon-y);
+        }
+
+        .card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: var(--neon-y);
+            color: #000;
+            padding: 0.2rem 1rem;
+            transform: skewX(-10deg);
+        }
+
+        .card:nth-child(2) h2 {
+            background: var(--neon-c);
+        }
+
+        .card p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid #fff;
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--neon-y);
+            transition: all 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: #000;
+            border-color: var(--neon-y);
+        }
+
+        .btn:hover::after {
+            left: 0;
+        }
+
+        .card:nth-child(2) .btn::after {
+            background: var(--neon-c);
+        }
+        .card:nth-child(2) .btn:hover {
+            border-color: var(--neon-c);
+        }
+
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .stat-box {
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.5rem;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .stat-box span {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-p);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>Choose Your Path</h1>
+            <p>> INIT PROTOCOL...<br>> SYSTEM READY.<br>> SELECT MODULE TO COMMENCE UPLOAD.</p>
+        </header>
+
+        <div class="grid">
+            <article class="card">
+                <h2>Calisthenics</h2>
+                <div class="stats">
+                    <div class="stat-box">STR<span>99</span></div>
+                    <div class="stat-box">AGI<span>85</span></div>
+                    <div class="stat-box">END<span>90</span></div>
+                </div>
+                <p>Master the flesh. Defy gravity. A brutalist approach to physical dominance using only your bodyweight. No machines. No excuses. Pure kinetic potential.</p>
+                <a href="#" class="btn">Initialize // Body</a>
+            </article>
+
+            <article class="card">
+                <h2>Robotics</h2>
+                <div class="stats">
+                    <div class="stat-box">INT<span>99</span></div>
+                    <div class="stat-box">TEC<span>95</span></div>
+                    <div class="stat-box">LOG<span>90</span></div>
+                </div>
+                <p>Engineer the future. Construct autonomous systems. Deep dive into kinematics, circuit design, and machine logic. Build entities that think.</p>
+                <a href="#" class="btn">Initialize // Mech</a>
+            </article>
+        </div>
+    </div>
+</body>
+</html>

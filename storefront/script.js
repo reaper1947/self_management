@@ -1,4 +1,30 @@
+let currentLang = 'en';
+
+function setLanguage(lang) {
+    currentLang = lang;
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations && translations[lang] && translations[lang][key]) {
+            el.innerText = translations[lang][key];
+        }
+    });
+    
+    // Update button text
+    const langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+        langBtn.innerText = lang === 'en' ? 'TH' : 'EN';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    
+    const langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+        langBtn.addEventListener('click', () => {
+            setLanguage(currentLang === 'en' ? 'th' : 'en');
+        });
+    }
     
     // --- Sticky Navbar ---
     const navbar = document.getElementById('navbar');

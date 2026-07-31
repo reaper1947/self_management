@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -26,10 +26,14 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#calisthenics">Calisthenics</a></li>
-                <li><a href="#robotics">Robotics</a></li>
-                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#about" data-i18n="nav_about">About</a></li>
+                <li><a href="#calisthenics" data-i18n="nav_calisthenics">Calisthenics</a></li>
+                <li><a href="#robotics" data-i18n="nav_robotics">Robotics</a></li>
+                <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+                <li class="nav-actions">
+                    <button id="lang-toggle" class="lang-btn">TH</button>
+                    <a href="/dashboard/" class="btn btn-primary login-btn" data-i18n="nav_login">Login</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -41,11 +45,11 @@
             <div class="orb orb-2"></div>
         </div>
         <div class="container hero-content fade-in">
-            <h1>Master Your Body.<br><span>Master Technology.</span></h1>
-            <p>Premium courses in Calisthenics & Robotics by Peter — Engineer, Athlete, Builder.</p>
+            <h1><span data-i18n="hero_title_1">Master Your Body.</span><br><span data-i18n="hero_title_2">Master Technology.</span></h1>
+            <p data-i18n="hero_sub">Premium courses in Calisthenics & Robotics by Peter — Engineer, Athlete, Builder.</p>
             <div class="hero-buttons">
-                <a href="#calisthenics" class="btn btn-primary">Explore Calisthenics</a>
-                <a href="#robotics" class="btn btn-secondary">Explore Robotics</a>
+                <a href="#calisthenics" class="btn btn-primary" data-i18n="hero_btn_cal">Explore Calisthenics</a>
+                <a href="#robotics" class="btn btn-secondary" data-i18n="hero_btn_rob">Explore Robotics</a>
             </div>
             <div class="geometric-decoration">
                 <div class="geo-shape cube"></div>
@@ -95,33 +99,33 @@
         
         <div class="container" style="position: relative; z-index: 2;">
             <div class="section-header fade-in">
-                <h2>Calisthenics Mastery</h2>
-                <p>From Zero to Hero — Build Strength Without a Gym</p>
+                <h2 data-i18n="cal_title">Calisthenics Mastery</h2>
+                <p data-i18n="cal_sub">From Zero to Hero — Build Strength Without a Gym</p>
             </div>
             <div class="course-grid">
                 <div class="course-info fade-in">
-                    <p class="description">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
+                    <p class="description" data-i18n="cal_desc">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
                     <div class="price-box glass-card">
                         <div class="price">$49</div>
-                        <a href="#" class="btn btn-primary buy-btn">BUY NOW</a>
+                        <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">BUY NOW</a>
                     </div>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card glass-card fade-in delay-1">
-                        <h3>12-Week Program</h3>
-                        <p>Structured progressive overload</p>
+                        <h3 data-i18n="cal_feat_1_title">12-Week Program</h3>
+                        <p data-i18n="cal_feat_1_desc">Structured progressive overload</p>
                     </div>
                     <div class="feature-card glass-card fade-in delay-2">
-                        <h3>Video Tutorials</h3>
-                        <p>HD demonstrations of every movement</p>
+                        <h3 data-i18n="cal_feat_2_title">Video Tutorials</h3>
+                        <p data-i18n="cal_feat_2_desc">HD demonstrations of every movement</p>
                     </div>
                     <div class="feature-card glass-card fade-in delay-3">
-                        <h3>Nutrition Guide</h3>
-                        <p>Meal plans for muscle gain & fat loss</p>
+                        <h3 data-i18n="cal_feat_3_title">Nutrition Guide</h3>
+                        <p data-i18n="cal_feat_3_desc">Meal plans for muscle gain & fat loss</p>
                     </div>
                     <div class="feature-card glass-card fade-in delay-4">
-                        <h3>Community Access</h3>
-                        <p>Join other athletes on the journey</p>
+                        <h3 data-i18n="cal_feat_4_title">Community Access</h3>
+                        <p data-i18n="cal_feat_4_desc">Join other athletes on the journey</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +142,7 @@
         
         <div class="container" style="position: relative; z-index: 2;">
             <div class="section-header fade-in">
-                <h2>Robotics Engineering</h2>
+                <h2 data-i18n="rob_title">Robotics Engineering</h2>
                 <p>Build Real Robots — From Circuit to Code</p>
             </div>
             <div class="course-grid reverse">
@@ -146,7 +150,7 @@
                     <p class="description">Learn robotics from the ground up. This course covers electronics, sensors, actuators, ROS (Robot Operating System), Python programming, and hands-on projects where you build actual working robots.</p>
                     <div class="price-box glass-card">
                         <div class="price">$69</div>
-                        <a href="#" class="btn btn-secondary buy-btn">BUY NOW</a>
+                        <a href="#" class="btn btn-secondary buy-btn" data-i18n="buy_now">BUY NOW</a>
                     </div>
                 </div>
                 <div class="features-grid">
@@ -210,7 +214,7 @@
     <section id="faq" class="faq-section">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Frequently Asked Questions</h2>
+                <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
             </div>
             <div class="faq-accordion fade-in">
                 <div class="faq-item">
@@ -222,7 +226,7 @@
                 <div class="faq-item">
                     <button class="faq-question">How long do I have access?<span class="icon">+</span></button>
                     <div class="faq-answer">
-                        <p>You get lifetime access! Once you purchase a course, it's yours forever. You'll also receive all future updates and additions to the curriculum at no extra cost.</p>
+                        <p data-i18n="faq_a3">You get lifetime access! Once you purchase a course, it's yours forever. You'll also receive all future updates and additions to the curriculum at no extra cost.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -269,6 +273,7 @@
     </footer>
 
     <!-- Script -->
-    <script src="script.js?v=8"></script>
+    <script src="translations.js?v=1"></script>
+    <script src="script.js?v=9"></script>
 </body>
 </html>

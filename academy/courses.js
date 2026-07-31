@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Check login status
     try {
-        const res = await fetch('/api/student/status');
+        const res = await fetch('/api/student/status?t=' + Date.now());
         const data = await res.json();
         
         if (!data.logged_in) {

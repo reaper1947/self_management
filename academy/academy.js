@@ -129,18 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
         hideMessage();
 
         try {
-            // Mock API Call - replace with real fetch if available
-            // const res = await fetch(url, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(data)
-            // });
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
             
-            // Simulate network delay
-            await new Promise(r => setTimeout(r, 1000));
+            const result = await res.json();
             
-            showMessage('Success! Redirecting...', 'success');
-            setTimeout(onSuccess, 1000);
+            if (res.ok && result.ok) {
+                showMessage('Success! Redirecting...', 'success');
+                setTimeout(onSuccess, 500);
+            } else {
+                throw new Error(result.error || 'Authentication failed');
+            }
             
         } catch (error) {
             showMessage(error.message || 'An error occurred. Please try again.', 'error');

@@ -4,7 +4,7 @@
 from functools import wraps
 from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
-import sqlite3, json, os, stripe
+import sqlite3, json, os, stripe, secrets
 
 # Configure Stripe
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
@@ -36,6 +36,14 @@ def init_db():
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT UNIQUE NOT NULL,
+                courses TEXT NOT NULL,
+                magic_token TEXT
+            )
+        """)
         db.commit()
 
 # ── Auth ───────────────────────────────────────────────────────────────────────
@@ -51,10 +59,26 @@ def require_auth(f):
 @app.route("/api/auth/login", methods=["POST"])
 def login():
     data = request.get_json(force=True)
+    
+    # Admin Login
     if data.get("password") == APP_PASSWORD:
         session["logged_in"] = True
-        return jsonify({"ok": True})
-    return jsonify({"error": "Invalid password"}), 401
+        session["role"] = "admin"
+        return jsonify({"ok": True, "role": "admin"})
+        
+    # Student Magic Token Login
+    token = data.get("token")
+    if token:
+        with get_db() as db:
+            user = db.execute("SELECT * FROM users WHERE magic_token=?", (token,)).fetchone()
+            if user:
+                session["logged_in"] = True
+                session["role"] = "student"
+                session["email"] = user["email"]
+                session["courses"] = json.loads(user["courses"])
+                return jsonify({"ok": True, "role": "student", "courses": session["courses"]})
+                
+    return jsonify({"error": "Invalid credentials"}), 401
 
 @app.route("/api/auth/logout", methods=["POST"])
 def logout():
@@ -63,7 +87,12 @@ def logout():
 
 @app.route("/api/auth/status", methods=["GET"])
 def auth_status():
-    return jsonify({"logged_in": bool(session.get("logged_in"))})
+    return jsonify({
+        "logged_in": bool(session.get("logged_in")),
+        "role": session.get("role"),
+        "email": session.get("email"),
+        "courses": session.get("courses", [])
+    })
 
 @app.route("/api/auth/verify_nginx", methods=["GET", "POST", "OPTIONS"])
 def auth_verify_nginx():
@@ -227,14 +256,38 @@ def stripe_webhook():
         return "Invalid signature", 400
         
     if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        course_id = session['metadata'].get('course_id')
-        customer_email = session['customer_details']['email']
+        session_obj = event['data']['object']
+        course_id = session_obj['metadata'].get('course_id')
+        customer_email = session_obj['customer_details']['email']
         
-        # Here we would create the user account or grant access!
+        with get_db() as db:
+            user = db.execute("SELECT * FROM users WHERE email=?", (customer_email,)).fetchone()
+            if user:
+                courses = json.loads(user["courses"])
+                if course_id not in courses:
+                    courses.append(course_id)
+                db.execute("UPDATE users SET courses=? WHERE email=?", (json.dumps(courses), customer_email))
+            else:
+                courses = [course_id]
+                magic_token = secrets.token_urlsafe(32)
+                db.execute("INSERT INTO users (email, courses, magic_token) VALUES (?, ?, ?)", 
+                           (customer_email, json.dumps(courses), magic_token))
+            db.commit()
+            
         print(f"[STRIPE] Payment successful! Customer {customer_email} bought {course_id}")
         
     return "Success", 200
+
+@app.route("/api/admin/users", methods=["GET"])
+@require_auth
+def get_users():
+    if session.get("role") != "admin":
+        return jsonify({"error": "Unauthorized"}), 403
+        
+    with get_db() as db:
+        users = db.execute("SELECT email, courses, magic_token FROM users").fetchall()
+        
+    return jsonify([dict(u) for u in users])
 
 # ── Serve React frontend ───────────────────────────────────────────────────────
 

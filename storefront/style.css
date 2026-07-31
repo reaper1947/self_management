@@ -665,3 +665,147 @@ footer {
     100% { transform: scale(1.1) translate(-5%, -5%); }
 }
 .nav-actions { display: flex; align-items: center; gap: 15px; } .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 10px; border-radius: 4px; cursor: pointer; transition: all 0.3s; } .lang-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+/* Projects & Skills Section */
+.projects-section {
+    position: relative;
+    z-index: 10;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(0, 102, 255, 0.2);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.github-card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(160, 160, 176, 0.3);
+}
+
+.linkedin-card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(0, 119, 181, 0.4);
+}
+
+.tech-card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 30px rgba(255, 77, 106, 0.3);
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1.5rem;
+    color: var(--accent-blue);
+}
+
+.github-card .card-icon {
+    color: #ffffff;
+}
+
+.linkedin-card .card-icon {
+    color: #0077b5;
+}
+
+.tech-card .card-icon {
+    color: var(--accent-coral);
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-card p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.action-link {
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .action-link {
+    transform: translateX(5px);
+    color: var(--accent-coral);
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover .tech-tag {
+    background: rgba(255, 77, 106, 0.1);
+    border-color: rgba(255, 77, 106, 0.3);
+}
+
+/* Enhancing existing buttons */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-out;
+}
+
+.btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}

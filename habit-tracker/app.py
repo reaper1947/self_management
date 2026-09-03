@@ -462,16 +462,34 @@ def serve_academy(path):
         return send_from_directory(ACADEMY_DIR, path)
     return send_from_directory(ACADEMY_DIR, "index.html")
 
-# ── Serve Storefront (Landing Page & Courses) ─────────────────────────────────
+# ── Serve Standby Page (Default Root) ─────────────────────────────────────────
+
+STANDBY_DIR = os.path.join(os.path.dirname(__file__), "..", "standby_page")
+
+@app.route("/", defaults={"path": "newtab.html"})
+def serve_root(path):
+    return send_from_directory(STANDBY_DIR, path)
+
+@app.route("/<path:path>")
+def serve_standby_assets(path):
+    # This handles requests to /css/style.css, /js/app.js etc from the root
+    if path.startswith(("api/", "dashboard/", "terminal/", "academy/", "storefront/")):
+        return jsonify({"error": "Not found"}), 404
+        
+    target = os.path.join(STANDBY_DIR, path)
+    if os.path.exists(target) and os.path.isfile(target):
+        return send_from_directory(STANDBY_DIR, path)
+    
+    # Fallback to newtab.html for unknown routes not matching prefixes
+    return send_from_directory(STANDBY_DIR, "newtab.html")
+
+# ── Serve Storefront ──────────────────────────────────────────────────────────
 
 STOREFRONT_DIR = os.path.join(os.path.dirname(__file__), "..", "storefront")
 
-@app.route("/", defaults={"path": "index.html"})
-@app.route("/<path:path>")
+@app.route("/storefront/", defaults={"path": "index.html"})
+@app.route("/storefront/<path:path>")
 def serve_storefront(path):
-    # Don't catch /api/, /dashboard/, /terminal/, /academy/ routes
-    if path.startswith(("api/", "dashboard/", "terminal/", "academy/")):
-        return jsonify({"error": "Not found"}), 404
     target = os.path.join(STOREFRONT_DIR, path)
     if os.path.exists(target) and os.path.isfile(target):
         return send_from_directory(STOREFRONT_DIR, path)

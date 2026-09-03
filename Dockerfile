@@ -30,6 +30,9 @@ COPY storefront/ /app/storefront/
 # Copy the academy (student portal)
 COPY academy/ /app/academy/
 
+# Copy the standby page
+COPY standby_page/ /app/standby_page/
+
 # Copy the built React app from Stage 1 into the backend's dist folder
 COPY --from=build /app/dashboard/dist /app/habit-tracker/dist
 

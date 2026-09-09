@@ -348,15 +348,16 @@ def create_checkout_session():
         
     data = request.get_json(force=True)
     course_id = data.get("course_id")
-    
+
     courses = {
         "calisthenics": {"name": "Calisthenics Mastery", "price": 4900},
-        "robotics": {"name": "Robotics Engineering", "price": 6900}
+        "robotics": {"name": "Robotics Engineering", "price": 6900},
+        "bundle": {"name": "Calisthenics + Robotics Bundle", "price": 9900}
     }
-    
+
     if course_id not in courses:
         return jsonify({"error": "Invalid course"}), 400
-        
+
     course = courses[course_id]
     
     try:

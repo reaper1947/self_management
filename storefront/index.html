@@ -3,325 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Premium online courses in Calisthenics training and Robotics Engineering by Peter. Learn to master your body and build real robots.">
-    <title>Peter1947 — Calisthenics & Robotics Courses</title>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Peter1947 Academy — structured, project-based online courses in Calisthenics and Robotics Engineering. Start with a full lesson free, no card required.">
+    <meta name="theme-color" content="#06070d">
+    <meta property="og:title" content="Peter1947 Academy — Calisthenics & Robotics Courses">
+    <meta property="og:description" content="From your first pull-up to your first autonomous robot. Try a full lesson free.">
+    <meta property="og:type" content="website">
+    <title>Peter1947 Academy — Calisthenics & Robotics Courses</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
+    <!-- scroll progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">PETER<span>1947</span></a>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <a href="#top" class="logo">PETER<span>1947</span></a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#about" data-i18n="nav_about">About</a></li>
-                <li><a href="#projects">Skills</a></li>
-                <li><a href="#calisthenics" data-i18n="nav_calisthenics">Calisthenics</a></li>
-                <li><a href="#robotics" data-i18n="nav_robotics">Robotics</a></li>
+                <li><a href="#paths" data-i18n="nav_paths">Courses</a></li>
+                <li><a href="#trial" data-i18n="nav_trial">Free Trial</a></li>
+                <li><a href="#curriculum" data-i18n="nav_curriculum">Curriculum</a></li>
+                <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
                 <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
-                <li class="nav-actions">
-                    <button id="lang-toggle" class="lang-btn">TH</button>
-                    <a href="/academy/" class="btn btn-primary login-btn" data-i18n="nav_login">Login</a>
-                </li>
             </ul>
+            <div class="nav-actions">
+                <button id="lang-toggle" class="lang-btn" aria-label="Switch language">TH</button>
+                <a href="/academy/" class="btn btn-ghost login-btn" data-i18n="nav_login">Student Login</a>
+                <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="hero" class="hero-section">
-        <div class="hero-bg-anim">
-            <div class="orb orb-1"></div>
-            <div class="orb orb-2"></div>
+    <!-- Hero -->
+    <header id="top" class="hero">
+        <div class="hero-aurora" aria-hidden="true">
+            <span class="blob blob-a"></span>
+            <span class="blob blob-b"></span>
+            <span class="blob blob-c"></span>
         </div>
-        <div class="container hero-content fade-in">
-            <h1><span data-i18n="hero_title_1">Master Your Body.</span><br><span data-i18n="hero_title_2">Master Technology.</span></h1>
-            <p data-i18n="hero_sub">Premium courses in Calisthenics & Robotics by Peter — Engineer, Athlete, Builder.</p>
-            <div class="hero-buttons">
-                <a href="#calisthenics" class="btn btn-primary" data-i18n="hero_btn_cal">Explore Calisthenics</a>
-                <a href="#robotics" class="btn btn-secondary" data-i18n="hero_btn_rob">Explore Robotics</a>
+        <div class="hero-grid" aria-hidden="true"></div>
+
+        <div class="container hero-inner">
+            <p class="kicker reveal" data-i18n="hero_kicker">Calisthenics &amp; Robotics Academy</p>
+            <h1 class="hero-title">
+                <span class="line reveal" data-i18n="hero_title_1">Master Your Body.</span>
+                <span class="line grad reveal" data-i18n="hero_title_2">Master Technology.</span>
+            </h1>
+            <p class="hero-sub reveal" data-i18n="hero_sub">
+                Structured, project-based courses that take you from absolute beginner to your first
+                muscle-up — and your first autonomous robot. Taught by Peter, an engineer and
+                calisthenics athlete.
+            </p>
+            <div class="hero-cta reveal">
+                <a href="#trial" class="btn btn-primary btn-lg magnetic" data-i18n="hero_btn_trial">Start Learning Free</a>
+                <a href="#paths" class="btn btn-ghost btn-lg" data-i18n="hero_btn_courses">Browse Courses</a>
             </div>
-            <div class="geometric-decoration">
-                <div class="geo-shape cube"></div>
-                <div class="geo-shape sphere"></div>
-                <div class="geo-shape pyramid"></div>
+
+            <div class="hero-stats reveal">
+                <div class="hstat">
+                    <span class="hstat-num" data-count="520" data-suffix="+">0</span>
+                    <span class="hstat-label" data-i18n="hero_stat_students">Active students</span>
+                </div>
+                <div class="hstat">
+                    <span class="hstat-num" data-count="130" data-suffix="+">0</span>
+                    <span class="hstat-label" data-i18n="hero_stat_lessons">Video lessons</span>
+                </div>
+                <div class="hstat">
+                    <span class="hstat-num" data-count="4.9" data-decimals="1">0</span>
+                    <span class="hstat-label" data-i18n="hero_stat_rating">Average rating</span>
+                </div>
             </div>
         </div>
+
+        <a href="#trust" class="scroll-hint reveal" aria-hidden="true">
+            <span data-i18n="hero_scroll">Scroll to explore</span>
+            <span class="scroll-dot"></span>
+        </a>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container fade-in">
-            <div class="section-header">
-                <h2>Meet Your Instructor</h2>
-            </div>
-            <div class="about-content glass-card">
-                <p>Peter is a Thai engineer and calisthenics athlete who combines physical discipline with technical mastery. With years of hands-on experience in both bodyweight training and robotics engineering, he creates courses that are practical, structured, and results-driven.</p>
-                <div class="stats-row">
-                    <div class="stat-item">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        <span>500+ Students</span>
-                    </div>
-                    <div class="stat-item">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                        <span>2 Premium Courses</span>
-                    </div>
-                    <div class="stat-item">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <span>100% Hands-On</span>
-                    </div>
-                    <div class="stat-item">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        <span>Lifetime Access</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects & Skills Section -->
-    <section id="projects" class="projects-section" style="position: relative; overflow: hidden; padding: 6rem 0;">
-        <div class="container fade-in">
-            <div class="section-header">
-                <h2>My Projects & Skills</h2>
-                <p>Discover my open source contributions and professional network</p>
-            </div>
-            <div class="projects-grid">
-                <!-- GitHub Card -->
-                <a href="https://github.com/reaper1947" target="_blank" class="project-card glass-card hover-glow github-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
-                    </div>
-                    <h3>GitHub</h3>
-                    <p>Check out my open-source code, robotics algorithms, and web projects.</p>
-                    <span class="action-link">View Repositories →</span>
-                </a>
-
-                <!-- LinkedIn Card -->
-                <a href="https://www.linkedin.com/in/taweeporn-maneesin-4052682b1/" target="_blank" class="project-card glass-card hover-glow linkedin-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </div>
-                    <h3>LinkedIn</h3>
-                    <p>Connect with me professionally. Let's discuss engineering and fitness.</p>
-                    <span class="action-link">Let's Connect →</span>
-                </a>
-
-                <!-- Tech Stack Card -->
-                <div class="project-card glass-card tech-card hover-glow">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                    </div>
-                    <h3>Tech Stack</h3>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">C++</span>
-                        <span class="tech-tag">ROS</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">Docker</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Calisthenics Section -->
-    <section id="calisthenics" class="course-section calisthenics-bg" style="position: relative; overflow: hidden;">
-        <!-- To use your own calisthenics background video, uncomment this <video> tag! Make sure you upload calisthenics.mp4 to the storefront folder -->
-        <!-- <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); opacity: 0.2; z-index: 1; object-fit: cover;">
-            <source src="calisthenics.mp4" type="video/mp4">
-        </video> -->
-        <div class="calisthenics-animated-bg"></div>
-        
-        <div class="container" style="position: relative; z-index: 2;">
-            <div class="section-header fade-in">
-                <h2 data-i18n="cal_title">Calisthenics Mastery</h2>
-                <p data-i18n="cal_sub">From Zero to Hero — Build Strength Without a Gym</p>
-            </div>
-            <div class="course-grid">
-                <div class="course-info fade-in">
-                    <p class="description" data-i18n="cal_desc">A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.</p>
-                    <div class="price-box glass-card">
-                        <div class="price">$49</div>
-                        <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">BUY NOW</a>
-                    </div>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card glass-card fade-in delay-1">
-                        <h3 data-i18n="cal_feat_1_title">12-Week Program</h3>
-                        <p data-i18n="cal_feat_1_desc">Structured progressive overload</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-2">
-                        <h3 data-i18n="cal_feat_2_title">Video Tutorials</h3>
-                        <p data-i18n="cal_feat_2_desc">HD demonstrations of every movement</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-3">
-                        <h3 data-i18n="cal_feat_3_title">Nutrition Guide</h3>
-                        <p data-i18n="cal_feat_3_desc">Meal plans for muscle gain & fat loss</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-4">
-                        <h3 data-i18n="cal_feat_4_title">Community Access</h3>
-                        <p data-i18n="cal_feat_4_desc">Join other athletes on the journey</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Robotics Section -->
-    <section id="robotics" class="course-section robotics-bg" style="position: relative; overflow: hidden;">
-        <!-- To use your own robotics background video, uncomment this <video> tag! Make sure you upload robotics.mp4 to the storefront folder -->
-        <!-- <video autoplay loop muted playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); opacity: 0.2; z-index: 1; object-fit: cover;">
-            <source src="robotics.mp4" type="video/mp4">
-        </video> -->
-        <div class="robotics-animated-bg"></div>
-        
-        <div class="container" style="position: relative; z-index: 2;">
-            <div class="section-header fade-in">
-                <h2 data-i18n="rob_title">Robotics Engineering</h2>
-                <p>Build Real Robots — From Circuit to Code</p>
-            </div>
-            <div class="course-grid reverse">
-                <div class="course-info fade-in">
-                    <p class="description">Learn robotics from the ground up. This course covers electronics, sensors, actuators, ROS (Robot Operating System), Python programming, and hands-on projects where you build actual working robots.</p>
-                    <div class="price-box glass-card">
-                        <div class="price">$69</div>
-                        <a href="#" class="btn btn-secondary buy-btn" data-i18n="buy_now">BUY NOW</a>
-                    </div>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card glass-card fade-in delay-1">
-                        <h3>10 Real Projects</h3>
-                        <p>Build actual working robots</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-2">
-                        <h3>ROS Mastery</h3>
-                        <p>Learn the Robot Operating System</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-3">
-                        <h3>Python & C++</h3>
-                        <p>Programming for embedded systems</p>
-                    </div>
-                    <div class="feature-card glass-card fade-in delay-4">
-                        <h3>Hardware Guide</h3>
-                        <p>Complete parts list & wiring diagrams</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials-section">
+    <!-- Trust strip -->
+    <section id="trust" class="trust">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2>What Students Say</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card glass-card fade-in delay-1">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"The calisthenics program completely transformed my workouts. The progressive overload approach is perfectly structured. I achieved my first muscle-up in just 6 weeks!"</p>
-                    <div class="author">
-                        <strong>Marcus J.</strong>
-                        <span>Fitness Enthusiast</span>
-                    </div>
-                </div>
-                <div class="testimonial-card glass-card fade-in delay-2">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"I was struggling with ROS concepts in university, but this course broke it down perfectly. Building a physical robot from scratch was the best learning experience."</p>
-                    <div class="author">
-                        <strong>Sarah T.</strong>
-                        <span>Computer Science Student</span>
-                    </div>
-                </div>
-                <div class="testimonial-card glass-card fade-in delay-3">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"Peter's teaching style is clear, practical, and highly motivating. It's rare to find an instructor who is both technically brilliant and physically disciplined."</p>
-                    <div class="author">
-                        <strong>David L.</strong>
-                        <span>Software Engineer</span>
-                    </div>
+            <p class="trust-title reveal" data-i18n="trust_title">Built on real engineering &amp; training experience</p>
+            <div class="marquee reveal" aria-hidden="true">
+                <div class="marquee-track">
+                    <span>Python</span><span>C++</span><span>ROS</span><span>Arduino</span><span>Raspberry&nbsp;Pi</span>
+                    <span>OpenCV</span><span>Progressive&nbsp;Overload</span><span>Mobility</span><span>Front&nbsp;Lever</span>
+                    <span>Planche</span><span>Muscle-Up</span><span>Handstand</span>
+                    <span>Python</span><span>C++</span><span>ROS</span><span>Arduino</span><span>Raspberry&nbsp;Pi</span>
+                    <span>OpenCV</span><span>Progressive&nbsp;Overload</span><span>Mobility</span><span>Front&nbsp;Lever</span>
+                    <span>Planche</span><span>Muscle-Up</span><span>Handstand</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="faq-section">
+    <!-- Paths -->
+    <section id="paths" class="section paths">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="paths_kicker">Two disciplines, one method</p>
+                <h2 data-i18n="paths_title">Choose your path</h2>
+                <p class="section-sub" data-i18n="paths_sub">Both tracks use the same philosophy: small, measurable progressions you can actually stick to.</p>
             </div>
-            <div class="faq-accordion fade-in">
-                <div class="faq-item">
-                    <button class="faq-question">Do I need prior experience?<span class="icon">+</span></button>
-                    <div class="faq-answer">
-                        <p>Not at all! Both courses are designed to take you from absolute zero to advanced levels. We start with the fundamentals and gradually build up your skills through structured, easy-to-follow modules.</p>
+
+            <div class="path-split">
+                <a href="#calisthenics" class="path-card tilt reveal" data-accent="cal">
+                    <div class="path-media" style="background-image:url('calisthenics.jpg?v=2')"></div>
+                    <div class="path-body">
+                        <span class="path-tag">12-week program</span>
+                        <h3 data-i18n="path_cal_name">Calisthenics Mastery</h3>
+                        <p data-i18n="path_cal_desc">Own your bodyweight. Push-ups to planche, dead hangs to muscle-ups — a 12-week progressive system.</p>
+                        <span class="path-link" data-i18n="path_explore">Explore track <em>→</em></span>
                     </div>
+                </a>
+                <a href="#robotics" class="path-card tilt reveal" data-accent="rob">
+                    <div class="path-media" style="background-image:url('robotics.jpg')"></div>
+                    <div class="path-body">
+                        <span class="path-tag">16-week program</span>
+                        <h3 data-i18n="path_rob_name">Robotics Engineering</h3>
+                        <p data-i18n="path_rob_desc">From a blinking LED to an autonomous rover. Electronics, Python, C++ and ROS, one build at a time.</p>
+                        <span class="path-link" data-i18n="path_explore">Explore track <em>→</em></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Trial -->
+    <section id="trial" class="section trial">
+        <div class="trial-glow" aria-hidden="true"></div>
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="trial_kicker">No card required</p>
+                <h2 data-i18n="trial_title">Try a full lesson, free</h2>
+                <p class="section-sub" data-i18n="trial_sub">Jump straight into a real lesson from each course. Track your progress, then unlock the rest whenever you're ready.</p>
+            </div>
+
+            <div class="trial-grid">
+                <div class="trial-card glass reveal" data-accent="cal">
+                    <div class="trial-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="5" r="2.4"/><path d="M12 8v6m0 0-3.5 5M12 14l3.5 5M6 10.5 12 12l6-1.5"/></svg>
+                    </div>
+                    <h3 data-i18n="trial_cal_title">Free Calisthenics Lesson</h3>
+                    <p data-i18n="trial_cal_desc">Lesson 1 — the pull-up progression: from dead hang to your first clean rep.</p>
+                    <a href="/storefront/trial/calisthenics.html" class="btn btn-primary" data-i18n="trial_start">Start free lesson</a>
                 </div>
-                <div class="faq-item">
-                    <button class="faq-question">How long do I have access?<span class="icon">+</span></button>
-                    <div class="faq-answer">
-                        <p data-i18n="faq_a3">You get lifetime access! Once you purchase a course, it's yours forever. You'll also receive all future updates and additions to the curriculum at no extra cost.</p>
+                <div class="trial-card glass reveal" data-accent="rob">
+                    <div class="trial-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 4h6M9 13h.01M15 13h.01M9 19v2M15 19v2"/></svg>
                     </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">What equipment do I need?<span class="icon">+</span></button>
-                    <div class="faq-answer">
-                        <p>For Calisthenics: A pull-up bar and parallettes (or two sturdy chairs) are recommended but not mandatory for the basics. For Robotics: A detailed hardware list (approx. $50-$100) is provided in module 1, featuring easily accessible components like Arduinos, sensors, and basic tools.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">Is there a money-back guarantee?<span class="icon">+</span></button>
-                    <div class="faq-answer">
-                        <p>Yes! I'm confident you'll love the material. If you're not completely satisfied within the first 14 days, email me for a full, no-questions-asked refund.</p>
-                    </div>
+                    <h3 data-i18n="trial_rob_title">Free Robotics Lesson</h3>
+                    <p data-i18n="trial_rob_desc">Lesson 1 — your first circuit: blink an LED and understand exactly why it works.</p>
+                    <a href="/storefront/trial/robotics.html" class="btn btn-primary" data-i18n="trial_start">Start free lesson</a>
                 </div>
             </div>
+
+            <div class="trial-academy reveal">
+                <p data-i18n="trial_academy_note">Want more? Create a free account for a full starter module inside the Academy.</p>
+                <a href="/academy/" class="btn btn-ghost" data-i18n="trial_academy_btn">Open the Academy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calisthenics course detail -->
+    <section id="calisthenics" class="section course-section" data-accent="cal">
+        <div class="course-bg" style="background-image:url('calisthenics.jpg?v=2')" aria-hidden="true"></div>
+        <div class="container course-wrap">
+            <div class="course-lead reveal">
+                <p class="kicker">Course 01</p>
+                <h2>Calisthenics Mastery</h2>
+                <p class="course-desc">A complete 12-week system: push-ups, pull-ups, dips, muscle-ups, handstands and
+                    straight-arm strength. Every week has a clear target, a video breakdown, and a fallback
+                    progression if you're not ready yet.</p>
+                <ul class="check-list">
+                    <li>50+ HD movement tutorials</li>
+                    <li>Printable week-by-week training log</li>
+                    <li>Mobility &amp; warm-up routines</li>
+                    <li>Nutrition guide for muscle gain &amp; fat loss</li>
+                    <li>Private student community</li>
+                </ul>
+                <div class="price-box glass">
+                    <div>
+                        <span class="price">$49</span>
+                        <span class="price-strike">$99</span>
+                    </div>
+                    <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">Buy now</a>
+                </div>
+            </div>
+            <div class="course-features reveal">
+                <div class="feature-card glass tilt"><span class="fc-num">12</span><h4>Weeks</h4><p>Structured progressive overload from day one.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">6</span><h4>Skill tracks</h4><p>Pull, push, core, legs, handstand, levers.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">0</span><h4>Gym needed</h4><p>A bar and a floor. That's the whole kit.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">∞</span><h4>Access</h4><p>Lifetime — every future update included.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Robotics course detail -->
+    <section id="robotics" class="section course-section" data-accent="rob">
+        <div class="course-bg" style="background-image:url('robotics.jpg')" aria-hidden="true"></div>
+        <div class="container course-wrap reverse">
+            <div class="course-lead reveal">
+                <p class="kicker">Course 02</p>
+                <h2>Robotics Engineering</h2>
+                <p class="course-desc">Learn robotics the way engineers actually work: build something small, understand
+                    every wire and line of code, then build something bigger. Ends with a fully autonomous
+                    obstacle-avoiding rover you assembled and programmed yourself.</p>
+                <ul class="check-list">
+                    <li>80+ HD lessons, circuit to code</li>
+                    <li>Full parts list (~$60–$100) &amp; wiring diagrams</li>
+                    <li>Python &amp; C++ for embedded systems</li>
+                    <li>ROS (Robot Operating System) deep dive</li>
+                    <li>10 hands-on build projects</li>
+                </ul>
+                <div class="price-box glass">
+                    <div>
+                        <span class="price">$69</span>
+                        <span class="price-strike">$129</span>
+                    </div>
+                    <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">Buy now</a>
+                </div>
+            </div>
+            <div class="course-features reveal">
+                <div class="feature-card glass tilt"><span class="fc-num">10</span><h4>Real builds</h4><p>Every module ends with working hardware.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">2</span><h4>Languages</h4><p>Python for logic, C++ for the microcontroller.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">1</span><h4>Autonomous rover</h4><p>Your capstone: it drives and avoids obstacles.</p></div>
+                <div class="feature-card glass tilt"><span class="fc-num">∞</span><h4>Access</h4><p>Lifetime — every future update included.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum -->
+    <section id="curriculum" class="section curriculum">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="curr_kicker">What you'll actually learn</p>
+                <h2 data-i18n="curr_title">Curriculum preview</h2>
+            </div>
+
+            <div class="curr-tabs reveal">
+                <button class="curr-tab active" data-panel="curr-cal" data-i18n="curr_cal">Calisthenics Mastery</button>
+                <button class="curr-tab" data-panel="curr-rob" data-i18n="curr_rob">Robotics Engineering</button>
+            </div>
+
+            <div class="curr-panel active" id="curr-cal">
+                <ol class="modules">
+                    <li class="reveal"><span class="mod-no">01</span><div><h4>Foundations &amp; assessment</h4><p>Hollow body, scapular control, the hang. Find your true starting level.</p></div><span class="mod-free">Free in Academy</span></li>
+                    <li class="reveal"><span class="mod-no">02</span><div><h4>The pull-up progression</h4><p>Dead hang → active hang → negatives → band-assisted → first rep → volume.</p></div><span class="mod-free">Free lesson</span></li>
+                    <li class="reveal"><span class="mod-no">03</span><div><h4>Push strength &amp; dips</h4><p>Incline to full push-ups, pike work, straight-bar and ring dips.</p></div></li>
+                    <li class="reveal"><span class="mod-no">04</span><div><h4>Core &amp; compression</h4><p>Leg raises, L-sit, hollow rocks — the base for every advanced skill.</p></div></li>
+                    <li class="reveal"><span class="mod-no">05</span><div><h4>The muscle-up</h4><p>Explosive pull, transition drills, and clean bar &amp; ring muscle-ups.</p></div></li>
+                    <li class="reveal"><span class="mod-no">06</span><div><h4>Handstand &amp; straight-arm strength</h4><p>Wall drills, freestanding balance, intro to planche &amp; front lever.</p></div></li>
+                </ol>
+            </div>
+
+            <div class="curr-panel" id="curr-rob">
+                <ol class="modules">
+                    <li class="reveal"><span class="mod-no">01</span><div><h4>Electronics you can trust</h4><p>Voltage, current, resistance, the breadboard. Blink your first LED.</p></div><span class="mod-free">Free lesson</span></li>
+                    <li class="reveal"><span class="mod-no">02</span><div><h4>Microcontrollers &amp; C++</h4><p>Arduino basics, digital &amp; analog I/O, timing without blocking.</p></div></li>
+                    <li class="reveal"><span class="mod-no">03</span><div><h4>Sensors &amp; actuators</h4><p>Ultrasonic, IMU, line sensors; driving motors and servos safely.</p></div></li>
+                    <li class="reveal"><span class="mod-no">04</span><div><h4>Python &amp; the Raspberry Pi</h4><p>Serial links, threading, and putting a real computer on your robot.</p></div></li>
+                    <li class="reveal"><span class="mod-no">05</span><div><h4>ROS fundamentals</h4><p>Nodes, topics, services; simulate before you burn out a motor.</p></div></li>
+                    <li class="reveal"><span class="mod-no">06</span><div><h4>Capstone: autonomous rover</h4><p>Sensor fusion, obstacle avoidance, and a tuned control loop.</p></div></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section pricing">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="price_kicker">Simple, one-time pricing</p>
+                <h2 data-i18n="price_title">Lifetime access. No subscription.</h2>
+                <p class="section-sub" data-i18n="price_sub">Pay once, keep the course forever — including every future update.</p>
+            </div>
+
+            <div class="price-grid">
+                <div class="plan glass reveal">
+                    <h3 data-i18n="price_cal_name">Calisthenics Mastery</h3>
+                    <div class="plan-price"><span class="amt">$49</span><span class="per" data-i18n="price_per">one-time</span></div>
+                    <ul>
+                        <li>50+ HD video lessons</li>
+                        <li>12-week training log</li>
+                        <li>Nutrition guide</li>
+                        <li>Community access</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost buy-btn" data-course="calisthenics" data-i18n="price_buy">Get instant access</a>
+                </div>
+
+                <div class="plan glass featured reveal">
+                    <span class="plan-badge" data-i18n="price_popular">Most popular</span>
+                    <h3 data-i18n="price_bundle_name">Both Courses</h3>
+                    <div class="plan-price"><span class="amt">$99</span><span class="per" data-i18n="price_per">one-time</span></div>
+                    <ul>
+                        <li>Everything in both courses</li>
+                        <li>Save $19 vs. buying separately</li>
+                        <li>Priority Q&amp;A from Peter</li>
+                        <li>Lifetime updates, both tracks</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary buy-btn" data-course="bundle" data-i18n="price_buy">Get instant access</a>
+                </div>
+
+                <div class="plan glass reveal">
+                    <h3 data-i18n="price_rob_name">Robotics Engineering</h3>
+                    <div class="plan-price"><span class="amt">$69</span><span class="per" data-i18n="price_per">one-time</span></div>
+                    <ul>
+                        <li>80+ HD video lessons</li>
+                        <li>Parts list &amp; wiring diagrams</li>
+                        <li>ROS deep dive</li>
+                        <li>10 build projects</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost buy-btn" data-course="robotics" data-i18n="price_buy">Get instant access</a>
+                </div>
+            </div>
+            <p class="guarantee reveal" data-i18n="price_guarantee">14-day money-back guarantee — no questions asked.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="tst_kicker">Student results</p>
+                <h2 data-i18n="tst_title">People who stuck with it</h2>
+            </div>
+            <div class="tst-grid">
+                <figure class="tst-card glass reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"The progressions are the whole point. I'd failed at pull-ups for years — first clean muscle-up in week 9 following this exactly."</blockquote>
+                    <figcaption><strong>Marcus J.</strong><span>Started at 0 pull-ups</span></figcaption>
+                </figure>
+                <figure class="tst-card glass reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"I bounced off ROS twice in university. Peter builds it up from real hardware, so it finally clicked. My rover actually works."</blockquote>
+                    <figcaption><strong>Sarah T.</strong><span>CS student</span></figcaption>
+                </figure>
+                <figure class="tst-card glass reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Clear, practical, no fluff. It's rare to find someone who's genuinely strong at both the engineering and the training side."</blockquote>
+                    <figcaption><strong>David L.</strong><span>Software engineer</span></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section faq">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="kicker" data-i18n="faq_kicker">Good questions</p>
+                <h2 data-i18n="faq_title">Frequently asked questions</h2>
+            </div>
+            <div class="faq-list reveal">
+                <div class="faq-item">
+                    <button class="faq-q">Is the free lesson really free? <span class="faq-ic" aria-hidden="true">+</span></button>
+                    <div class="faq-a"><p>Yes. The trial lessons for both courses are fully open — no account, no card. If you want a bit more, a free Academy account unlocks a full starter module.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Do I need prior experience? <span class="faq-ic" aria-hidden="true">+</span></button>
+                    <div class="faq-a"><p>No. Both courses start from absolute zero — your first push-up, your first line of code — and build up in small, testable steps.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">What equipment do I need? <span class="faq-ic" aria-hidden="true">+</span></button>
+                    <div class="faq-a"><p>Calisthenics: a pull-up bar and a floor (parallettes optional). Robotics: a starter kit of about $60–$100 — the exact parts list is in module 1.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">How long do I keep access? <span class="faq-ic" aria-hidden="true">+</span></button>
+                    <div class="faq-a"><p>Forever. It's a one-time purchase with lifetime access, and every future update to the curriculum is included at no extra cost.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q">Is there a refund policy? <span class="faq-ic" aria-hidden="true">+</span></button>
+                    <div class="faq-a"><p>Yes — 14 days, no questions asked. Email Peter and you get a full refund.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-band">
+        <div class="container reveal">
+            <h2 data-i18n="cta_title">Your first rep starts tonight.</h2>
+            <p data-i18n="cta_sub">Take the free lesson now. Decide about the full course later.</p>
+            <a href="/storefront/trial/calisthenics.html" class="btn btn-primary btn-lg magnetic" data-i18n="cta_btn">Start the free lesson</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <a href="#" class="logo">PETER<span>1947</span></a>
-                    <p>Master Your Body. Master Technology.</p>
-                </div>
-                <div class="footer-links">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#calisthenics">Calisthenics</a></li>
-                        <li><a href="#robotics">Robotics</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <a href="https://github.com/reaper1947" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://www.linkedin.com/in/taweeporn-maneesin-4052682b1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </div>
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#top" class="logo">PETER<span>1947</span></a>
+                <p data-i18n="foot_tag">Master Your Body. Master Technology.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Peter | peter1947.space</p>
-            </div>
+            <nav class="footer-col">
+                <h5>Courses</h5>
+                <a href="#calisthenics">Calisthenics Mastery</a>
+                <a href="#robotics">Robotics Engineering</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+            <nav class="footer-col">
+                <h5>Free</h5>
+                <a href="/storefront/trial/calisthenics.html">Calisthenics lesson</a>
+                <a href="/storefront/trial/robotics.html">Robotics lesson</a>
+                <a href="/academy/">Academy account</a>
+            </nav>
+            <nav class="footer-col">
+                <h5>Connect</h5>
+                <a href="https://github.com/reaper1947" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/taweeporn-maneesin-4052682b1/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="/academy/">Student Login</a>
+            </nav>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; <span id="year">2026</span> Peter1947 &middot; peter1947.space</p>
+            <p data-i18n="foot_rights">All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Script -->
-    <script src="translations.js?v=1"></script>
-    <script src="script.js?v=9"></script>
+    <script src="translations.js?v=2"></script>
+    <script src="script.js?v=10"></script>
 </body>
 </html>

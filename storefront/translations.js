@@ -1,106 +1,162 @@
+/* ─────────────────────────────────────────────────────────────
+   Peter1947 — storefront i18n (EN / TH)
+   Elements opt in with  data-i18n="key".
+   ───────────────────────────────────────────────────────────── */
 const translations = {
-    "en": {
-        "nav_about": "About",
-        "nav_calisthenics": "Calisthenics",
-        "nav_robotics": "Robotics",
-        "nav_faq": "FAQ",
-        "nav_login": "Login",
-        
-        "hero_title_1": "Master Your Body.",
-        "hero_title_2": "Master Technology.",
-        "hero_sub": "Premium courses in Calisthenics & Robotics by Peter — Engineer, Athlete, Builder.",
-        "hero_btn_cal": "Explore Calisthenics",
-        "hero_btn_rob": "Explore Robotics",
-        
-        "about_title": "About Peter",
-        "about_desc_1": "I am a multi-disciplinary creator with a passion for pushing the limits of human potential and technological innovation.",
-        "about_desc_2": "By day, I am a Robotics Engineer building autonomous systems. By night, I am a Calisthenics athlete mastering bodyweight control.",
-        "about_desc_3": "These courses represent thousands of hours of my personal experience, distilled into actionable steps for you.",
-        
-        "cal_title": "Calisthenics Mastery",
-        "cal_sub": "From Zero to Hero — Build Strength Without a Gym",
-        "cal_desc": "A complete structured program taking you from absolute beginner to advanced calisthenics movements. Learn push-ups, pull-ups, muscle-ups, handstands, front levers, and more — all with progressive overload principles.",
-        "cal_feat_1_title": "12-Week Program",
-        "cal_feat_1_desc": "Structured progressive overload",
-        "cal_feat_2_title": "Video Tutorials",
-        "cal_feat_2_desc": "HD demonstrations of every movement",
-        "cal_feat_3_title": "Nutrition Guide",
-        "cal_feat_3_desc": "Meal plans for muscle gain & fat loss",
-        "cal_feat_4_title": "Community Access",
-        "cal_feat_4_desc": "Join other athletes on the journey",
-        
-        "rob_title": "Robotics Engineering",
-        "rob_sub": "Build Real Autonomous Systems",
-        "rob_desc": "Dive deep into the world of robotics. From basic electronics and Arduino to advanced ROS (Robot Operating System) and computer vision. Build your first autonomous rover from scratch.",
-        "rob_feat_1_title": "Hardware Basics",
-        "rob_feat_1_desc": "Circuits, sensors, and microcontrollers",
-        "rob_feat_2_title": "Software (C++/Python)",
-        "rob_feat_2_desc": "Write code that interacts with the physical world",
-        "rob_feat_3_title": "ROS Framework",
-        "rob_feat_3_desc": "Industry-standard robotics software",
-        "rob_feat_4_title": "Final Project",
-        "rob_feat_4_desc": "Build an autonomous obstacle-avoiding robot",
-        
-        "buy_now": "BUY NOW",
-        
-        "faq_title": "Frequently Asked Questions",
-        "faq_q1": "Do I need any equipment for the Calisthenics course?",
-        "faq_a1": "You only need a pull-up bar and a set of gymnastic rings (or parallel bars). The vast majority of the exercises use only your bodyweight.",
-        "faq_q2": "I'm a complete beginner to coding. Can I take the Robotics course?",
-        "faq_a2": "Yes! The robotics course starts with the absolute basics of Python and C++ before moving into complex systems.",
-        "faq_q3": "How long do I have access to the courses?",
-        "faq_a3": "You get lifetime access! Pay once and keep the materials, including all future updates, forever."
+    en: {
+        /* nav */
+        nav_paths: "Courses",
+        nav_trial: "Free Trial",
+        nav_curriculum: "Curriculum",
+        nav_pricing: "Pricing",
+        nav_faq: "FAQ",
+        nav_login: "Student Login",
+
+        /* hero */
+        hero_kicker: "Calisthenics & Robotics Academy",
+        hero_title_1: "Master Your Body.",
+        hero_title_2: "Master Technology.",
+        hero_sub: "Structured, project-based courses that take you from absolute beginner to your first muscle-up — and your first autonomous robot. Taught by Peter, an engineer and calisthenics athlete.",
+        hero_btn_trial: "Start Learning Free",
+        hero_btn_courses: "Browse Courses",
+        hero_stat_students: "Active students",
+        hero_stat_lessons: "Video lessons",
+        hero_stat_rating: "Average rating",
+        hero_scroll: "Scroll to explore",
+
+        /* trust */
+        trust_title: "Built on real engineering & training experience",
+
+        /* paths */
+        paths_kicker: "Two disciplines, one method",
+        paths_title: "Choose your path",
+        paths_sub: "Both tracks use the same philosophy: small, measurable progressions you can actually stick to.",
+        path_cal_name: "Calisthenics Mastery",
+        path_cal_desc: "Own your bodyweight. Push-ups to planche, dead hangs to muscle-ups — a 12-week progressive system.",
+        path_rob_name: "Robotics Engineering",
+        path_rob_desc: "From a blinking LED to an autonomous rover. Electronics, Python, C++ and ROS, one build at a time.",
+        path_explore: "Explore track",
+
+        /* trial */
+        trial_kicker: "No card required",
+        trial_title: "Try a full lesson, free",
+        trial_sub: "Jump straight into a real lesson from each course. Track your progress, then unlock the rest whenever you're ready.",
+        trial_cal_title: "Free Calisthenics Lesson",
+        trial_cal_desc: "Lesson 1 — the pull-up progression: from dead hang to your first clean rep.",
+        trial_rob_title: "Free Robotics Lesson",
+        trial_rob_desc: "Lesson 1 — your first circuit: blink an LED and understand exactly why it works.",
+        trial_start: "Start free lesson",
+        trial_academy_note: "Want more? Create a free account for a full starter module inside the Academy.",
+        trial_academy_btn: "Open the Academy",
+
+        /* curriculum */
+        curr_kicker: "What you'll actually learn",
+        curr_title: "Curriculum preview",
+        curr_cal: "Calisthenics Mastery",
+        curr_rob: "Robotics Engineering",
+
+        /* pricing */
+        price_kicker: "Simple, one-time pricing",
+        price_title: "Lifetime access. No subscription.",
+        price_sub: "Pay once, keep the course forever — including every future update.",
+        price_popular: "Most popular",
+        price_cal_name: "Calisthenics Mastery",
+        price_rob_name: "Robotics Engineering",
+        price_bundle_name: "Both Courses",
+        price_per: "one-time",
+        price_buy: "Get instant access",
+        price_guarantee: "14-day money-back guarantee — no questions asked.",
+
+        /* testimonials */
+        tst_kicker: "Student results",
+        tst_title: "People who stuck with it",
+
+        /* faq */
+        faq_kicker: "Good questions",
+        faq_title: "Frequently asked questions",
+
+        /* cta */
+        cta_title: "Your first rep starts tonight.",
+        cta_sub: "Take the free lesson now. Decide about the full course later.",
+        cta_btn: "Start the free lesson",
+
+        /* footer */
+        foot_tag: "Master Your Body. Master Technology.",
+        foot_rights: "All rights reserved.",
+
+        buy_now: "Buy now",
     },
-    "th": {
-        "nav_about": "เกี่ยวกับ",
-        "nav_calisthenics": "คาลิสเทนิกส์",
-        "nav_robotics": "วิทยาการหุ่นยนต์",
-        "nav_faq": "คำถามที่พบบ่อย",
-        "nav_login": "เข้าสู่ระบบ",
-        
-        "hero_title_1": "ควบคุมร่างกายคุณ",
-        "hero_title_2": "ควบคุมเทคโนโลยี",
-        "hero_sub": "คอร์สเรียนระดับพรีเมียมด้านคาลิสเทนิกส์และหุ่นยนต์โดย ปีเตอร์ — วิศวกร, นักกีฬา, ผู้สร้าง",
-        "hero_btn_cal": "สำรวจคาลิสเทนิกส์",
-        "hero_btn_rob": "สำรวจหุ่นยนต์",
-        
-        "about_title": "เกี่ยวกับ ปีเตอร์",
-        "about_desc_1": "ผมเป็นผู้สร้างแบบสหวิทยาการที่มีความหลงใหลในการผลักดันขีดจำกัดของศักยภาพมนุษย์และนวัตกรรมทางเทคโนโลยี",
-        "about_desc_2": "ตอนกลางวันผมเป็นวิศวกรหุ่นยนต์สร้างระบบอัตโนมัติ ตอนกลางคืนผมเป็นนักกีฬาคาลิสเทนิกส์ที่เชี่ยวชาญการควบคุมน้ำหนักตัว",
-        "about_desc_3": "คอร์สเหล่านี้คือประสบการณ์ส่วนตัวนับพันชั่วโมงของผม ที่ถูกกลั่นกรองเป็นขั้นตอนที่นำไปปฏิบัติได้จริงสำหรับคุณ",
-        
-        "cal_title": "ความเชี่ยวชาญด้านคาลิสเทนิกส์",
-        "cal_sub": "จากศูนย์สู่ฮีโร่ — สร้างความแข็งแกร่งโดยไม่ต้องง้อยิม",
-        "cal_desc": "โปรแกรมที่มีโครงสร้างสมบูรณ์แบบ นำคุณจากผู้เริ่มต้นไปสู่การเคลื่อนไหวขั้นสูง เรียนรู้วิดพื้น ดึงข้อ มัสเซิลอัพ หกสูง ฟรอนต์ลีเวอร์ และอื่นๆ — ทั้งหมดด้วยหลักการเพิ่มน้ำหนักอย่างต่อเนื่อง",
-        "cal_feat_1_title": "โปรแกรม 12 สัปดาห์",
-        "cal_cal_feat_1_desc": "เพิ่มความท้าทายอย่างเป็นระบบ",
-        "cal_feat_2_title": "วิดีโอสอน",
-        "cal_feat_2_desc": "สาธิตทุกการเคลื่อนไหวแบบ HD",
-        "cal_feat_3_title": "คู่มือโภชนาการ",
-        "cal_feat_3_desc": "แผนมื้ออาหารเพื่อเพิ่มกล้ามเนื้อและลดไขมัน",
-        "cal_feat_4_title": "เข้าถึงชุมชน",
-        "cal_feat_4_desc": "ร่วมทางไปกับนักกีฬาคนอื่นๆ",
-        
-        "rob_title": "วิศวกรรมหุ่นยนต์",
-        "rob_sub": "สร้างระบบอัตโนมัติของจริง",
-        "rob_desc": "เจาะลึกโลกของหุ่นยนต์ ตั้งแต่อิเล็กทรอนิกส์พื้นฐานและ Arduino ไปจนถึง ROS (ระบบปฏิบัติการหุ่นยนต์) ขั้นสูงและคอมพิวเตอร์วิทัศน์ สร้างโรเวอร์อัตโนมัติคันแรกของคุณจากศูนย์",
-        "rob_feat_1_title": "พื้นฐานฮาร์ดแวร์",
-        "rob_feat_1_desc": "วงจร เซ็นเซอร์ และไมโครคอนโทรลเลอร์",
-        "rob_feat_2_title": "ซอฟต์แวร์ (C++/Python)",
-        "rob_feat_2_desc": "เขียนโค้ดที่โต้ตอบกับโลกแห่งความเป็นจริง",
-        "rob_feat_3_title": "เฟรมเวิร์ก ROS",
-        "rob_feat_3_desc": "ซอฟต์แวร์หุ่นยนต์มาตรฐานอุตสาหกรรม",
-        "rob_feat_4_title": "โปรเจกต์สุดท้าย",
-        "rob_feat_4_desc": "สร้างหุ่นยนต์หลบหลีกสิ่งกีดขวางอัตโนมัติ",
-        
-        "buy_now": "ซื้อเลย",
-        
-        "faq_title": "คำถามที่พบบ่อย",
-        "faq_q1": "ต้องใช้อุปกรณ์อะไรบ้างในคอร์สคาลิสเทนิกส์?",
-        "faq_a1": "คุณต้องการแค่บาร์ดึงข้อและห่วงยิมนาสติก (หรือบาร์คู่) การออกกำลังกายส่วนใหญ่ใช้น้ำหนักตัวของคุณเองเท่านั้น",
-        "faq_q2": "ไม่เคยเขียนโค้ดเลย จะเรียนคอร์สหุ่นยนต์ได้ไหม?",
-        "faq_a2": "ได้แน่นอน! คอร์สหุ่นยนต์เริ่มต้นจากพื้นฐานที่สุดของ Python และ C++ ก่อนจะไปสู่ระบบที่ซับซ้อน",
-        "faq_q3": "ฉันสามารถเข้าถึงคอร์สได้นานแค่ไหน?",
-        "faq_a3": "คุณสามารถเข้าถึงได้ตลอดชีพ! จ่ายครั้งเดียวและเก็บเนื้อหาไว้ตลอดไป รวมถึงการอัปเดตในอนาคตทั้งหมดด้วย"
-    }
+
+    th: {
+        nav_paths: "คอร์สเรียน",
+        nav_trial: "ทดลองฟรี",
+        nav_curriculum: "หลักสูตร",
+        nav_pricing: "ราคา",
+        nav_faq: "คำถามที่พบบ่อย",
+        nav_login: "เข้าสู่ระบบนักเรียน",
+
+        hero_kicker: "สถาบันคาลิสเทนิกส์และหุ่นยนต์",
+        hero_title_1: "ควบคุมร่างกายคุณ",
+        hero_title_2: "ควบคุมเทคโนโลยี",
+        hero_sub: "คอร์สเรียนแบบมีโครงสร้างและเน้นลงมือทำ พาคุณจากผู้เริ่มต้นสู่ท่ามัสเซิลอัพครั้งแรก และหุ่นยนต์อัตโนมัติตัวแรกของคุณ สอนโดยปีเตอร์ วิศวกรและนักกีฬาคาลิสเทนิกส์",
+        hero_btn_trial: "เริ่มเรียนฟรี",
+        hero_btn_courses: "ดูคอร์สทั้งหมด",
+        hero_stat_students: "นักเรียนที่กำลังเรียน",
+        hero_stat_lessons: "บทเรียนวิดีโอ",
+        hero_stat_rating: "คะแนนเฉลี่ย",
+        hero_scroll: "เลื่อนเพื่อสำรวจ",
+
+        trust_title: "สร้างจากประสบการณ์วิศวกรรมและการฝึกจริง",
+
+        paths_kicker: "สองศาสตร์ หนึ่งวิธีการ",
+        paths_title: "เลือกเส้นทางของคุณ",
+        paths_sub: "ทั้งสองเส้นทางใช้แนวคิดเดียวกัน คือความก้าวหน้าทีละเล็กที่วัดผลได้และทำได้จริง",
+        path_cal_name: "ความเชี่ยวชาญคาลิสเทนิกส์",
+        path_cal_desc: "ควบคุมน้ำหนักตัวของคุณ ตั้งแต่วิดพื้นถึงแพลนช์ ห้อยบาร์ถึงมัสเซิลอัพ ระบบ 12 สัปดาห์",
+        path_rob_name: "วิศวกรรมหุ่นยนต์",
+        path_rob_desc: "จากไฟ LED กะพริบสู่โรเวอร์อัตโนมัติ อิเล็กทรอนิกส์ Python C++ และ ROS ทีละโปรเจกต์",
+        path_explore: "สำรวจเส้นทางนี้",
+
+        trial_kicker: "ไม่ต้องใช้บัตร",
+        trial_title: "ลองเรียนบทเรียนเต็ม ฟรี",
+        trial_sub: "เข้าสู่บทเรียนจริงจากแต่ละคอร์สได้ทันที ติดตามความก้าวหน้าของคุณ แล้วปลดล็อกส่วนที่เหลือเมื่อพร้อม",
+        trial_cal_title: "บทเรียนคาลิสเทนิกส์ฟรี",
+        trial_cal_desc: "บทที่ 1 ความก้าวหน้าของการดึงข้อ จากการห้อยบาร์สู่การดึงข้อครั้งแรกที่สมบูรณ์",
+        trial_rob_title: "บทเรียนหุ่นยนต์ฟรี",
+        trial_rob_desc: "บทที่ 1 วงจรแรกของคุณ ทำให้ไฟ LED กะพริบและเข้าใจว่าทำไมมันถึงทำงาน",
+        trial_start: "เริ่มบทเรียนฟรี",
+        trial_academy_note: "ต้องการมากกว่านี้? สร้างบัญชีฟรีเพื่อรับโมดูลเริ่มต้นเต็มรูปแบบในสถาบัน",
+        trial_academy_btn: "เปิดสถาบัน",
+
+        curr_kicker: "สิ่งที่คุณจะได้เรียนจริง",
+        curr_title: "ตัวอย่างหลักสูตร",
+        curr_cal: "ความเชี่ยวชาญคาลิสเทนิกส์",
+        curr_rob: "วิศวกรรมหุ่นยนต์",
+
+        price_kicker: "ราคาเรียบง่าย จ่ายครั้งเดียว",
+        price_title: "เข้าถึงได้ตลอดชีพ ไม่มีค่าสมาชิกรายเดือน",
+        price_sub: "จ่ายครั้งเดียว เก็บคอร์สไว้ตลอดไป รวมถึงอัปเดตในอนาคตทุกครั้ง",
+        price_popular: "ยอดนิยม",
+        price_cal_name: "ความเชี่ยวชาญคาลิสเทนิกส์",
+        price_rob_name: "วิศวกรรมหุ่นยนต์",
+        price_bundle_name: "ทั้งสองคอร์ส",
+        price_per: "จ่ายครั้งเดียว",
+        price_buy: "เข้าถึงทันที",
+        price_guarantee: "รับประกันคืนเงินภายใน 14 วัน ไม่มีเงื่อนไข",
+
+        tst_kicker: "ผลลัพธ์ของนักเรียน",
+        tst_title: "คนที่ตั้งใจทำจนสำเร็จ",
+
+        faq_kicker: "คำถามที่ดี",
+        faq_title: "คำถามที่พบบ่อย",
+
+        cta_title: "เรพแรกของคุณเริ่มคืนนี้",
+        cta_sub: "เรียนบทเรียนฟรีตอนนี้ แล้วค่อยตัดสินใจเรื่องคอร์สเต็มทีหลัง",
+        cta_btn: "เริ่มบทเรียนฟรี",
+
+        foot_tag: "ควบคุมร่างกายคุณ ควบคุมเทคโนโลยี",
+        foot_rights: "สงวนลิขสิทธิ์",
+
+        buy_now: "ซื้อเลย",
+    },
 };

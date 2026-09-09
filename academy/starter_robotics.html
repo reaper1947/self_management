@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Starter Module · Robotics Electronics Basics — Peter1947 Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/academy/starter.css?v=1">
+</head>
+<body data-track="robotics">
+
+    <nav class="navbar">
+        <a href="/academy/courses" class="logo">PETER<span>1947</span></a>
+        <div class="right">
+            <span id="student-name">Loading…</span>
+            <button class="btn" id="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <div id="gate" class="gate"><div><p>Checking your access…</p></div></div>
+
+    <div id="app" hidden>
+        <header class="hero-banner">
+            <p class="eyebrow">Robotics Engineering · Module 1</p>
+            <h1>Electronics You Can Trust</h1>
+            <p>From a blinking LED to reading the physical world. Output, then input — the two halves of every robot.</p>
+            <span class="free-pill">Free with your account</span>
+        </header>
+
+        <div class="completed-banner">🎉 Starter module complete. Module 2 moves into timing, state, and driving motors.</div>
+
+        <div class="wrap">
+            <aside class="sidebar">
+                <h4>Lessons</h4>
+                <ul class="lnav">
+                    <li><a href="#l1" class="active"><span class="dot"></span>1 · Output: blink recap</a></li>
+                    <li><a href="#l2"><span class="dot"></span>2 · Input: read a button</a></li>
+                    <li><a href="#l3"><span class="dot"></span>3 · Analog: a dimmer knob</a></li>
+                </ul>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <p class="progress-label">0 of 3 lessons complete</p>
+            </aside>
+
+            <main class="content">
+                <section class="lesson" id="l1">
+                    <h2>Lesson 1 · Output — the blink, properly understood</h2>
+                    <p class="meta">Recap + the one upgrade that matters</p>
+                    <p>If you haven't done the public blink lesson yet, do it first — it covers the wiring and
+                        Ohm's law: <a href="/storefront/trial/robotics.html">Your First Circuit →</a></p>
+                    <p>Here's the upgrade: <code>delay()</code> is a trap. While the Arduino is inside a
+                        <code>delay(500)</code> it can do <strong>nothing else</strong> — it can't read a sensor, it
+                        can't check a button. Real robots never block. Same blink, non-blocking:</p>
+                    <pre><code>const int LED_PIN = 13;
+unsigned long lastToggle = 0;
+const long interval = 500;
+bool ledOn = false;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  unsigned long now = millis();          // ms since power-on
+  if (now - lastToggle >= interval) {
+    lastToggle = now;
+    ledOn = !ledOn;                       // flip the state
+    digitalWrite(LED_PIN, ledOn ? HIGH : LOW);
+  }
+  // ...loop keeps running freely; add more checks here later
+}</code></pre>
+                    <ul>
+                        <li><code>millis()</code> is a clock that never pauses your program.</li>
+                        <li>You store <em>when</em> you last acted and check whether enough time has passed.</li>
+                        <li>This "check the clock" pattern is how a robot juggles motors, sensors and timing at once.</li>
+                    </ul>
+                    <button class="btn mark-done">Mark lesson complete</button>
+                </section>
+
+                <section class="lesson" id="l2">
+                    <h2>Lesson 2 · Input — reading a button</h2>
+                    <p class="meta">digitalRead + the pull-up resistor</p>
+                    <div class="media"><div><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Video: wiring a button without a floating pin</span></div></div>
+                    <p>Wire a push-button between pin&nbsp;2 and <strong>GND</strong>. The catch: when the button is
+                        <em>not</em> pressed, pin 2 is connected to nothing — it "floats" and reads random noise.
+                        The fix is a <strong>pull-up resistor</strong> that gently ties the pin to 5&nbsp;V, and the
+                        Arduino has one built in:</p>
+                    <pre><code>const int BUTTON = 2;
+const int LED_PIN = 13;
+
+void setup() {
+  pinMode(BUTTON, INPUT_PULLUP);   // idle = HIGH, pressed = LOW
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  bool pressed = (digitalRead(BUTTON) == LOW);   // inverted!
+  digitalWrite(LED_PIN, pressed ? HIGH : LOW);
+}</code></pre>
+                    <table>
+                        <tr><th>Button state</th><th>Pin 2 reads</th><th>Why</th></tr>
+                        <tr><td>Released</td><td>HIGH</td><td>Internal pull-up holds it at 5 V</td></tr>
+                        <tr><td>Pressed</td><td>LOW</td><td>Button connects the pin straight to GND</td></tr>
+                    </table>
+                    <div class="callout tip">
+                        <h4>The gotcha</h4>
+                        With <code>INPUT_PULLUP</code> the logic is <strong>inverted</strong> — pressed is
+                        <code>LOW</code>. Every beginner forgets this once. Now you won't.
+                    </div>
+                    <button class="btn mark-done">Mark lesson complete</button>
+                </section>
+
+                <section class="lesson" id="l3">
+                    <h2>Lesson 3 · Analog input — a dimmer knob</h2>
+                    <p class="meta">analogRead, the Serial Monitor, and map()</p>
+                    <p>Digital pins see only HIGH or LOW. <strong>Analog</strong> pins (A0–A5) measure a voltage
+                        between 0 and 5&nbsp;V and give you a number from <strong>0 to 1023</strong>. Wire a
+                        potentiometer: outer legs to 5&nbsp;V and GND, middle leg to A0.</p>
+                    <pre><code>void setup() {
+  Serial.begin(9600);          // open a text link to your computer
+}
+
+void loop() {
+  int raw = analogRead(A0);            // 0..1023
+  int percent = map(raw, 0, 1023, 0, 100);
+  Serial.print("knob: ");
+  Serial.print(percent);
+  Serial.println("%");
+  delay(200);
+}</code></pre>
+                    <ul>
+                        <li>Open <strong>Tools → Serial Monitor</strong> (set to 9600 baud) to watch the numbers change as you turn the knob.</li>
+                        <li><code>map()</code> rescales one range to another — here 0–1023 becomes 0–100.</li>
+                        <li><code>Serial</code> is your #1 debugging tool for the rest of the course: print a value, see what the robot actually thinks.</li>
+                    </ul>
+                    <div class="callout tip">
+                        <h4>Put it together</h4>
+                        Combine all three lessons: use the knob's value as the blink <code>interval</code> in the
+                        non-blocking code from Lesson 1, and the button to pause it. That's a real little program —
+                        input, timing and output working at once.
+                    </div>
+                    <button class="btn mark-done">Mark lesson complete</button>
+                </section>
+
+                <div class="end-cta">
+                    <h3>You can now do output, digital input and analog input.</h3>
+                    <p>That's the vocabulary for everything ahead: sensors, motor drivers, the Raspberry Pi, ROS,
+                        and the autonomous rover capstone.</p>
+                    <div class="row">
+                        <a href="/storefront/trial/robotics.html" class="btn">Revisit the free lesson</a>
+                        <a href="/academy/courses" class="btn btn-primary">Get the full course</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="/academy/starter.js?v=1"></script>
+</body>
+</html>

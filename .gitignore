@@ -18,7 +18,12 @@ pip-delete-this-directory.txt
 # Databases
 *.db
 *.sqlite3
+*.db.snapshot
 habit_tracker.db
+
+# Backups (created by backup.sh)
+backups/
+*.tar.gz
 
 # Cloudflare
 .cloudflared/

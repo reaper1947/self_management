@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free robotics lesson from Peter1947 Academy — build your first circuit and blink an LED, with every wire and line of code explained. No account needed.">
+    <title>Free Lesson · Your First Circuit — Peter1947 Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="lesson.css?v=2">
+</head>
+<body data-track="robotics">
+
+    <div class="topbar">
+        <a href="/storefront/" class="logo">PETER<span>1947</span></a>
+        <div class="actions">
+            <span class="pill">Free lesson</span>
+            <a href="/storefront/#pricing" class="btn btn-primary">Get the full course</a>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <aside class="sidebar">
+            <h4>In this lesson</h4>
+            <ul class="lesson-nav">
+                <li><a href="#parts" class="active"><span class="dot"></span>What you need</a></li>
+                <li><a href="#theory"><span class="dot"></span>1 · Volts, amps, ohms</a></li>
+                <li><a href="#build"><span class="dot"></span>2 · Build the circuit</a></li>
+                <li><a href="#code"><span class="dot"></span>3 · The code</a></li>
+                <li><a href="#debug"><span class="dot"></span>4 · When it doesn't work</a></li>
+                <li><a href="#challenge"><span class="dot"></span>Your challenge</a></li>
+            </ul>
+            <div class="progress-wrap">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <p class="progress-label">0 of 6 sections complete</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <p class="eyebrow">Robotics Engineering · Module 1</p>
+            <h1>Your First Circuit: Blink an LED</h1>
+            <p class="lede">Every robot — no matter how complex — is built from this. A microcontroller
+                deciding when to send voltage somewhere. Get this one right and understand <em>why</em> it
+                works, and the rest of the course is just more of the same idea.</p>
+
+            <div class="completed-banner">🎉 Lesson complete. You've built and understood your first circuit — Module 2 is microcontrollers &amp; C++.</div>
+
+            <section class="lesson" id="parts">
+                <h2>What you need</h2>
+                <p class="meta">~2 min · total cost about $15 if you don't have a kit</p>
+                <ul>
+                    <li>An <strong>Arduino Uno</strong> (or any Uno-compatible clone) and its USB cable</li>
+                    <li>A <strong>solderless breadboard</strong></li>
+                    <li>One <strong>LED</strong> (any colour)</li>
+                    <li>One <strong>220&nbsp;Ω resistor</strong> (colour bands: red-red-brown-gold)</li>
+                    <li>Two <strong>jumper wires</strong></li>
+                    <li>The <strong>Arduino IDE</strong> installed on your computer (free)</li>
+                </ul>
+                <div class="callout tip">
+                    <h4>No hardware yet?</h4>
+                    You can do this entire lesson in a free online simulator like Wokwi or Tinkercad Circuits —
+                    the wiring and code are identical. The full course includes the exact kit list with links.
+                </div>
+            </section>
+
+            <section class="lesson" id="theory">
+                <h2>Step 1 · The only electronics you need today</h2>
+                <p class="meta">Volts, current, resistance</p>
+                <p>Three quantities explain almost everything in a beginner circuit:</p>
+                <table>
+                    <tr><th>Quantity</th><th>Unit</th><th>Plumbing analogy</th></tr>
+                    <tr><td>Voltage (V)</td><td>volts</td><td>Water <em>pressure</em> pushing through the pipe</td></tr>
+                    <tr><td>Current (I)</td><td>amps</td><td>The <em>flow rate</em> of water</td></tr>
+                    <tr><td>Resistance (R)</td><td>ohms (Ω)</td><td>How <em>narrow</em> the pipe is</td></tr>
+                </table>
+                <p>They're tied together by <strong>Ohm's Law</strong>:</p>
+                <pre><code>V = I × R        →        I = V / R</code></pre>
+                <p>An Arduino output pin gives <strong>5&nbsp;V</strong>. An LED wants only about <strong>10–20&nbsp;mA</strong>
+                    (0.01–0.02&nbsp;A) or it burns out. An LED itself drops roughly 2&nbsp;V. So the resistor has to
+                    "use up" the other 3&nbsp;V:</p>
+                <pre><code>R = (5V − 2V) / 0.015A  =  3 / 0.015  ≈  200 Ω</code></pre>
+                <p>That's why the lesson calls for a <strong>220&nbsp;Ω</strong> resistor — it's the nearest common
+                    value that keeps the current safe. Skip the resistor and the LED (or the pin) dies.</p>
+                <div class="quiz">
+                    <p class="q">Quick check: why does the circuit need the resistor?</p>
+                    <span class="opt" data-correct="false" data-explain="LEDs don't store charge — there's no capacitor behaviour here.">To store energy for the LED</span>
+                    <span class="opt" data-correct="true" data-explain="Exactly — it drops the extra voltage so current stays around 15 mA instead of frying the LED.">To limit the current so the LED isn't destroyed</span>
+                    <span class="opt" data-correct="false" data-explain="Direction is set by how the LED is oriented (long leg = positive), not by the resistor.">To make the current flow the right direction</span>
+                </div>
+            </section>
+
+            <section class="lesson" id="build">
+                <h2>Step 2 · Build the circuit</h2>
+                <p class="meta">Follow the current from pin 13 back to GND</p>
+                <div class="media"><div class="play">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <span>Video: breadboard wiring, close-up (full course)</span>
+                </div></div>
+                <ol>
+                    <li>Push the <strong>LED</strong> into the breadboard so its two legs are in different rows. The
+                        <strong>long leg</strong> (anode, +) goes toward the Arduino pin side.</li>
+                    <li>Connect one end of the <strong>220&nbsp;Ω resistor</strong> to the row with the LED's <strong>short
+                        leg</strong> (cathode, −). Put the other end in an empty row.</li>
+                    <li>Jumper wire from Arduino <strong>pin 13</strong> → the LED's long-leg row.</li>
+                    <li>Jumper wire from the resistor's free end → Arduino <strong>GND</strong>.</li>
+                </ol>
+                <p>Trace it out loud: <em>pin 13 → LED (anode to cathode) → resistor → GND</em>. Current can only
+                    flow when pin 13 is HIGH (5&nbsp;V) and it has a complete path back to ground. Right now the pin
+                    is doing nothing — that's the code's job.</p>
+                <div class="callout warn">
+                    <h4>Orientation matters</h4>
+                    An LED only conducts one way. If it stays dark later, the first thing to try is flipping it —
+                    long leg toward pin 13.
+                </div>
+            </section>
+
+            <section class="lesson" id="code">
+                <h2>Step 3 · The code, line by line</h2>
+                <p class="meta">Arduino C++ · upload with the → button in the IDE</p>
+                <pre><code>const int LED_PIN = 13;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);   // pin 13 will send voltage out
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH); // 5V on  → LED lights
+  delay(500);                  // wait 500 ms
+  digitalWrite(LED_PIN, LOW);  // 0V     → LED off
+  delay(500);                  // wait 500 ms
+}</code></pre>
+                <ul>
+                    <li><code>const int LED_PIN = 13;</code> — a name for the pin number so the code reads clearly and you change it in one place.</li>
+                    <li><code>setup()</code> runs <strong>once</strong> at power-on. <code>pinMode(..., OUTPUT)</code> tells the chip this pin will <em>drive</em> voltage rather than read it.</li>
+                    <li><code>loop()</code> runs <strong>forever</strong>, top to bottom, then repeats.</li>
+                    <li><code>digitalWrite(pin, HIGH)</code> puts 5&nbsp;V on the pin; <code>LOW</code> puts 0&nbsp;V.</li>
+                    <li><code>delay(500)</code> freezes everything for 500&nbsp;milliseconds. Change both to <code>100</code> for a fast blink, <code>1000</code> for a slow one.</li>
+                </ul>
+                <div class="callout tip">
+                    <h4>Why this pattern matters</h4>
+                    <code>setup()</code> then <code>loop()</code> is the shape of <em>every</em> Arduino program you'll write —
+                    including the one that drives your rover's motors in Module 6. You're not learning a toy; you're
+                    learning the structure.
+                </div>
+                <button class="btn mark-done">Mark lesson complete</button>
+            </section>
+
+            <section class="lesson" id="debug">
+                <h2>Step 4 · When it doesn't work</h2>
+                <p class="meta">The four things that go wrong first</p>
+                <table>
+                    <tr><th>Symptom</th><th>Most likely cause</th></tr>
+                    <tr><td>Nothing lights</td><td>LED is backwards — flip it (long leg → pin 13)</td></tr>
+                    <tr><td>Still nothing</td><td>A wire is in the wrong row; trace pin 13 → LED → resistor → GND again</td></tr>
+                    <tr><td>Upload fails in the IDE</td><td>Wrong board or port selected under <em>Tools</em></td></tr>
+                    <tr><td>LED very dim or flickers</td><td>Resistor too large, or a loose jumper in the breadboard</td></tr>
+                </table>
+                <p>Debugging hardware is a skill in itself: change <strong>one thing at a time</strong> and re-test.
+                    That discipline is what separates people who finish robotics projects from people who don't.</p>
+                <button class="btn mark-done">Mark lesson complete</button>
+            </section>
+
+            <section class="lesson" id="challenge">
+                <h2>Your challenge</h2>
+                <p class="meta">Do this before moving on</p>
+                <ol>
+                    <li>Get the basic blink working.</li>
+                    <li>Add a <strong>second LED</strong> on pin 12 (its own resistor) and make the two alternate — one on while the other is off.</li>
+                    <li>Make an <strong>SOS pattern</strong>: three short blinks, three long, three short, then a pause.</li>
+                </ol>
+                <ul class="selfcheck">
+                    <li><input type="checkbox" id="r1"><label for="r1">My LED blinks on a 500&nbsp;ms cycle</label></li>
+                    <li><input type="checkbox" id="r2"><label for="r2">I can explain why the resistor is there</label></li>
+                    <li><input type="checkbox" id="r3"><label for="r3">I added a second LED that alternates</label></li>
+                    <li><input type="checkbox" id="r4"><label for="r4">I changed the timing and understood which lines to edit</label></li>
+                </ul>
+                <button class="btn mark-done">Mark lesson complete</button>
+            </section>
+
+            <div class="end-cta">
+                <h3>That's Module 1 of 6.</h3>
+                <p>The full course goes from here to sensors, motor control, the Raspberry Pi, ROS, and a
+                    capstone autonomous rover you build and program yourself.</p>
+                <div class="row">
+                    <a href="/storefront/#pricing" class="btn btn-primary">Unlock Robotics Engineering — $69</a>
+                    <a href="/academy/" class="btn">Create a free account</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="lesson.js?v=2"></script>
+</body>
+</html>

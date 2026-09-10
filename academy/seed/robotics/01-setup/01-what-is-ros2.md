@@ -21,23 +21,20 @@ way to **find each other and exchange data** without hard-coding who talks to wh
 | **Parameter** | A named setting on a node, changeable at runtime |
 | **TF** | The system that tracks where every coordinate frame is relative to every other |
 
-Data flow is **publish/subscribe by default**: the planner publishes a velocity command
-to `/cmd_vel`; the motor controller subscribes to `/cmd_vel`. Neither knows the other
-exists — they just agree on the topic name and message type.
+Data flow is **publish/subscribe by default**: the planner publishes a velocity command to
+`/cmd_vel`; the motor controller subscribes to `/cmd_vel`. Neither knows the other exists.
 
 ## ROS 2 vs ROS 1 (why 2)
 
 ROS 2 was rebuilt on **DDS** (a real, industrial pub/sub standard). The practical wins:
 
-- **No single point of failure** — there's no `roscore` master; discovery is peer-to-peer.
-- **Real-time & embedded friendly**, multi-platform (Linux, Windows, macOS, microcontrollers via micro-ROS).
-- **Quality of Service (QoS)** — you choose reliability vs. latency per topic.
+- **No single point of failure** — no `roscore` master; discovery is peer-to-peer.
+- **Real-time & embedded friendly**, multi-platform, microcontrollers via micro-ROS.
+- **Quality of Service (QoS)** — reliability vs latency, chosen per topic.
 - **Security** built in (SROS 2).
 
 ## Versions
 
 ROS 2 ships one release a year, named alphabetically. This course targets **Humble
-Hawksbill** (LTS, Ubuntu 22.04) and notes any differences for **Jazzy Jalisco**
-(Ubuntu 24.04). Pick an LTS and stick with it.
-
-Next: install it and make a workspace.
+Hawksbill** (LTS, Ubuntu 22.04) and notes differences for **Jazzy Jalisco** (Ubuntu 24.04).
+Pick an LTS and stick with it.

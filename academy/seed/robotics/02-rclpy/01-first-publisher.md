@@ -1,4 +1,4 @@
-Time to write a node. `rclpy` is the Python client library for ROS 2.
+`rclpy` is the Python client library for ROS 2.
 
 ## Make a package
 
@@ -8,11 +8,7 @@ ros2 pkg create --build-type ament_python --license Apache-2.0 \
   --node-name talker my_bot
 ```
 
-This scaffolds `my_bot/` with `package.xml`, `setup.py`, and `my_bot/talker.py`.
-
-## The node
-
-`~/ros2_ws/src/my_bot/my_bot/talker.py`:
+## The node — `my_bot/my_bot/talker.py`
 
 ```python
 import rclpy
@@ -51,18 +47,11 @@ if __name__ == "__main__":
     main()
 ```
 
-Line by line:
-
-- `rclpy.init()` — connect to the ROS graph.
-- `super().__init__("talker")` — register the node under this name.
-- `create_publisher(String, "chatter", 10)` — type, topic, **queue depth 10** (QoS history).
-- `create_timer(0.5, cb)` — call `cb` every 0.5 s. This is how you do periodic work
-  **without blocking** — never use `time.sleep()` in a node.
+- `create_publisher(type, topic, 10)` — the `10` is the QoS history depth.
+- `create_timer(0.5, cb)` — periodic work **without blocking**. Never `time.sleep()` in a node.
 - `rclpy.spin(node)` — hand control to ROS; it runs your callbacks.
 
-## Register the entry point
-
-In `setup.py`, under `console_scripts`:
+## Register the entry point (`setup.py`)
 
 ```python
 "console_scripts": [
@@ -77,18 +66,5 @@ cd ~/ros2_ws
 colcon build --symlink-install --packages-select my_bot
 source install/setup.bash
 ros2 run my_bot talker
+ros2 topic echo /chatter        # another shell
 ```
-
-Confirm it from another shell:
-
-```bash
-ros2 topic echo /chatter
-ros2 topic hz /chatter        # ~2.0
-```
-
-## Self-check
-
-- [ ] My package builds with `colcon build --packages-select my_bot`
-- [ ] `ros2 run my_bot talker` logs "publishing: hello N"
-- [ ] `ros2 topic echo /chatter` shows the messages at ~2 Hz
-- [ ] I can explain why we use a timer instead of `time.sleep`

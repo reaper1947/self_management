@@ -5,8 +5,7 @@ handstand all have a weak base.
 ## What it trains
 
 - **Scapular depression** — pushing your shoulders down away from your ears under load.
-- **Straight-arm elbow and biceps-tendon tolerance** — the tissue quality static skills
-  need.
+- **Straight-arm elbow and biceps-tendon tolerance** — the tissue quality static skills need.
 - **Anterior core** — keeping the ribs down so you don't arch.
 
 ## The progression
@@ -14,18 +13,15 @@ handstand all have a weak base.
 1. **Bench/floor support** — hands on a bench, feet on the floor, take some weight off.
    Build to 3×30 s.
 2. **Parallette support hold** — full bodyweight, feet off the floor. *Target: 3×30 s.*
-3. **Ring support hold** — same, on rings. The instability adds a large demand. Turn the
-   rings slightly out ("RTO" — rings turned out) as you get stronger. *Target: 3×20 s RTO.*
-4. **Weighted support hold** — small dip belt, 5–10 kg, parallettes. Builds the strength
-   for advanced planche work.
+3. **Ring support hold** — the instability adds a large demand. Turn the rings slightly out
+   ("RTO") as you get stronger. *Target: 3×20 s RTO.*
+4. **Weighted support hold** — small dip belt, 5–10 kg, parallettes. Builds advanced planche strength.
 
 ## Form cues
 
 - **"Push the floor away"** — actively press down even though your arms are already straight.
-- **Shoulders down, chest tall.** Your shoulders should be nowhere near your ears.
+- **Shoulders down, chest tall.** Nowhere near your ears.
 - **Ribs down, glutes on.** Slight posterior pelvic tilt — no arching.
-- **Elbow pits face forward** (or slightly out), never locked into hyperextension by
-  collapsing.
 
 ## Common mistakes
 
@@ -33,8 +29,8 @@ handstand all have a weak base.
 |---|---|
 | Shrugged shoulders | Think "long neck," actively depress the scapulae |
 | Arched lower back | Squeeze glutes, tuck the pelvis, brace the hollow |
-| Bent elbows creeping in | Drop to an easier step; you're not ready for full support |
-| Rings flailing | Press them into your sides; build time before adding RTO |
+| Bent elbows creeping in | Drop to an easier step |
+| Rings flailing | Press them into your sides; build time before RTO |
 
 ## Self-check
 

@@ -36,6 +36,10 @@ COPY standby_page/ /app/standby_page/
 # Copy the built React app from Stage 1 into the backend's dist folder
 COPY --from=build /app/dashboard/dist /app/habit-tracker/dist
 
+# Uploaded course media (mounted as a volume in production)
+RUN mkdir -p /app/media
+ENV MEDIA_DIR=/app/media
+
 # Expose the Flask port
 EXPOSE 5055
 

@@ -1210,7 +1210,12 @@ def admin_lms_lesson(lid):
     with get_db() as db:
         if request.method == "GET":
             l = db.execute("SELECT * FROM lessons WHERE id=?", (lid,)).fetchone()
-            return (jsonify(dict(l)) if l else (jsonify({"error": "not found"}), 404))
+            if not l:
+                return jsonify({"error": "not found"}), 404
+            out = dict(l)
+            out["resources"] = [dict(r) for r in db.execute(
+                "SELECT * FROM resources WHERE lesson_id=? ORDER BY id", (lid,))]
+            return jsonify(out)
         if request.method == "DELETE":
             db.execute("DELETE FROM lessons WHERE id=?", (lid,))
             db.execute("DELETE FROM resources WHERE lesson_id=?", (lid,))
@@ -1300,6 +1305,13 @@ def admin_lms_reseed(course_id):
     with get_db() as db:
         summary = seed_courses(db, only=course_id, force=True)
     return jsonify({"ok": True, "summary": summary})
+
+
+@app.route("/api/admin/lms/preview", methods=["POST"])
+def admin_lms_preview():
+    _require_admin()
+    md = (request.get_json(force=True) or {}).get("md", "")
+    return jsonify({"html": render_markdown(md)})
 
 
 # ── Serve React frontend ───────────────────────────────────────────────────────

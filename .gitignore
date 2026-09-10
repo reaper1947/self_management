@@ -31,6 +31,12 @@ backups/
 tunnel.log
 cf/
 
+# ...but keep LMS seed manifests, which must be tracked
+!academy/seed/**/manifest.json
+
+# Uploaded course media (videos / documents) — lives in a Docker volume
+/media/
+
 # OS/Editor
 .DS_Store
 .vscode/

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Peter1947 Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/academy/lms.css?v=1">
+</head>
+<body>
+    <header class="topbar" id="topbar"></header>
+
+    <div id="gate" class="gate"><div><div class="spinner"></div>Loading your dashboard…</div></div>
+
+    <main id="app" class="page container" hidden>
+        <!-- profile card -->
+        <section class="profile" id="profile"></section>
+
+        <div id="resume-slot"></div>
+
+        <h2 class="section-title">Your courses</h2>
+        <div class="course-grid" id="courses"></div>
+    </main>
+
+    <script src="/academy/lms.js?v=1"></script>
+    <script src="/academy/app.js?v=1"></script>
+</body>
+</html>

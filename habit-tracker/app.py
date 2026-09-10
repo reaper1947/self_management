@@ -676,6 +676,7 @@ def lms_me():
             per_course.append({
                 "id": c["id"], "title": c["title"], "subtitle": c["subtitle"],
                 "accent": c["accent"], "access_mode": c["access_mode"],
+                "price_label": c["price_label"],
                 "owned": _owns_course(db, sid, c["id"]),
                 "progress_pct": round(100 * len(done_here) / len(flat)) if flat else 0,
                 "lessons_total": len(flat), "lessons_done": len(done_here),
@@ -944,13 +945,11 @@ def lms_course_guide(course_id, ext):
                     headers={"Content-Disposition": f'attachment; filename="{fname}"'})
 
 
-@app.route("/api/lms/checkout/<course_id>", methods=["POST"])
+@app.route("/api/lms/checkout/<course_id>", methods=["GET", "POST"])
 def lms_checkout(course_id):
     with get_db() as db:
         c = db.execute("SELECT bmc_url FROM courses WHERE id=?", (course_id,)).fetchone()
-    if not c:
-        abort(404)
-    return jsonify({"bmc_url": c["bmc_url"] or BMC_BASE})
+    return jsonify({"bmc_url": (c["bmc_url"] if c and c["bmc_url"] else BMC_BASE)})
 
 
 # ── LMS admin ────────────────────────────────────────────────────────────────
@@ -1319,18 +1318,29 @@ def serve_frontend(path):
 
 ACADEMY_DIR = os.path.join(os.path.dirname(__file__), "..", "academy")
 
-@app.route("/academy/", defaults={"path": "index.html"})
+_ACADEMY_ALIASES = {
+    "": "index.html",
+    "login": "index.html",
+    "app": "app.html",
+    "home": "app.html",
+    "courses": "app.html",
+    "dashboard": "app.html",
+    "learn": "learn.html",
+    "admin": "admin.html",
+}
+
+@app.route("/academy/", defaults={"path": ""})
 @app.route("/academy/<path:path>")
 def serve_academy(path):
-    # Map simple paths to their .html equivalents if needed
-    if path == "courses":
-        path = "courses.html"
+    # Extension-less friendly URLs -> real files
+    if path in _ACADEMY_ALIASES:
+        path = _ACADEMY_ALIASES[path]
     elif path.startswith("course/"):
-        # e.g., course/calisthenics -> course_calisthenics.html
         parts = path.split("/")
         if len(parts) == 2:
-            path = f"course_{parts[1]}.html"
-            
+            # /academy/course/<id> -> the player, deep-linked to that course
+            return redirect(f"/academy/learn?course={parts[1]}")
+
     target = os.path.join(ACADEMY_DIR, path)
     if os.path.exists(target) and os.path.isfile(target):
         return send_from_directory(ACADEMY_DIR, path)

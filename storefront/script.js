@@ -232,7 +232,7 @@
         });
     }
 
-    /* ---------- checkout ---------- */
+    /* ---------- checkout (Buy Me a Coffee) ---------- */
     function initCheckout() {
         $$(".buy-btn").forEach((btn) => {
             btn.addEventListener("click", async (e) => {
@@ -244,22 +244,22 @@
                 const original = btn.textContent;
                 btn.textContent = "...";
                 btn.style.pointerEvents = "none";
+                let url = "https://buymeacoffee.com/peter1947";
                 try {
-                    const res = await fetch("/api/create-checkout-session", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        credentials: "same-origin",
-                        body: JSON.stringify({ course_id: courseId }),
+                    const res = await fetch("/api/lms/checkout/" + encodeURIComponent(courseId), {
+                        method: "POST", credentials: "same-origin",
                     });
                     const data = await res.json();
-                    if (data.url) { window.location.href = data.url; return; }
-                    alert(data.error || "Checkout is unavailable right now. Please try again later.");
-                } catch (err) {
-                    console.error(err);
-                    alert("Connection error. Please try again.");
-                }
+                    if (data && data.bmc_url) url = data.bmc_url;
+                } catch (err) { /* fall back to the base BMC page */ }
+                window.open(url, "_blank", "noopener");
                 btn.textContent = original;
                 btn.style.pointerEvents = "";
+                setTimeout(() => alert(
+                    "Opening Buy Me a Coffee in a new tab.\n\n" +
+                    "After you pay, create your account (or log in) with the SAME email — " +
+                    "Peter unlocks your course within a day."
+                ), 100);
             });
         });
     }

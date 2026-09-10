@@ -15,7 +15,7 @@ const translations = {
         /* hero */
         hero_cmd: "peter1947:~$ ./academy --enroll",
         hero_title_1: "MASTER YOUR BODY.",
-        hero_title_2: "MASTER TECHNOLOGY.",
+        hero_title_2: "MASTER ROBOTICS.",
         hero_sub: "Two disciplines. One method: small, measured progressions — until the rep, or the robot, works. Built by an engineer who trains.",
         hero_btn_trial: "start free lesson",
         hero_btn_courses: "browse courses",
@@ -83,7 +83,7 @@ const translations = {
         cta_btn: "> run free lesson",
 
         /* footer */
-        foot_tag: "master your body. master technology.",
+        foot_tag: "master your body. master robotics.",
         foot_rights: "all rights reserved.",
 
         buy_now: "> buy",
@@ -99,7 +99,7 @@ const translations = {
 
         hero_cmd: "peter1947:~$ ./academy --enroll",
         hero_title_1: "ควบคุมร่างกายคุณ",
-        hero_title_2: "ควบคุมเทคโนโลยี",
+        hero_title_2: "ควบคุมหุ่นยนต์",
         hero_sub: "สองศาสตร์ หนึ่งวิธีการ: ก้าวหน้าทีละเล็กที่วัดผลได้ จนกว่าจะทำท่าได้ หรือหุ่นยนต์ทำงาน สร้างโดยวิศวกรที่ฝึกจริง",
         hero_btn_trial: "เริ่มบทเรียนฟรี",
         hero_btn_courses: "ดูคอร์สทั้งหมด",
@@ -158,7 +158,7 @@ const translations = {
         cta_sub: "เรียนบทเรียนฟรี แล้วค่อยตัดสินใจเรื่องที่เหลือ",
         cta_btn: "> รันบทเรียนฟรี",
 
-        foot_tag: "ควบคุมร่างกายคุณ ควบคุมเทคโนโลยี",
+        foot_tag: "ควบคุมร่างกายคุณ ควบคุมหุ่นยนต์",
         foot_rights: "สงวนลิขสิทธิ์",
 
         buy_now: "> ซื้อ",

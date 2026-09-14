@@ -1,6 +1,8 @@
 /* ─────────────────────────────────────────────────────────────
    Peter1947 — storefront i18n (EN / TH)
-   Terse, terminal voice. Elements opt in with data-i18n="key".
+   Terse, technical voice. Elements opt in with data-i18n="key".
+   Every claim here is checked against academy/seed — 28 + 33
+   written lessons, 6 + 8 modules, no video, no hardware.
    ───────────────────────────────────────────────────────────── */
 const translations = {
     en: {
@@ -16,39 +18,56 @@ const translations = {
         hero_cmd: "peter1947:~$ ./academy --enroll",
         hero_title_1: "MASTER YOUR BODY.",
         hero_title_2: "MASTER ROBOTICS.",
-        hero_sub: "Two disciplines. One method: small, measured progressions — until the rep, or the robot, works. Built by an engineer who trains.",
+        hero_sub: "Two disciplines, one method: small measured progressions, each with a fallback, until the rep or the robot works.",
         hero_btn_trial: "start free lesson",
         hero_btn_courses: "browse courses",
-        hero_stat_modules: "modules",
         hero_stat_lessons: "lessons",
+        hero_stat_modules: "modules",
         hero_stat_free: "free to run now",
-
-        /* system / marquee */
-        sys_label: "// stack",
 
         /* paths */
         paths_tag: "// courses",
-        paths_title: "Choose a path.",
-        paths_sub: "Same method on both tracks. One needs a bar, one needs a terminal.",
+        paths_title: "Two graphs. One method.",
+        paths_sub: "Every skill is a node with one edge in and one edge out. You always know the next step, and the step back if you are not ready.",
         path_cal_name: "calisthenics",
-        path_cal_line: "\"own your bodyweight.\"",
-        path_cal_desc: "Push-ups to planche. Dead hang to muscle-up. A 12-week progressive system with a fallback for every step.",
+        path_cal_line: "Own your bodyweight.",
+        path_cal_desc: "Push-ups to planche. Dead hang to muscle-up. Each skill as a progression with a fallback, ending in a 12-week plan you run yourself.",
         path_rob_name: "robotics",
-        path_rob_line: "\"from your first node to a rover.\"",
+        path_rob_line: "From your first node to a rover.",
         path_rob_desc: "The real ROS 2 workflow in Python: nodes, TF2, Gazebo, Nav2 and SLAM. Capstone: an autonomous patrol rover you bring up yourself.",
-        path_open: "open track",
+
+        /* spec tables */
+        spec_lessons: "lessons",
+        spec_written: "written",
+        spec_modules: "modules",
+        spec_cal_range: "assessment → programming",
+        spec_rob_range: "setup → capstone",
+        spec_format: "format",
+        spec_cal_format: "progressions + self-checks",
+        spec_kit: "kit",
+        spec_cal_kit: "a bar + a floor",
+        spec_access: "access",
+        spec_lifetime: "lifetime",
+        spec_version: "version",
+        spec_code: "code",
+        spec_hardware: "hardware",
+        spec_rob_hw: "none — runs in Gazebo",
+
+        /* graph captions */
+        cap_cal: "module 05 · dynamic — pull · the small dots are the fallback if a step is too hard",
+        cap_rob: "* capstone — it maps, it patrols, it avoids. every box is a module you build.",
 
         /* trial */
         trial_tag: "// free-trial",
         trial_title: "Run a real lesson. No card.",
-        trial_sub: "A full lesson from each track. Progress is saved locally. Unlock the rest whenever.",
+        trial_sub: "A full lesson from each track, exactly as it appears inside the course. Progress is saved in your browser.",
+        trial_free: "free",
         trial_cal_title: "calisthenics/02_pull-ups",
         trial_cal_desc: "Dead hang → scapular pulls → negatives → first clean rep. Plus a 3-week plan.",
         trial_rob_title: "robotics/01_nodes-topics",
         trial_rob_desc: "The compute graph → run two nodes → inspect topics live → your challenge.",
         trial_start: "> start lesson",
         trial_academy_note: "peter1947:~$ # want more — a free account unlocks a full starter module",
-        trial_academy_btn: "open academy",
 
         /* curriculum */
         curr_tag: "// curriculum",
@@ -67,11 +86,34 @@ const translations = {
         price_per: "// one-time",
         price_buy: "> get access",
         price_guarantee: "peter1947:~$ # 14-day refund, no questions asked",
-
+        price_cal_1: "28 in-depth written lessons",
+        price_cal_2: "06 modules, assessment → programming",
+        price_cal_3: "a 12-week plan you run yourself",
+        price_cal_4: "lifetime access + every update",
+        price_bun_1: "everything in both courses",
+        price_bun_2: "save $19 vs. separate",
+        price_bun_3: "priority Q&A from Peter",
+        price_bun_4: "lifetime updates, both tracks",
+        price_rob_1: "33 in-depth written lessons",
+        price_rob_2: "08 modules, setup → capstone",
+        price_rob_3: "ROS 2 Humble / Jazzy, rclpy",
+        price_rob_4: "Nav2 + SLAM capstone in Gazebo",
 
         /* faq */
         faq_tag: "// faq",
         faq_title: "Questions.",
+        faq_q1: "is the free lesson really free?",
+        faq_a1: "Yes. Both trial lessons are fully open — no account, no card. A free Academy account unlocks a full starter module on top.",
+        faq_q2: "is this video or written?",
+        faq_a2: "Written. Every lesson is text you read plus commands you run, ending in a self-check — not a video course. Run a free lesson first and you will see exactly what you are buying.",
+        faq_q3: "do i need prior experience?",
+        faq_a3: "No. Both courses start from zero — your first push-up, your first line of code — and build in small, testable steps.",
+        faq_q4: "what equipment do i need?",
+        faq_a4: "Calisthenics: a pull-up bar and a floor. Robotics: a computer running Ubuntu with ROS 2 Humble or Jazzy — everything is simulated in Gazebo, so no robot hardware is required.",
+        faq_q5: "how long do i keep access?",
+        faq_a5: "Forever. One-time purchase, lifetime access, every future update included.",
+        faq_q6: "refund policy?",
+        faq_a6: "14 days, no questions asked. Email Peter, get a full refund.",
 
         /* cta */
         cta_cmd: "peter1947:~$ ./start --now",
@@ -81,6 +123,10 @@ const translations = {
 
         /* footer */
         foot_tag: "master your body. master robotics.",
+        foot_free_cal: "calisthenics lesson",
+        foot_free_rob: "robotics lesson",
+        foot_account: "academy account",
+        foot_login: "student login",
         foot_rights: "all rights reserved.",
 
         buy_now: "> buy",
@@ -97,36 +143,52 @@ const translations = {
         hero_cmd: "peter1947:~$ ./academy --enroll",
         hero_title_1: "ควบคุมร่างกายคุณ",
         hero_title_2: "ควบคุมหุ่นยนต์",
-        hero_sub: "สองศาสตร์ หนึ่งวิธีการ: ก้าวหน้าทีละเล็กที่วัดผลได้ จนกว่าจะทำท่าได้ หรือหุ่นยนต์ทำงาน สร้างโดยวิศวกรที่ฝึกจริง",
+        hero_sub: "สองศาสตร์ หนึ่งวิธีการ: ก้าวทีละขั้นที่วัดผลได้ ทุกขั้นมีทางถอย จนกว่าจะทำท่าได้ หรือหุ่นยนต์ทำงาน",
         hero_btn_trial: "เริ่มบทเรียนฟรี",
         hero_btn_courses: "ดูคอร์สทั้งหมด",
-        hero_stat_modules: "โมดูล",
         hero_stat_lessons: "บทเรียน",
-        hero_stat_free: "บทเรียนฟรี",
-
-        sys_label: "// สแตก",
+        hero_stat_modules: "โมดูล",
+        hero_stat_free: "บทเรียนฟรี เริ่มได้เลย",
 
         paths_tag: "// คอร์ส",
-        paths_title: "เลือกเส้นทาง",
-        paths_sub: "วิธีการเดียวกันทั้งสองเส้นทาง ต่างกันที่อันหนึ่งใช้บาร์ อีกอันใช้เทอร์มินัล",
+        paths_title: "สองกราฟ หนึ่งวิธีการ",
+        paths_sub: "ทุกทักษะคือโหนดที่มีทางเข้าหนึ่งทาง ทางออกหนึ่งทาง คุณรู้เสมอว่าขั้นต่อไปคืออะไร และถอยกลับไปไหนถ้ายังไม่พร้อม",
         path_cal_name: "คาลิสเทนิกส์",
-        path_cal_line: "\"ควบคุมน้ำหนักตัวคุณ\"",
-        path_cal_desc: "วิดพื้นถึงแพลนช์ ห้อยบาร์ถึงมัสเซิลอัพ ระบบ 12 สัปดาห์ พร้อมทางเลือกสำรองทุกขั้น",
+        path_cal_line: "ควบคุมน้ำหนักตัวคุณ",
+        path_cal_desc: "วิดพื้นถึงแพลนช์ ห้อยบาร์ถึงมัสเซิลอัพ ทุกทักษะเป็นลำดับขั้นที่มีทางถอย ปิดท้ายด้วยแผน 12 สัปดาห์ที่คุณรันเอง",
         path_rob_name: "หุ่นยนต์",
-        path_rob_line: "\"จากโหนดแรกสู่โรเวอร์\"",
+        path_rob_line: "จากโหนดแรกสู่โรเวอร์",
         path_rob_desc: "เวิร์กโฟลว์ ROS 2 จริงด้วย Python: โหนด TF2 Gazebo Nav2 และ SLAM ปลายทาง: โรเวอร์ลาดตระเวนอัตโนมัติที่คุณตั้งค่าเอง",
-        path_open: "เปิดเส้นทาง",
+
+        spec_lessons: "บทเรียน",
+        spec_written: "บท · ตัวหนังสือ",
+        spec_modules: "โมดูล",
+        spec_cal_range: "ประเมินระดับ → วางโปรแกรม",
+        spec_rob_range: "ติดตั้ง → แคปสโตน",
+        spec_format: "รูปแบบ",
+        spec_cal_format: "ลำดับขั้น + เช็กลิสต์",
+        spec_kit: "อุปกรณ์",
+        spec_cal_kit: "บาร์หนึ่งอัน กับพื้น",
+        spec_access: "สิทธิ์",
+        spec_lifetime: "ตลอดชีพ",
+        spec_version: "เวอร์ชัน",
+        spec_code: "โค้ด",
+        spec_hardware: "ฮาร์ดแวร์",
+        spec_rob_hw: "ไม่ต้องมี — รันใน Gazebo",
+
+        cap_cal: "โมดูล 05 · dynamic — pull · จุดเล็กคือทางถอย ถ้าขั้นนั้นยากเกินไป",
+        cap_rob: "* แคปสโตน — สร้างแผนที่ ลาดตระเวน หลบสิ่งกีดขวาง ทุกกล่องคือโมดูลที่คุณสร้าง",
 
         trial_tag: "// ทดลองฟรี",
         trial_title: "ลองเรียนบทเรียนจริง ไม่ต้องใช้บัตร",
-        trial_sub: "บทเรียนเต็มจากแต่ละเส้นทาง ความก้าวหน้าถูกบันทึกในเครื่อง ปลดล็อกส่วนที่เหลือเมื่อพร้อม",
+        trial_sub: "บทเรียนเต็มจากแต่ละเส้นทาง เหมือนที่อยู่ในคอร์สทุกตัวอักษร ความก้าวหน้าบันทึกในเบราว์เซอร์",
+        trial_free: "ฟรี",
         trial_cal_title: "calisthenics/02_pull-ups",
         trial_cal_desc: "ห้อยบาร์ → สแคปปูลาร์พูล → เนกาทีฟ → ดึงข้อครั้งแรก พร้อมแผน 3 สัปดาห์",
         trial_rob_title: "robotics/01_nodes-topics",
         trial_rob_desc: "กราฟการประมวลผล → รันสองโหนด → ดู topic แบบเรียลไทม์ → โจทย์ของคุณ",
         trial_start: "> เริ่มบทเรียน",
         trial_academy_note: "peter1947:~$ # ต้องการมากกว่านี้ — บัญชีฟรีปลดล็อกโมดูลเริ่มต้นเต็ม",
-        trial_academy_btn: "เปิดสถาบัน",
 
         curr_tag: "// หลักสูตร",
         curr_title: "มีอะไรในกล่อง",
@@ -143,10 +205,33 @@ const translations = {
         price_per: "// จ่ายครั้งเดียว",
         price_buy: "> รับสิทธิ์",
         price_guarantee: "peter1947:~$ # คืนเงินภายใน 14 วัน ไม่มีเงื่อนไข",
-
+        price_cal_1: "28 บทเรียนเชิงลึก แบบตัวหนังสือ",
+        price_cal_2: "06 โมดูล ประเมินระดับ → วางโปรแกรม",
+        price_cal_3: "แผน 12 สัปดาห์ที่คุณรันเอง",
+        price_cal_4: "สิทธิ์ตลอดชีพ + อัปเดตทุกครั้ง",
+        price_bun_1: "ได้ครบทั้งสองคอร์ส",
+        price_bun_2: "ประหยัด $19 เทียบกับซื้อแยก",
+        price_bun_3: "ถาม-ตอบกับ Peter แบบลำดับแรก",
+        price_bun_4: "อัปเดตตลอดชีพ ทั้งสองเส้นทาง",
+        price_rob_1: "33 บทเรียนเชิงลึก แบบตัวหนังสือ",
+        price_rob_2: "08 โมดูล ติดตั้ง → แคปสโตน",
+        price_rob_3: "ROS 2 Humble / Jazzy, rclpy",
+        price_rob_4: "แคปสโตน Nav2 + SLAM ใน Gazebo",
 
         faq_tag: "// คำถาม",
         faq_title: "คำถาม",
+        faq_q1: "บทเรียนฟรี ฟรีจริงไหม",
+        faq_a1: "จริง บทเรียนทดลองทั้งสองเปิดเต็ม ไม่ต้องสมัคร ไม่ต้องใช้บัตร และบัญชีฟรีของ Academy ปลดล็อกโมดูลเริ่มต้นเต็มให้อีกหนึ่งโมดูล",
+        faq_q2: "เป็นวิดีโอหรือตัวหนังสือ",
+        faq_a2: "ตัวหนังสือ ทุกบทเรียนคือข้อความที่อ่าน บวกคำสั่งที่รันจริง ปิดท้ายด้วยเช็กลิสต์ ไม่ใช่คอร์สวิดีโอ ลองบทเรียนฟรีก่อน แล้วคุณจะเห็นชัดว่ากำลังซื้ออะไร",
+        faq_q3: "ต้องมีพื้นฐานมาก่อนไหม",
+        faq_a3: "ไม่ต้อง ทั้งสองคอร์สเริ่มจากศูนย์ — วิดพื้นครั้งแรก โค้ดบรรทัดแรก — แล้วไต่ขึ้นทีละขั้นที่ทดสอบได้",
+        faq_q4: "ต้องใช้อุปกรณ์อะไร",
+        faq_a4: "คาลิสเทนิกส์: บาร์ดึงข้อกับพื้น หุ่นยนต์: คอมพิวเตอร์ที่รัน Ubuntu พร้อม ROS 2 Humble หรือ Jazzy ทุกอย่างจำลองใน Gazebo จึงไม่ต้องมีฮาร์ดแวร์หุ่นยนต์",
+        faq_q5: "เข้าถึงได้นานแค่ไหน",
+        faq_a5: "ตลอดไป จ่ายครั้งเดียว ใช้ได้ตลอดชีพ รวมอัปเดตในอนาคตทั้งหมด",
+        faq_q6: "นโยบายคืนเงิน",
+        faq_a6: "14 วัน ไม่มีเงื่อนไข อีเมลหา Peter แล้วได้เงินคืนเต็มจำนวน",
 
         cta_cmd: "peter1947:~$ ./start --now",
         cta_title: "เรพแรกของคุณเริ่มคืนนี้",
@@ -154,6 +239,10 @@ const translations = {
         cta_btn: "> รันบทเรียนฟรี",
 
         foot_tag: "ควบคุมร่างกายคุณ ควบคุมหุ่นยนต์",
+        foot_free_cal: "บทเรียนคาลิสเทนิกส์",
+        foot_free_rob: "บทเรียนหุ่นยนต์",
+        foot_account: "บัญชี Academy",
+        foot_login: "เข้าสู่ระบบนักเรียน",
         foot_rights: "สงวนลิขสิทธิ์",
 
         buy_now: "> ซื้อ",

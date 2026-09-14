@@ -1,0 +1,83 @@
+{
+  "id": "calisthenics",
+  "title": "Calisthenics: Zero to Expert",
+  "subtitle": "From your first push-up to the planche — static and dynamic bodyweight strength, built as progressions.",
+  "description": "A complete bodyweight strength curriculum. You start with an honest assessment, learn to brace and prepare your joints, then work two parallel tracks: **static movements** (support hold, L-sit, handstand, german hang, skin the cat, back lever, front lever, planche) and **dynamic movements** (push-up, dip, pull-up, muscle-up, explosive work). It ends with the programming knowledge to turn all of it into a plan you can actually follow.",
+  "accent": "cal",
+  "access_mode": "paid",
+  "price_label": "$49",
+  "bmc_url": "https://buymeacoffee.com/peter1947/e/calisthenics-zero-to-expert",
+  "sort": 1,
+  "modules": [
+    {
+      "title": "Foundations & Assessment",
+      "category": "core",
+      "summary": "Find your true starting point and build the positions everything else depends on.",
+      "lessons": [
+        { "title": "How this course works", "file": "01-foundations/01-how-this-works.md", "kind": "reading", "duration_min": 6, "is_free": true },
+        { "title": "The assessment: find your real level", "file": "01-foundations/02-the-assessment.md", "kind": "reading", "duration_min": 10, "is_free": true },
+        { "title": "Joint prep & mobility", "file": "01-foundations/03-joint-prep-and-mobility.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Hollow body & full-body bracing", "file": "01-foundations/04-hollow-body-and-bracing.md", "kind": "reading", "duration_min": 10 }
+      ]
+    },
+    {
+      "title": "Static Movements — Support & Core",
+      "category": "static",
+      "summary": "Holding your bodyweight still. Support hold, L-sit, the handstand, and the planche lean.",
+      "lessons": [
+        { "title": "The support hold", "file": "02-static-support/01-support-hold.md", "kind": "reading", "duration_min": 8, "is_free": true },
+        { "title": "The L-sit progression", "file": "02-static-support/02-l-sit-progression.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Planche lean & tuck planche", "file": "02-static-support/03-tuck-planche-and-lean.md", "kind": "reading", "duration_min": 14 },
+        { "title": "The handstand, part 1 — the wall", "file": "02-static-support/04-handstand-wall.md", "kind": "reading", "duration_min": 16 },
+        { "title": "The handstand, part 2 — freestanding", "file": "02-static-support/05-handstand-freestanding.md", "kind": "reading", "duration_min": 16 }
+      ]
+    },
+    {
+      "title": "Static Movements — The Pull Chain",
+      "category": "static",
+      "summary": "Shoulder extension and straight-arm pulling. German hang, skin the cat, back lever, front lever.",
+      "lessons": [
+        { "title": "German hang & safe shoulder extension", "file": "03-static-pull/01-german-hang.md", "kind": "reading", "duration_min": 10, "is_free": true },
+        { "title": "Skin the cat", "file": "03-static-pull/02-skin-the-cat.md", "kind": "reading", "duration_min": 10 },
+        { "title": "Tuck back lever", "file": "03-static-pull/03-tuck-back-lever.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Tuck front lever", "file": "03-static-pull/04-tuck-front-lever.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Advanced lever progressions", "file": "03-static-pull/05-advanced-levers.md", "kind": "reading", "duration_min": 14 }
+      ]
+    },
+    {
+      "title": "Dynamic Movements — Push",
+      "category": "dynamic",
+      "summary": "Moving under load. The push-up and dip families, up to pseudo-planche push-ups.",
+      "lessons": [
+        { "title": "The push-up progression", "file": "04-dynamic-push/01-push-up-progression.md", "kind": "reading", "duration_min": 12, "is_free": true },
+        { "title": "Parallel-bar dips", "file": "04-dynamic-push/02-parallel-bar-dips.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Straight-bar dips", "file": "04-dynamic-push/03-straight-bar-dips.md", "kind": "reading", "duration_min": 10 },
+        { "title": "Pike & pseudo-planche push-ups", "file": "04-dynamic-push/04-pike-and-ppp.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Dynamic Movements — Pull",
+      "category": "dynamic",
+      "summary": "The pull-up, the muscle-up, and explosive pulling.",
+      "lessons": [
+        { "title": "The pull-up progression", "file": "05-dynamic-pull/01-pull-up-progression.md", "kind": "reading", "duration_min": 14, "is_free": true },
+        { "title": "Archer & weighted pulls", "file": "05-dynamic-pull/02-archer-and-weighted.md", "kind": "reading", "duration_min": 10 },
+        { "title": "The muscle-up, part 1 — the transition", "file": "05-dynamic-pull/03-muscle-up-transition.md", "kind": "reading", "duration_min": 14 },
+        { "title": "The muscle-up, part 2 — clean reps", "file": "05-dynamic-pull/04-muscle-up-clean.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Explosive pulls & plyometrics", "file": "05-dynamic-pull/05-explosive-pulls.md", "kind": "reading", "duration_min": 10 }
+      ]
+    },
+    {
+      "title": "Putting It Together — Programming",
+      "category": "core",
+      "summary": "Turn the movements into a plan: overload, recovery, splits, deloads, testing, injury-proofing.",
+      "lessons": [
+        { "title": "Training principles: overload & recovery", "file": "06-programming/01-principles.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Building your weekly split", "file": "06-programming/02-weekly-split.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Deloads, peaking & testing", "file": "06-programming/03-deloads-and-peaking.md", "kind": "reading", "duration_min": 10 },
+        { "title": "Injury-proofing: wrists, elbows, shoulders", "file": "06-programming/04-injury-proofing.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Your 12-week plan", "file": "06-programming/05-twelve-week-plan.md", "kind": "reading", "duration_min": 10 }
+      ]
+    }
+  ]
+}

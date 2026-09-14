@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Peter1947 Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/academy/lms.css?v=1">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/academy/admin"><span class="dot"></span>peter<b>1947</b> · admin</a>
+        <div class="right">
+            <a class="btn btn-sm btn-ghost" href="/academy/app">Student view</a>
+            <button class="btn btn-sm btn-ghost" id="logout" hidden>Logout</button>
+        </div>
+    </header>
+
+    <!-- login gate -->
+    <div id="login" class="gate" hidden>
+        <form class="form-stack" id="login-form" style="text-align:left">
+            <h2>Admin login</h2>
+            <label class="field"><span>Password</span>
+                <input type="password" id="pw" autocomplete="current-password" required></label>
+            <button class="btn btn-primary btn-block" type="submit">Enter</button>
+            <p class="err-text" id="login-err"></p>
+        </form>
+    </div>
+
+    <div id="boot" class="gate"><div><div class="spinner"></div>Checking session…</div></div>
+
+    <main id="admin" class="page container" hidden>
+        <div class="adm-tabs">
+            <button class="adm-tab active" data-p="dash">Dashboard</button>
+            <button class="adm-tab" data-p="courses">Courses &amp; lessons</button>
+            <button class="adm-tab" data-p="students">Students</button>
+            <button class="adm-tab" data-p="grants">Grant access</button>
+        </div>
+
+        <section class="adm-panel active" id="p-dash"></section>
+        <section class="adm-panel" id="p-courses"></section>
+        <section class="adm-panel" id="p-students"></section>
+        <section class="adm-panel" id="p-grants"></section>
+    </main>
+
+    <script src="/academy/lms.js?v=1"></script>
+    <script src="/academy/admin.js?v=1"></script>
+</body>
+</html>

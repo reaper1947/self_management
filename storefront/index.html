@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peter1947 Academy — project-based courses in Calisthenics and Robotics Engineering. Run a full lesson free, no card required.">
+    <meta name="theme-color" content="#060607">
+    <meta property="og:title" content="Peter1947 Academy — Calisthenics & Robotics">
+    <meta property="og:description" content="Master your body. Master robotics. Run a full lesson free.">
+    <meta property="og:type" content="website">
+    <title>Peter1947 Academy — Calisthenics &amp; Robotics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=21">
+</head>
+<body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Nav -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#top" class="logo"><span class="blip"></span>peter1947<span class="cwd">:~/academy</span></a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#paths"><span>~/</span><span data-i18n="nav_paths">courses</span></a></li>
+                <li><a href="#trial"><span>~/</span><span data-i18n="nav_trial">free-trial</span></a></li>
+                <li><a href="#curriculum"><span>~/</span><span data-i18n="nav_curriculum">curriculum</span></a></li>
+                <li><a href="#pricing"><span>~/</span><span data-i18n="nav_pricing">pricing</span></a></li>
+                <li><a href="#faq"><span>~/</span><span data-i18n="nav_faq">faq</span></a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="lang-toggle" class="lang-btn" aria-label="Switch language">TH</button>
+                <a href="/academy/" class="btn btn-ghost login-btn"><span data-i18n="nav_login">login</span></a>
+                <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header id="top" class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container">
+            <p class="cmd reveal"><span data-i18n="hero_cmd">peter1947:~$ ./academy --enroll</span></p>
+            <h1 class="hero-title">
+                <span class="tw" data-text="MASTER YOUR BODY." data-i18n="hero_title_1">MASTER YOUR BODY.</span>
+                <span class="tw-wrap"><span class="tw tw-2" data-text="MASTER ROBOTICS." data-i18n="hero_title_2">MASTER ROBOTICS.</span><b class="caret" aria-hidden="true" hidden>&#9611;</b></span>
+            </h1>
+            <p class="hero-sub reveal">
+                <span class="arrow">&gt;</span>
+                <span data-i18n="hero_sub">Two disciplines. One method: small, measured progressions — until the rep, or the robot, works. Built by an engineer who trains.</span>
+            </p>
+            <div class="hero-cta reveal">
+                <a href="#trial" class="btn btn-primary" data-i18n="hero_btn_trial">start free lesson</a>
+                <a href="#paths" class="btn btn-ghost" data-i18n="hero_btn_courses">browse courses</a>
+            </div>
+            <ul class="hero-stats reveal">
+                <li><b data-count="520" data-suffix="+">0</b><span data-i18n="hero_stat_students">students</span></li>
+                <li><i>·</i></li>
+                <li><b data-count="130" data-suffix="+">0</b><span data-i18n="hero_stat_lessons">lessons</span></li>
+                <li><i>·</i></li>
+                <li><b data-count="4.9" data-decimals="1">0</b><span data-i18n="hero_stat_rating">avg rating</span></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Terminal panel -->
+    <section id="trust" class="section term-section">
+        <div class="container">
+            <p class="tag reveal" data-i18n="sys_label">// stack</p>
+            <pre class="terminal reveal" id="terminal" aria-label="Curriculum listing"><span class="p">peter1947:~$ </span>tree academy --depth 1
+academy
+├── calisthenics/       06 modules · 50+ lessons
+│   └── 02_pull-ups     ← free lesson
+├── robotics/           06 modules · 80+ lessons
+│   └── 01_first-circuit ← free lesson
+└── pricing.txt         $49 · $69 · $99 bundle
+
+<span class="p">peter1947:~$ </span>./enroll --trial
+&gt; no card required. progress saved locally.
+<span class="p">peter1947:~$ </span><span class="cur">▋</span></pre>
+        </div>
+    </section>
+
+    <!-- Paths -->
+    <section id="paths" class="section paths">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="paths_tag">// courses</p>
+                <h2 data-i18n="paths_title">Choose a path.</h2>
+                <p class="section-sub" data-i18n="paths_sub">Same philosophy on both tracks. Different hardware.</p>
+            </div>
+            <div class="rule reveal" aria-hidden="true"></div>
+
+            <div class="path-list">
+                <a href="#calisthenics" class="path-row reveal" data-accent="cal">
+                    <span class="path-idx">[01]</span>
+                    <div class="path-main">
+                        <h3><span data-i18n="path_cal_name">calisthenics</span> <em data-i18n="path_cal_line">"own your bodyweight."</em></h3>
+                        <p data-i18n="path_cal_desc">Push-ups to planche. Dead hang to muscle-up. A 12-week progressive system with a fallback for every step.</p>
+                    </div>
+                    <span class="path-go"><span data-i18n="path_open">open track</span> →</span>
+                </a>
+                <div class="rule dashed reveal" aria-hidden="true"></div>
+                <a href="#robotics" class="path-row reveal" data-accent="rob">
+                    <span class="path-idx">[02]</span>
+                    <div class="path-main">
+                        <h3><span data-i18n="path_rob_name">robotics</span> <em data-i18n="path_rob_line">"from a blink to a rover."</em></h3>
+                        <p data-i18n="path_rob_desc">Electronics, Python, C++, ROS. Every module ends with working hardware. Capstone: an autonomous rover you built.</p>
+                    </div>
+                    <span class="path-go"><span data-i18n="path_open">open track</span> →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free trial -->
+    <section id="trial" class="section trial">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="trial_tag">// free-trial</p>
+                <h2 data-i18n="trial_title">Run a real lesson. No card.</h2>
+                <p class="section-sub" data-i18n="trial_sub">A full lesson from each track. Progress is saved locally. Unlock the rest whenever.</p>
+            </div>
+
+            <div class="trial-grid">
+                <a href="/storefront/trial/calisthenics.html" class="trial-card reveal" data-accent="cal">
+                    <p class="fpath"><span data-i18n="trial_cal_title">calisthenics/02_pull-ups</span> <b class="free">free</b></p>
+                    <p data-i18n="trial_cal_desc">Dead hang → scapular pulls → negatives → first clean rep. Plus a 3-week plan.</p>
+                    <span class="clink" data-i18n="trial_start">&gt; start lesson</span>
+                </a>
+                <a href="/storefront/trial/robotics.html" class="trial-card reveal" data-accent="rob">
+                    <p class="fpath"><span data-i18n="trial_rob_title">robotics/01_first-circuit</span> <b class="free">free</b></p>
+                    <p data-i18n="trial_rob_desc">Ohm's law → breadboard → blink, line by line → debugging → your challenge.</p>
+                    <span class="clink" data-i18n="trial_start">&gt; start lesson</span>
+                </a>
+            </div>
+
+            <p class="note reveal" data-i18n="trial_academy_note">peter1947:~$ # want more — a free account unlocks a full starter module</p>
+            <a href="/academy/" class="btn btn-ghost reveal" data-i18n="trial_academy_btn">open academy</a>
+        </div>
+    </section>
+
+    <!-- Calisthenics -->
+    <section id="calisthenics" class="section course" data-accent="cal">
+        <div class="container course-wrap">
+            <div class="course-lead reveal">
+                <p class="tag">[01] calisthenics</p>
+                <h2>Own your bodyweight.</h2>
+                <p class="course-desc">A 12-week system: push-ups, pull-ups, dips, muscle-ups, handstands, straight-arm
+                    strength. Every week: one target, one video breakdown, one fallback if you're not ready.</p>
+                <ul class="spec">
+                    <li><span>lessons</span><b>50+ HD tutorials</b></li>
+                    <li><span>format</span><b>week-by-week log</b></li>
+                    <li><span>kit</span><b>a bar + a floor</b></li>
+                    <li><span>extras</span><b>mobility · nutrition · community</b></li>
+                    <li><span>access</span><b>lifetime</b></li>
+                </ul>
+                <div class="buyline">
+                    <span class="price">$49</span><span class="was">$99</span>
+                    <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">&gt; buy</a>
+                </div>
+            </div>
+            <pre class="ascii reveal" data-accent="cal" aria-hidden="true">
+   dead hang        ▓░░░░░░░░░  wk1
+   scapular pulls   ▓▓▓░░░░░░░  wk2
+   negatives        ▓▓▓▓▓░░░░░  wk4
+   band-assisted    ▓▓▓▓▓▓▓░░░  wk7
+ » first pull-up    ▓▓▓▓▓▓▓▓▓░  wk9
+   muscle-up        ▓▓▓▓▓▓▓▓▓▓  wk12
+            </pre>
+        </div>
+    </section>
+
+    <!-- Robotics -->
+    <section id="robotics" class="section course" data-accent="rob">
+        <div class="container course-wrap reverse">
+            <div class="course-lead reveal">
+                <p class="tag">[02] robotics</p>
+                <h2>From a blink to a rover.</h2>
+                <p class="course-desc">Build small, understand every wire and line, build bigger. Ends with a fully
+                    autonomous obstacle-avoiding rover you assembled and programmed yourself.</p>
+                <ul class="spec">
+                    <li><span>lessons</span><b>80+ HD, circuit → code</b></li>
+                    <li><span>hardware</span><b>~$60–100 parts list</b></li>
+                    <li><span>code</span><b>Python + C++</b></li>
+                    <li><span>framework</span><b>ROS deep dive</b></li>
+                    <li><span>builds</span><b>10 hands-on projects</b></li>
+                </ul>
+                <div class="buyline">
+                    <span class="price">$69</span><span class="was">$129</span>
+                    <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">&gt; buy</a>
+                </div>
+            </div>
+            <pre class="ascii reveal" data-accent="rob" aria-hidden="true">
+   $ ls robotics/
+   01_electronics   02_microcontrollers
+   03_sensors       04_raspberry-pi
+   05_ros           06_rover*
+
+   * capstone — it drives, it avoids
+            </pre>
+        </div>
+    </section>
+
+    <!-- Curriculum -->
+    <section id="curriculum" class="section curriculum">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="curr_tag">// curriculum</p>
+                <h2 data-i18n="curr_title">What's in the box.</h2>
+            </div>
+
+            <div class="curr-tabs reveal">
+                <button class="curr-tab active" data-panel="curr-cal" data-i18n="curr_cal">calisthenics/</button>
+                <button class="curr-tab" data-panel="curr-rob" data-i18n="curr_rob">robotics/</button>
+            </div>
+
+            <div class="curr-panel active" id="curr-cal">
+                <ol class="modules">
+                    <li class="reveal"><span class="m-no">01</span><b>foundations</b><span class="m-desc">hollow body, scapular control, the hang. find your real level.</span><span class="m-free">free · academy</span></li>
+                    <li class="reveal"><span class="m-no">02</span><b>the pull-up</b><span class="m-desc">dead hang → active hang → negatives → assisted → first rep → volume.</span><span class="m-free">free lesson</span></li>
+                    <li class="reveal"><span class="m-no">03</span><b>push &amp; dips</b><span class="m-desc">incline to full push-ups, pike work, straight-bar &amp; ring dips.</span></li>
+                    <li class="reveal"><span class="m-no">04</span><b>core &amp; compression</b><span class="m-desc">leg raises, L-sit, hollow rocks — base for every skill.</span></li>
+                    <li class="reveal"><span class="m-no">05</span><b>the muscle-up</b><span class="m-desc">explosive pull, transition drills, clean bar &amp; ring reps.</span></li>
+                    <li class="reveal"><span class="m-no">06</span><b>straight-arm strength</b><span class="m-desc">handstand balance, intro planche &amp; front lever.</span></li>
+                </ol>
+            </div>
+            <div class="curr-panel" id="curr-rob">
+                <ol class="modules">
+                    <li class="reveal"><span class="m-no">01</span><b>electronics</b><span class="m-desc">voltage, current, resistance, the breadboard. blink an LED.</span><span class="m-free">free lesson</span></li>
+                    <li class="reveal"><span class="m-no">02</span><b>microcontrollers &amp; C++</b><span class="m-desc">arduino I/O, non-blocking timing, reading inputs.</span></li>
+                    <li class="reveal"><span class="m-no">03</span><b>sensors &amp; actuators</b><span class="m-desc">ultrasonic, IMU, line sensors; motors &amp; servos, safely.</span></li>
+                    <li class="reveal"><span class="m-no">04</span><b>raspberry pi &amp; python</b><span class="m-desc">serial links, threading, a real computer on the robot.</span></li>
+                    <li class="reveal"><span class="m-no">05</span><b>ROS fundamentals</b><span class="m-desc">nodes, topics, services; simulate before you burn a motor.</span></li>
+                    <li class="reveal"><span class="m-no">06</span><b>capstone: rover</b><span class="m-desc">sensor fusion, obstacle avoidance, a tuned control loop.</span></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section pricing">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="price_tag">// pricing</p>
+                <h2 data-i18n="price_title">One payment. Kept forever.</h2>
+                <p class="section-sub" data-i18n="price_sub">No subscription. Every future update included.</p>
+            </div>
+
+            <div class="price-grid">
+                <div class="plan reveal">
+                    <p class="plan-name" data-i18n="price_cal_name">calisthenics</p>
+                    <p class="plan-price">$49 <span data-i18n="price_per">// one-time</span></p>
+                    <ul>
+                        <li>50+ HD video lessons</li>
+                        <li>12-week training log</li>
+                        <li>nutrition guide</li>
+                        <li>community access</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost buy-btn" data-course="calisthenics" data-i18n="price_buy">&gt; get access</a>
+                </div>
+                <div class="plan featured reveal">
+                    <span class="plan-badge" data-i18n="price_popular">best value</span>
+                    <p class="plan-name" data-i18n="price_bundle_name">both tracks</p>
+                    <p class="plan-price">$99 <span data-i18n="price_per">// one-time</span></p>
+                    <ul>
+                        <li>everything in both courses</li>
+                        <li>save $19 vs. separate</li>
+                        <li>priority Q&amp;A from Peter</li>
+                        <li>lifetime updates, both tracks</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary buy-btn" data-course="bundle" data-i18n="price_buy">&gt; get access</a>
+                </div>
+                <div class="plan reveal">
+                    <p class="plan-name" data-i18n="price_rob_name">robotics</p>
+                    <p class="plan-price">$69 <span data-i18n="price_per">// one-time</span></p>
+                    <ul>
+                        <li>80+ HD video lessons</li>
+                        <li>parts list &amp; wiring diagrams</li>
+                        <li>ROS deep dive</li>
+                        <li>10 build projects</li>
+                    </ul>
+                    <a href="#" class="btn btn-ghost buy-btn" data-course="robotics" data-i18n="price_buy">&gt; get access</a>
+                </div>
+            </div>
+            <p class="note reveal" data-i18n="price_guarantee">peter1947:~$ # 14-day refund, no questions asked</p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="tst_tag">// results</p>
+                <h2 data-i18n="tst_title">People who finished.</h2>
+            </div>
+            <div class="tst-list">
+                <figure class="tst reveal">
+                    <blockquote>"The progressions are the whole point. I'd failed at pull-ups for years — first clean muscle-up in week 9 following this exactly."</blockquote>
+                    <figcaption>— marcus_j <span>// started at 0 pull-ups</span></figcaption>
+                </figure>
+                <div class="rule dashed reveal" aria-hidden="true"></div>
+                <figure class="tst reveal">
+                    <blockquote>"I bounced off ROS twice in university. Peter builds it up from real hardware, so it finally clicked. My rover actually works."</blockquote>
+                    <figcaption>— sarah_t <span>// cs student</span></figcaption>
+                </figure>
+                <div class="rule dashed reveal" aria-hidden="true"></div>
+                <figure class="tst reveal">
+                    <blockquote>"Clear, practical, no fluff. Rare to find someone genuinely strong at both the engineering and the training side."</blockquote>
+                    <figcaption>— david_l <span>// software engineer</span></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section faq">
+        <div class="container">
+            <div class="section-head reveal">
+                <p class="tag" data-i18n="faq_tag">// faq</p>
+                <h2 data-i18n="faq_title">Questions.</h2>
+            </div>
+            <div class="faq-list reveal">
+                <div class="faq-item">
+                    <button class="faq-q"><span>is the free lesson really free?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p>Yes. Both trial lessons are fully open — no account, no card. A free Academy account unlocks a full starter module on top.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span>do i need prior experience?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p>No. Both courses start from zero — your first push-up, your first line of code — and build in small, testable steps.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span>what equipment do i need?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p>Calisthenics: a pull-up bar and a floor. Robotics: a ~$60–100 starter kit — exact parts list is in module 1.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span>how long do i keep access?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p>Forever. One-time purchase, lifetime access, every future update included.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q"><span>refund policy?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p>14 days, no questions asked. Email Peter, get a full refund.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+        <div class="container reveal">
+            <p class="cmd" data-i18n="cta_cmd">peter1947:~$ ./start --now</p>
+            <h2 data-i18n="cta_title">Your first rep starts tonight.</h2>
+            <p class="section-sub" data-i18n="cta_sub">Take the free lesson. Decide about the rest later.</p>
+            <a href="/storefront/trial/calisthenics.html" class="btn btn-primary" data-i18n="cta_btn">&gt; run free lesson</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="rule reveal" aria-hidden="true"></div>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#top" class="logo"><span class="blip"></span>peter1947</a>
+                    <p data-i18n="foot_tag">master your body. master robotics.</p>
+                </div>
+                <nav class="footer-col">
+                    <h5>~/courses</h5>
+                    <a href="#calisthenics">calisthenics</a>
+                    <a href="#robotics">robotics</a>
+                    <a href="#pricing">pricing</a>
+                </nav>
+                <nav class="footer-col">
+                    <h5>~/free</h5>
+                    <a href="/storefront/trial/calisthenics.html">calisthenics lesson</a>
+                    <a href="/storefront/trial/robotics.html">robotics lesson</a>
+                    <a href="/academy/">academy account</a>
+                </nav>
+                <nav class="footer-col">
+                    <h5>~/connect</h5>
+                    <a href="https://github.com/reaper1947" target="_blank" rel="noopener noreferrer">github</a>
+                    <a href="https://www.linkedin.com/in/taweeporn-maneesin-4052682b1/" target="_blank" rel="noopener noreferrer">linkedin</a>
+                    <a href="/academy/">student login</a>
+                </nav>
+            </div>
+            <p class="footer-bottom">
+                <span>&copy; <span id="year">2026</span> peter1947 · peter1947.space</span>
+                <span data-i18n="foot_rights">all rights reserved.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="translations.js?v=21"></script>
+    <script src="script.js?v=21"></script>
+</body>
+</html>

@@ -66,6 +66,9 @@ function App() {
           <div className={`nav-item ${activeTab === 'chat' ? 'active' : ''}`} onClick={() => handleTabClick('chat')}>
             <span className="nav-icon">🤖</span> AI Terminal
           </div>
+          <div className={`nav-item ${activeTab === 'terminal' ? 'active' : ''}`} onClick={() => handleTabClick('terminal')}>
+            <span className="nav-icon">💻</span> Server Terminal
+          </div>
           <div className="nav-item" onClick={handleLogout} style={{ marginTop: '20px', color: '#ff0055', border: '2px solid #ff0055' }}>
             <span className="nav-icon">🚪</span> Logout
           </div>
@@ -105,6 +108,15 @@ function App() {
         <Chatbot isActive={activeTab === 'chat'} />
         {activeTab === 'scheduler' && (
           <Scheduler />
+        )}
+        {activeTab === 'terminal' && (
+          <div style={{ height: '100%', minHeight: 'calc(100vh - 120px)' }}>
+            <iframe 
+              src="/terminal/" 
+              style={{ width: '100%', height: '100%', border: 'none', background: '#000' }} 
+              title="Server Terminal" 
+            />
+          </div>
         )}
       </div>
     </div>

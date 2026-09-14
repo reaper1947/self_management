@@ -1,0 +1,102 @@
+{
+  "id": "robotics",
+  "title": "Robotics with ROS 2: Beginner to Expert",
+  "subtitle": "From your first node to an autonomous rover — the real ROS 2 workflow, one build at a time.",
+  "description": "A full ROS 2 curriculum (Humble / Jazzy). You begin at the command line understanding the compute graph, then write real nodes in Python with `rclpy`, add services, actions and QoS, describe a robot with URDF and TF2, simulate it in Gazebo with sensors, make it navigate with Nav2 and SLAM, add perception, and finish with an autonomous patrol rover you bring up yourself. Every lesson has commands you actually run.",
+  "accent": "rob",
+  "access_mode": "paid",
+  "price_label": "$69",
+  "bmc_url": "https://buymeacoffee.com/peter1947/e/ros2-beginner-to-expert",
+  "sort": 2,
+  "modules": [
+    {
+      "title": "Setup & the ROS 2 Graph",
+      "category": "core",
+      "summary": "Install ROS 2, understand nodes and topics, and drive the graph from the CLI.",
+      "lessons": [
+        { "title": "What ROS 2 is, and why it exists", "file": "01-setup/01-what-is-ros2.md", "kind": "reading", "duration_min": 8, "is_free": true },
+        { "title": "Install ROS 2 & make a workspace", "file": "01-setup/02-install-and-workspace.md", "kind": "reading", "duration_min": 12, "is_free": true },
+        { "title": "Nodes, topics & the CLI", "file": "01-setup/03-nodes-topics-cli.md", "kind": "reading", "duration_min": 14, "is_free": true },
+        { "title": "rqt, ros2 bag & introspection", "file": "01-setup/04-rqt-bag-introspection.md", "kind": "reading", "duration_min": 10 }
+      ]
+    },
+    {
+      "title": "Writing Nodes in Python (rclpy)",
+      "category": "core",
+      "summary": "Publishers, subscribers, timers, parameters, custom messages, launch files.",
+      "lessons": [
+        { "title": "Your first publisher", "file": "02-rclpy/01-first-publisher.md", "kind": "reading", "duration_min": 14, "is_free": true },
+        { "title": "Subscribers & callbacks", "file": "02-rclpy/02-subscribers.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Timers, parameters & logging", "file": "02-rclpy/03-timers-params-logging.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Custom messages & interfaces", "file": "02-rclpy/04-custom-interfaces.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Launch files & node composition", "file": "02-rclpy/05-launch-files.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Services, Actions & QoS",
+      "category": "core",
+      "summary": "Request/response, long-running goals, and getting Quality of Service right.",
+      "lessons": [
+        { "title": "Services: request / response", "file": "03-services-actions/01-services.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Actions: long-running goals with feedback", "file": "03-services-actions/02-actions.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Quality of Service, explained", "file": "03-services-actions/03-qos.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Lifecycle (managed) nodes", "file": "03-services-actions/04-lifecycle-nodes.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Describing a Robot — TF2 & URDF",
+      "category": "core",
+      "summary": "Coordinate frames, the robot model, and publishing its state.",
+      "lessons": [
+        { "title": "TF2: frames & transforms", "file": "04-tf2-urdf/01-tf2.md", "kind": "reading", "duration_min": 14 },
+        { "title": "URDF: links, joints & xacro", "file": "04-tf2-urdf/02-urdf.md", "kind": "reading", "duration_min": 16 },
+        { "title": "robot_state_publisher & joint states", "file": "04-tf2-urdf/03-robot-state-publisher.md", "kind": "reading", "duration_min": 10 }
+      ]
+    },
+    {
+      "title": "Simulation & Sensors",
+      "category": "core",
+      "summary": "Put the robot in Gazebo, give it a lidar, camera and IMU, and read the data.",
+      "lessons": [
+        { "title": "Gazebo & ros_gz", "file": "05-simulation/01-gazebo.md", "kind": "reading", "duration_min": 16 },
+        { "title": "Simulating lidar, camera & IMU", "file": "05-simulation/02-sensors.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Reading sensor data in code", "file": "05-simulation/03-reading-sensors.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Navigation — Nav2 & SLAM",
+      "category": "core",
+      "summary": "Build a map, localize, and drive to a goal autonomously.",
+      "lessons": [
+        { "title": "The Nav2 stack — overview", "file": "06-nav2/01-nav2-overview.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Mapping with slam_toolbox", "file": "06-nav2/02-slam-toolbox.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Localization with AMCL", "file": "06-nav2/03-amcl.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Costmaps, planners & controllers", "file": "06-nav2/04-costmaps-planners.md", "kind": "reading", "duration_min": 16 },
+        { "title": "Tuning & recovery behaviors", "file": "06-nav2/05-tuning-recovery.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Perception & Advanced",
+      "category": "core",
+      "summary": "Cameras, point clouds, multi-robot, and squeezing out performance.",
+      "lessons": [
+        { "title": "OpenCV with ROS 2", "file": "07-advanced/01-opencv.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Point clouds & PCL", "file": "07-advanced/02-pointclouds.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Namespaces, multi-robot & TF trees", "file": "07-advanced/03-multi-robot.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Executors, callback groups & performance", "file": "07-advanced/04-executors-performance.md", "kind": "reading", "duration_min": 12 }
+      ]
+    },
+    {
+      "title": "Capstone — Autonomous Rover",
+      "category": "core",
+      "summary": "Bring up a real (or simulated) differential-drive rover and have it patrol autonomously.",
+      "lessons": [
+        { "title": "System architecture", "file": "08-capstone/01-architecture.md", "kind": "reading", "duration_min": 12 },
+        { "title": "Bringup & teleop", "file": "08-capstone/02-bringup-teleop.md", "kind": "reading", "duration_min": 10 },
+        { "title": "Mapping your space", "file": "08-capstone/03-mapping.md", "kind": "reading", "duration_min": 10 },
+        { "title": "Autonomous patrol with Nav2", "file": "08-capstone/04-autonomous-patrol.md", "kind": "reading", "duration_min": 14 },
+        { "title": "Where to go next", "file": "08-capstone/05-where-next.md", "kind": "reading", "duration_min": 8 }
+      ]
+    }
+  ]
+}

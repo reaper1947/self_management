@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Batman HD Wallpaper New Tab</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body id="bat-root" class="theme-vengeance">
+
+    <div class="bg-system">
+        <div id="bg-a" class="bg-img active"></div>
+        <div id="bg-b" class="bg-img"></div>
+        <div class="bg-overlay"></div>
+        <div class="crt-scanline"></div>
+        <div class="vignette-fx"></div>
+    </div>
+
+    <div class="hud-panel pomo-hud">
+        <div class="hud-glitch-line"></div>
+        <div class="pomo-info">
+            <span class="material-symbols-outlined pomo-icon">radar</span>
+            <div class="pomo-text-wrap">
+                <span id="session-mode" class="pomo-mode">TACTICAL TIMER</span>
+                <span id="session-val" class="pomo-time">25:00</span>
+            </div>
+        </div>
+        <div class="pomo-actions">
+            <button id="tmr-start" class="hud-btn-icon" title="Engage"><span class="material-symbols-outlined">play_arrow</span></button>
+            <button id="tmr-pause" class="hud-btn-icon" title="Hold"><span class="material-symbols-outlined">pause</span></button>
+            <button id="tmr-reset" class="hud-btn-icon" title="Abort"><span class="material-symbols-outlined">close</span></button>
+        </div>
+    </div>
+
+    <div class="hud-panel quote-hud">
+        <div class="hud-glitch-line"></div>
+        <div class="quote-title">[ INTERCEPTED COMMS ]</div>
+        <p id="hw-quote"></p>
+    </div>
+
+    <main class="hud-center">
+        <div class="target-crosshair"></div>
+        <div id="hud-greeting" class="hud-greeting"></div>
+        <div class="hud-time-wrap">
+            <span id="hud-time" class="hud-clock">00:00</span>
+            <span id="hud-ampm" class="hud-ampm"></span>
+        </div>
+        <div id="hud-date" class="hud-date"></div>
+    </main>
+
+    <button class="hud-nav-btn prev-bg" id="btn-prev-bg">
+        <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <button class="hud-nav-btn next-bg" id="btn-next-bg">
+        <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+
+    <nav class="hud-sidebar">
+        <div class="sidebar-logo">BAT-OS v1.0</div>
+        <button class="sidebar-btn" data-target="panel-links">
+            <span class="material-symbols-outlined">language</span>
+            <span class="sidebar-lbl">DATABASE</span>
+        </button>
+        <button class="sidebar-btn" data-target="panel-tasks">
+            <span class="material-symbols-outlined">fact_check</span>
+            <span class="sidebar-lbl">OBJECTIVES</span>
+        </button>
+        <button class="sidebar-btn" data-target="panel-notes">
+            <span class="material-symbols-outlined">folder_special</span>
+            <span class="sidebar-lbl">CASE FILES</span>
+        </button>
+        <button class="sidebar-btn" data-target="panel-settings">
+            <span class="material-symbols-outlined">settings_overscan</span>
+            <span class="sidebar-lbl">SYSTEM PREF</span>
+        </button>
+    </nav>
+
+    <div id="panel-links" class="hud-modal">
+        <div class="modal-head">
+            <h3>[ DATABASE UPLINKS ]</h3>
+            <button class="close-modal"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="modal-body">
+            <div id="dock-links"></div>
+            <div class="add-row">
+                <input type="text" id="inp-link-name" class="hud-input" placeholder="Alias">
+                <input type="text" id="inp-link-url" class="hud-input" placeholder="Host URL">
+                <button id="btn-add-link" class="hud-btn-icon"><span class="material-symbols-outlined">add</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="panel-tasks" class="hud-modal">
+        <div class="modal-head">
+            <h3>[ MISSION OBJECTIVES ]</h3>
+            <button class="close-modal"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="add-row">
+                <input type="text" id="task-input" class="hud-input" placeholder="Input target parameter...">
+                <button id="add-task-btn" class="hud-btn-icon"><span class="material-symbols-outlined">add</span></button>
+            </div>
+            <div id="task-list" class="task-col"></div>
+        </div>
+    </div>
+
+    <div id="panel-notes" class="hud-modal">
+        <div class="modal-head">
+            <h3>[ ENCRYPTED CASE FILES ] <span id="notes-len" class="hud-badge">0B</span></h3>
+            <button class="close-modal"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="modal-body">
+            <textarea id="note-area" class="hud-textarea" placeholder="Log entry..."></textarea>
+            <button id="save-note" class="hud-btn-wide">ENCRYPT & CLOSE</button>
+        </div>
+    </div>
+
+    <div id="panel-settings" class="hud-modal">
+        <div class="modal-head">
+            <h3>[ SYSTEM PREFERENCES ]</h3>
+            <button class="close-modal"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="modal-body flex-col">
+            <div class="set-grp">
+                <label>HUD Accent</label>
+                <select id="sel-theme" class="hud-select">
+                    <option value="theme-vengeance">Vengeance Red</option>
+                    <option value="theme-riddler">Enigma Green</option>
+                    <option value="theme-gotham">Gotham Gold</option>
+                    <option value="theme-noir">Noir White</option>
+                </select>
+            </div>
+            <div class="set-grp">
+                <label>Operative ID</label>
+                <input type="text" id="inp-name" class="hud-input" placeholder="Wayne">
+            </div>
+            <div class="set-grp">
+                <label>Focus Protocol (Mins)</label>
+                <input type="number" id="inp-pomo" class="hud-input" value="25" min="1" max="120">
+            </div>
+            <div class="set-grp">
+                <label>Standby Protocol (Mins)</label>
+                <input type="number" id="inp-break" class="hud-input" value="5" min="1" max="30">
+            </div>
+            <div class="set-grp">
+                <label>Lens Flare (Blur)</label>
+                <input type="range" id="inp-blur" class="hud-slider" min="0" max="20" value="5">
+            </div>
+            <button id="save-settings" class="hud-btn-wide">EXECUTE CHANGES</button>
+        </div>
+    </div>
+
+    <script src="js/app.js?v=8"></script>
+</body>
+</html>

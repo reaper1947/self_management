@@ -43,3 +43,4 @@ cf/
 .idea/
 *.log
 .env
+cookies.txt

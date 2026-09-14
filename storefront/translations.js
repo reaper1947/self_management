@@ -19,9 +19,9 @@ const translations = {
         hero_sub: "Two disciplines. One method: small, measured progressions — until the rep, or the robot, works. Built by an engineer who trains.",
         hero_btn_trial: "start free lesson",
         hero_btn_courses: "browse courses",
-        hero_stat_students: "students",
+        hero_stat_modules: "modules",
         hero_stat_lessons: "lessons",
-        hero_stat_rating: "avg rating",
+        hero_stat_free: "free to run now",
 
         /* system / marquee */
         sys_label: "// stack",
@@ -29,13 +29,13 @@ const translations = {
         /* paths */
         paths_tag: "// courses",
         paths_title: "Choose a path.",
-        paths_sub: "Same philosophy on both tracks. Different hardware.",
+        paths_sub: "Same method on both tracks. One needs a bar, one needs a terminal.",
         path_cal_name: "calisthenics",
         path_cal_line: "\"own your bodyweight.\"",
         path_cal_desc: "Push-ups to planche. Dead hang to muscle-up. A 12-week progressive system with a fallback for every step.",
         path_rob_name: "robotics",
-        path_rob_line: "\"from a blink to a rover.\"",
-        path_rob_desc: "Electronics, Python, C++, ROS. Every module ends with working hardware. Capstone: an autonomous rover you built.",
+        path_rob_line: "\"from your first node to a rover.\"",
+        path_rob_desc: "The real ROS 2 workflow in Python: nodes, TF2, Gazebo, Nav2 and SLAM. Capstone: an autonomous patrol rover you bring up yourself.",
         path_open: "open track",
 
         /* trial */
@@ -44,8 +44,8 @@ const translations = {
         trial_sub: "A full lesson from each track. Progress is saved locally. Unlock the rest whenever.",
         trial_cal_title: "calisthenics/02_pull-ups",
         trial_cal_desc: "Dead hang → scapular pulls → negatives → first clean rep. Plus a 3-week plan.",
-        trial_rob_title: "robotics/01_first-circuit",
-        trial_rob_desc: "Ohm's law → breadboard → blink, line by line → debugging → your challenge.",
+        trial_rob_title: "robotics/01_nodes-topics",
+        trial_rob_desc: "The compute graph → run two nodes → inspect topics live → your challenge.",
         trial_start: "> start lesson",
         trial_academy_note: "peter1947:~$ # want more — a free account unlocks a full starter module",
         trial_academy_btn: "open academy",
@@ -68,9 +68,6 @@ const translations = {
         price_buy: "> get access",
         price_guarantee: "peter1947:~$ # 14-day refund, no questions asked",
 
-        /* testimonials */
-        tst_tag: "// results",
-        tst_title: "People who finished.",
 
         /* faq */
         faq_tag: "// faq",
@@ -103,21 +100,21 @@ const translations = {
         hero_sub: "สองศาสตร์ หนึ่งวิธีการ: ก้าวหน้าทีละเล็กที่วัดผลได้ จนกว่าจะทำท่าได้ หรือหุ่นยนต์ทำงาน สร้างโดยวิศวกรที่ฝึกจริง",
         hero_btn_trial: "เริ่มบทเรียนฟรี",
         hero_btn_courses: "ดูคอร์สทั้งหมด",
-        hero_stat_students: "นักเรียน",
+        hero_stat_modules: "โมดูล",
         hero_stat_lessons: "บทเรียน",
-        hero_stat_rating: "คะแนนเฉลี่ย",
+        hero_stat_free: "บทเรียนฟรี",
 
         sys_label: "// สแตก",
 
         paths_tag: "// คอร์ส",
         paths_title: "เลือกเส้นทาง",
-        paths_sub: "แนวคิดเดียวกันทั้งสองเส้นทาง ต่างกันที่ฮาร์ดแวร์",
+        paths_sub: "วิธีการเดียวกันทั้งสองเส้นทาง ต่างกันที่อันหนึ่งใช้บาร์ อีกอันใช้เทอร์มินัล",
         path_cal_name: "คาลิสเทนิกส์",
         path_cal_line: "\"ควบคุมน้ำหนักตัวคุณ\"",
         path_cal_desc: "วิดพื้นถึงแพลนช์ ห้อยบาร์ถึงมัสเซิลอัพ ระบบ 12 สัปดาห์ พร้อมทางเลือกสำรองทุกขั้น",
         path_rob_name: "หุ่นยนต์",
-        path_rob_line: "\"จากไฟกะพริบสู่โรเวอร์\"",
-        path_rob_desc: "อิเล็กทรอนิกส์ Python C++ ROS ทุกโมดูลจบด้วยฮาร์ดแวร์ที่ใช้งานได้ ปลายทาง: โรเวอร์อัตโนมัติที่คุณสร้างเอง",
+        path_rob_line: "\"จากโหนดแรกสู่โรเวอร์\"",
+        path_rob_desc: "เวิร์กโฟลว์ ROS 2 จริงด้วย Python: โหนด TF2 Gazebo Nav2 และ SLAM ปลายทาง: โรเวอร์ลาดตระเวนอัตโนมัติที่คุณตั้งค่าเอง",
         path_open: "เปิดเส้นทาง",
 
         trial_tag: "// ทดลองฟรี",
@@ -125,8 +122,8 @@ const translations = {
         trial_sub: "บทเรียนเต็มจากแต่ละเส้นทาง ความก้าวหน้าถูกบันทึกในเครื่อง ปลดล็อกส่วนที่เหลือเมื่อพร้อม",
         trial_cal_title: "calisthenics/02_pull-ups",
         trial_cal_desc: "ห้อยบาร์ → สแคปปูลาร์พูล → เนกาทีฟ → ดึงข้อครั้งแรก พร้อมแผน 3 สัปดาห์",
-        trial_rob_title: "robotics/01_first-circuit",
-        trial_rob_desc: "กฎของโอห์ม → เบรดบอร์ด → โค้ด blink ทีละบรรทัด → แก้บั๊ก → โจทย์ของคุณ",
+        trial_rob_title: "robotics/01_nodes-topics",
+        trial_rob_desc: "กราฟการประมวลผล → รันสองโหนด → ดู topic แบบเรียลไทม์ → โจทย์ของคุณ",
         trial_start: "> เริ่มบทเรียน",
         trial_academy_note: "peter1947:~$ # ต้องการมากกว่านี้ — บัญชีฟรีปลดล็อกโมดูลเริ่มต้นเต็ม",
         trial_academy_btn: "เปิดสถาบัน",
@@ -147,8 +144,6 @@ const translations = {
         price_buy: "> รับสิทธิ์",
         price_guarantee: "peter1947:~$ # คืนเงินภายใน 14 วัน ไม่มีเงื่อนไข",
 
-        tst_tag: "// ผลลัพธ์",
-        tst_title: "คนที่เรียนจบ",
 
         faq_tag: "// คำถาม",
         faq_title: "คำถาม",

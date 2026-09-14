@@ -712,3 +712,26 @@ body {
     margin-left: 10px;
     font-weight: bold;
 }
+
+/* ── Storefront link ───────────────────────────────────────────────────────
+   A real, visible, crawlable link from the root page to the product. Kept
+   small and dim so it does not compete with the clock, but never hidden —
+   a display:none link is ignored by search engines and reads as cloaking. */
+.sr-storefront-link {
+    position: fixed;
+    left: 24px;
+    bottom: 18px;
+    z-index: 30;
+    font-family: "Courier New", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.2s ease;
+}
+.sr-storefront-link:hover,
+.sr-storefront-link:focus-visible {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: underline;
+}

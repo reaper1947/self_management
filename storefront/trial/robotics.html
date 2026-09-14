@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free robotics lesson from Peter1947 Academy — build your first circuit and blink an LED, with every wire and line of code explained. No account needed.">
-    <title>Free Lesson · Your First Circuit — Peter1947 Academy</title>
+    <meta name="description" content="Free ROS 2 lesson from Peter1947 Academy — run two real nodes, inspect the compute graph with the ros2 CLI, and drive a robot by publishing a message yourself. No account needed.">
+    <title>Free Lesson · Nodes, Topics &amp; the ROS 2 CLI — Peter1947 Academy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="lesson.css?v=20">
+    <link rel="stylesheet" href="lesson.css?v=21">
 </head>
 <body data-track="robotics">
     <div class="scanlines" aria-hidden="true"></div>
@@ -25,11 +25,11 @@
         <aside class="sidebar">
             <h4>In this lesson</h4>
             <ul class="lesson-nav">
-                <li><a href="#parts" class="active"><span class="dot"></span>What you need</a></li>
-                <li><a href="#theory"><span class="dot"></span>1 · Volts, amps, ohms</a></li>
-                <li><a href="#build"><span class="dot"></span>2 · Build the circuit</a></li>
-                <li><a href="#code"><span class="dot"></span>3 · The code</a></li>
-                <li><a href="#debug"><span class="dot"></span>4 · When it doesn't work</a></li>
+                <li><a href="#setup" class="active"><span class="dot"></span>What you need</a></li>
+                <li><a href="#model"><span class="dot"></span>1 · The compute graph</a></li>
+                <li><a href="#run"><span class="dot"></span>2 · Run two nodes</a></li>
+                <li><a href="#inspect"><span class="dot"></span>3 · Look inside it</a></li>
+                <li><a href="#drive"><span class="dot"></span>4 · Publish a message yourself</a></li>
                 <li><a href="#challenge"><span class="dot"></span>Your challenge</a></li>
             </ul>
             <div class="progress-wrap">
@@ -39,126 +39,126 @@
         </aside>
 
         <main class="content">
-            <p class="eyebrow">Robotics Engineering · Module 1</p>
-            <h1>Your First Circuit: Blink an LED</h1>
-            <p class="lede">Every robot — no matter how complex — is built from this. A microcontroller
-                deciding when to send voltage somewhere. Get this one right and understand <em>why</em> it
-                works, and the rest of the course is just more of the same idea.</p>
+            <p class="eyebrow">Robotics with ROS 2 · Module 1</p>
+            <h1>Nodes, Topics &amp; the ROS 2 CLI</h1>
+            <p class="lede">Every robot in this course is the same shape: small programs that publish and
+                subscribe to named streams. Learn to <em>see</em> that graph from the command line and you can
+                debug any ROS 2 system — including the ones you did not write.</p>
 
-            <div class="completed-banner">🎉 Lesson complete. You've built and understood your first circuit — Module 2 is microcontrollers &amp; C++.</div>
+            <div class="completed-banner">🎉 Lesson complete. You have run a real ROS 2 graph and driven a robot by hand — Module 2 is writing your own nodes in Python.</div>
 
-            <section class="lesson" id="parts">
+            <section class="lesson" id="setup">
                 <h2>What you need</h2>
-                <p class="meta">~2 min · total cost about $15 if you don't have a kit</p>
+                <p class="meta">~10 min to install · no robot hardware, nothing to buy</p>
                 <ul>
-                    <li>An <strong>Arduino Uno</strong> (or any Uno-compatible clone) and its USB cable</li>
-                    <li>A <strong>solderless breadboard</strong></li>
-                    <li>One <strong>LED</strong> (any colour)</li>
-                    <li>One <strong>220&nbsp;Ω resistor</strong> (colour bands: red-red-brown-gold)</li>
-                    <li>Two <strong>jumper wires</strong></li>
-                    <li>The <strong>Arduino IDE</strong> installed on your computer (free)</li>
+                    <li><strong>Ubuntu 22.04</strong> with <strong>ROS 2 Humble</strong> (LTS), or Ubuntu 24.04 with
+                        <strong>Jazzy</strong>. Every command below works on both.</li>
+                    <li>Two terminal windows. That is genuinely it.</li>
+                    <li>The demo packages, which ship with the desktop install:
+                        <code>demo_nodes_cpp</code> and <code>turtlesim</code>.</li>
                 </ul>
+                <pre><code>sudo apt install ros-humble-desktop ros-humble-turtlesim
+source /opt/ros/humble/setup.bash     # every new terminal needs this</code></pre>
                 <div class="callout tip">
-                    <h4>No hardware yet?</h4>
-                    You can do this entire lesson in a free online simulator like Wokwi or Tinkercad Circuits —
-                    the wiring and code are identical. The full course includes the exact kit list with links.
+                    <h4>Not on Ubuntu?</h4>
+                    Run it in Docker on any OS — <code>docker run -it --rm osrf/ros:humble-desktop</code> — or in a
+                    virtual machine. The full course sets up a Docker workspace that keeps your host clean.
                 </div>
             </section>
 
-            <section class="lesson" id="theory">
-                <h2>Step 1 · The only electronics you need today</h2>
-                <p class="meta">Volts, current, resistance</p>
-                <p>Three quantities explain almost everything in a beginner circuit:</p>
+            <section class="lesson" id="model">
+                <h2>Step 1 · The compute graph</h2>
+                <p class="meta">The one mental model the whole course rests on</p>
+                <p>ROS 2 is not an operating system and not a language. It is <strong>middleware</strong>: a common
+                    way for many small programs to find each other and exchange typed data, even when they were
+                    written by different people, in different languages, running on different machines.</p>
                 <table>
-                    <tr><th>Quantity</th><th>Unit</th><th>Plumbing analogy</th></tr>
-                    <tr><td>Voltage (V)</td><td>volts</td><td>Water <em>pressure</em> pushing through the pipe</td></tr>
-                    <tr><td>Current (I)</td><td>amps</td><td>The <em>flow rate</em> of water</td></tr>
-                    <tr><td>Resistance (R)</td><td>ohms (Ω)</td><td>How <em>narrow</em> the pipe is</td></tr>
+                    <tr><th>Concept</th><th>What it is</th></tr>
+                    <tr><td><strong>Node</strong></td><td>One process that does one job — <code>camera_driver</code>, <code>path_planner</code></td></tr>
+                    <tr><td><strong>Topic</strong></td><td>A named, typed stream. Nodes publish to it or subscribe to it. Many-to-many, anonymous.</td></tr>
+                    <tr><td><strong>Message</strong></td><td>The typed cargo on a topic — <code>geometry_msgs/Twist</code>, <code>sensor_msgs/Image</code></td></tr>
+                    <tr><td><strong>Service</strong></td><td>A request/response call — like calling a function on another node</td></tr>
+                    <tr><td><strong>Action</strong></td><td>A long-running goal with feedback that you can cancel — "drive to X"</td></tr>
                 </table>
-                <p>They're tied together by <strong>Ohm's Law</strong>:</p>
-                <pre><code>V = I × R        →        I = V / R</code></pre>
-                <p>An Arduino output pin gives <strong>5&nbsp;V</strong>. An LED wants only about <strong>10–20&nbsp;mA</strong>
-                    (0.01–0.02&nbsp;A) or it burns out. An LED itself drops roughly 2&nbsp;V. So the resistor has to
-                    "use up" the other 3&nbsp;V:</p>
-                <pre><code>R = (5V − 2V) / 0.015A  =  3 / 0.015  ≈  200 Ω</code></pre>
-                <p>That's why the lesson calls for a <strong>220&nbsp;Ω</strong> resistor — it's the nearest common
-                    value that keeps the current safe. Skip the resistor and the LED (or the pin) dies.</p>
+                <p>The default is <strong>publish/subscribe</strong>. A planner publishes a velocity command to
+                    <code>/cmd_vel</code>; a motor controller subscribes to <code>/cmd_vel</code>. Neither node knows
+                    the other exists, and either can be restarted, replaced, or moved to another computer without
+                    touching the other's code. That decoupling is the entire point.</p>
+                <pre><code>[ teleop ] --/turtle1/cmd_vel (Twist)--> [ turtlesim ] --/turtle1/pose (Pose)--> [ your node ]</code></pre>
+                <p>Nodes are boxes. Topics are arrows. Messages are the cargo.</p>
                 <div class="quiz">
-                    <p class="q">Quick check: why does the circuit need the resistor?</p>
-                    <span class="opt" data-correct="false" data-explain="LEDs don't store charge — there's no capacitor behaviour here.">To store energy for the LED</span>
-                    <span class="opt" data-correct="true" data-explain="Exactly — it drops the extra voltage so current stays around 15 mA instead of frying the LED.">To limit the current so the LED isn't destroyed</span>
-                    <span class="opt" data-correct="false" data-explain="Direction is set by how the LED is oriented (long leg = positive), not by the resistor.">To make the current flow the right direction</span>
+                    <p class="q">Quick check: the motor controller crashes and restarts. What has to change in the planner?</p>
+                    <span class="opt" data-correct="false" data-explain="There is no address to update — a publisher never names its subscribers. Discovery is peer-to-peer.">Its connection settings, to point at the new process</span>
+                    <span class="opt" data-correct="true" data-explain="Correct. The planner keeps publishing to /cmd_vel; when the controller comes back it re-subscribes and data flows again. Neither side holds a reference to the other.">Nothing — it keeps publishing to the same topic</span>
+                    <span class="opt" data-correct="false" data-explain="There is no master in ROS 2 — that was ROS 1's roscore. Discovery is handled peer-to-peer by DDS.">It must re-register with the ROS master</span>
+                    <p class="feedback"></p>
                 </div>
             </section>
 
-            <section class="lesson" id="build">
-                <h2>Step 2 · Build the circuit</h2>
-                <p class="meta">Follow the current from pin 13 back to GND</p>
-                <div class="media"><div class="play">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <span>Video: breadboard wiring, close-up (full course)</span>
-                </div></div>
-                <ol>
-                    <li>Push the <strong>LED</strong> into the breadboard so its two legs are in different rows. The
-                        <strong>long leg</strong> (anode, +) goes toward the Arduino pin side.</li>
-                    <li>Connect one end of the <strong>220&nbsp;Ω resistor</strong> to the row with the LED's <strong>short
-                        leg</strong> (cathode, −). Put the other end in an empty row.</li>
-                    <li>Jumper wire from Arduino <strong>pin 13</strong> → the LED's long-leg row.</li>
-                    <li>Jumper wire from the resistor's free end → Arduino <strong>GND</strong>.</li>
-                </ol>
-                <p>Trace it out loud: <em>pin 13 → LED (anode to cathode) → resistor → GND</em>. Current can only
-                    flow when pin 13 is HIGH (5&nbsp;V) and it has a complete path back to ground. Right now the pin
-                    is doing nothing — that's the code's job.</p>
+            <section class="lesson" id="run">
+                <h2>Step 2 · Run two nodes</h2>
+                <p class="meta">One command per terminal · source in each one</p>
+                <p>Terminal 1 — a node that publishes a string once a second:</p>
+                <pre><code>source /opt/ros/humble/setup.bash
+ros2 run demo_nodes_cpp talker</code></pre>
+                <p>Terminal 2 — a simulated robot you can actually see:</p>
+                <pre><code>source /opt/ros/humble/setup.bash
+ros2 run turtlesim turtlesim_node</code></pre>
+                <p>A blue window opens with a turtle in it. You are now running a real ROS 2 graph: two independent
+                    processes that found each other automatically, with no configuration file and no central server.</p>
                 <div class="callout warn">
-                    <h4>Orientation matters</h4>
-                    An LED only conducts one way. If it stays dark later, the first thing to try is flipping it —
-                    long leg toward pin 13.
-                </div>
-            </section>
-
-            <section class="lesson" id="code">
-                <h2>Step 3 · The code, line by line</h2>
-                <p class="meta">Arduino C++ · upload with the → button in the IDE</p>
-                <pre><code>const int LED_PIN = 13;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);   // pin 13 will send voltage out
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH); // 5V on  → LED lights
-  delay(500);                  // wait 500 ms
-  digitalWrite(LED_PIN, LOW);  // 0V     → LED off
-  delay(500);                  // wait 500 ms
-}</code></pre>
-                <ul>
-                    <li><code>const int LED_PIN = 13;</code> — a name for the pin number so the code reads clearly and you change it in one place.</li>
-                    <li><code>setup()</code> runs <strong>once</strong> at power-on. <code>pinMode(..., OUTPUT)</code> tells the chip this pin will <em>drive</em> voltage rather than read it.</li>
-                    <li><code>loop()</code> runs <strong>forever</strong>, top to bottom, then repeats.</li>
-                    <li><code>digitalWrite(pin, HIGH)</code> puts 5&nbsp;V on the pin; <code>LOW</code> puts 0&nbsp;V.</li>
-                    <li><code>delay(500)</code> freezes everything for 500&nbsp;milliseconds. Change both to <code>100</code> for a fast blink, <code>1000</code> for a slow one.</li>
-                </ul>
-                <div class="callout tip">
-                    <h4>Why this pattern matters</h4>
-                    <code>setup()</code> then <code>loop()</code> is the shape of <em>every</em> Arduino program you'll write —
-                    including the one that drives your rover's motors in Module 6. You're not learning a toy; you're
-                    learning the structure.
+                    <h4>"Package not found"</h4>
+                    You forgot to <code>source /opt/ros/humble/setup.bash</code> in that terminal. It applies per
+                    shell, not per machine. Put it in <code>~/.bashrc</code> once you are settled on a version.
                 </div>
                 <button class="btn mark-done">Mark lesson complete</button>
             </section>
 
-            <section class="lesson" id="debug">
-                <h2>Step 4 · When it doesn't work</h2>
-                <p class="meta">The four things that go wrong first</p>
-                <table>
-                    <tr><th>Symptom</th><th>Most likely cause</th></tr>
-                    <tr><td>Nothing lights</td><td>LED is backwards — flip it (long leg → pin 13)</td></tr>
-                    <tr><td>Still nothing</td><td>A wire is in the wrong row; trace pin 13 → LED → resistor → GND again</td></tr>
-                    <tr><td>Upload fails in the IDE</td><td>Wrong board or port selected under <em>Tools</em></td></tr>
-                    <tr><td>LED very dim or flickers</td><td>Resistor too large, or a loose jumper in the breadboard</td></tr>
-                </table>
-                <p>Debugging hardware is a skill in itself: change <strong>one thing at a time</strong> and re-test.
-                    That discipline is what separates people who finish robotics projects from people who don't.</p>
+            <section class="lesson" id="inspect">
+                <h2>Step 3 · Look inside the graph</h2>
+                <p class="meta">The CLI is your debugger for the rest of the course</p>
+                <p>Open a third terminal. Everything below is read-only — you are inspecting a live system.</p>
+                <pre><code>ros2 node list                        # who is running
+ros2 node info /turtlesim             # its publishers, subscribers, services, actions
+
+ros2 topic list -t                    # every topic, with its message type
+ros2 topic info /turtle1/cmd_vel -v   # publishers, subscribers and QoS
+ros2 topic echo /turtle1/pose         # print the messages as they arrive
+ros2 topic hz /turtle1/pose           # how fast they are arriving
+
+ros2 interface show geometry_msgs/msg/Twist   # what fields a Twist actually has</code></pre>
+                <p>Watch the output of <code>ros2 topic echo /turtle1/pose</code>. The turtle broadcasts its position
+                    many times a second and nothing is subscribed to it. That is normal — a topic exists whether or
+                    not anyone is listening.</p>
+                <div class="callout tip">
+                    <h4>The 90% rule</h4>
+                    Almost all ROS debugging is two questions answered by two commands: <strong>is the data
+                    there</strong> (<code>ros2 topic echo</code>) and <strong>is it fast enough</strong>
+                    (<code>ros2 topic hz</code>). When Nav2 misbehaves later in the course, it is nearly always one
+                    of those two answers coming back wrong.
+                </div>
+                <button class="btn mark-done">Mark lesson complete</button>
+            </section>
+
+            <section class="lesson" id="drive">
+                <h2>Step 4 · Publish a message yourself</h2>
+                <p class="meta">You are now a node</p>
+                <p><code>ros2 interface show geometry_msgs/msg/Twist</code> tells you a Twist carries a
+                    <code>linear</code> and an <code>angular</code> vector. The turtle reads <code>linear.x</code>
+                    (forward speed) and <code>angular.z</code> (turn rate). So publish one by hand:</p>
+                <pre><code>ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 1.0}, angular: {z: 0.8}}"</code></pre>
+                <p>The turtle drives in a circle. Nothing in <code>turtlesim</code> was written to expect you — it
+                    subscribes to a topic, and you published to that topic. A joystick, a path planner and your
+                    terminal are interchangeable here, and that is exactly how the rover comes up in the capstone.</p>
+                <p>Two more, while the graph is live:</p>
+                <pre><code>ros2 service call /clear std_srvs/srv/Empty     # a request/response call
+ros2 param set /turtlesim background_b 255      # change a setting at runtime</code></pre>
+                <div class="callout warn">
+                    <h4>The turtle keeps moving after Ctrl-C</h4>
+                    It holds the last velocity it was given. Publish a zero Twist to stop it — and note that a real
+                    robot behaves the same way. Safe shutdown is a design problem, not an afterthought.
+                </div>
                 <button class="btn mark-done">Mark lesson complete</button>
             </section>
 
@@ -166,31 +166,36 @@ void loop() {
                 <h2>Your challenge</h2>
                 <p class="meta">Do this before moving on</p>
                 <ol>
-                    <li>Get the basic blink working.</li>
-                    <li>Add a <strong>second LED</strong> on pin 12 (its own resistor) and make the two alternate — one on while the other is off.</li>
-                    <li>Make an <strong>SOS pattern</strong>: three short blinks, three long, three short, then a pause.</li>
+                    <li>Drive the turtle in a <strong>square</strong> using only <code>ros2 topic pub</code> —
+                        straight, stop, turn 90°, repeat.</li>
+                    <li>Run <code>ros2 topic echo /turtle1/pose</code> in another terminal while you do it, and watch
+                        <code>theta</code> to check your turns.</li>
+                    <li>Use <code>ros2 topic hz /turtle1/pose</code> to measure the publish rate, then explain why
+                        <code>ros2 topic echo</code> alone could not have told you that.</li>
                 </ol>
                 <ul class="selfcheck">
-                    <li><input type="checkbox" id="r1"><label for="r1">My LED blinks on a 500&nbsp;ms cycle</label></li>
-                    <li><input type="checkbox" id="r2"><label for="r2">I can explain why the resistor is there</label></li>
-                    <li><input type="checkbox" id="r3"><label for="r3">I added a second LED that alternates</label></li>
-                    <li><input type="checkbox" id="r4"><label for="r4">I changed the timing and understood which lines to edit</label></li>
+                    <li><input type="checkbox" id="r1"><label for="r1">I can list the nodes and topics of a running system</label></li>
+                    <li><input type="checkbox" id="r2"><label for="r2">I can explain what a topic is without using the word "connection"</label></li>
+                    <li><input type="checkbox" id="r3"><label for="r3">I drove the turtle by publishing a Twist myself</label></li>
+                    <li><input type="checkbox" id="r4"><label for="r4">I know which command to reach for when data is missing</label></li>
                 </ul>
                 <button class="btn mark-done">Mark lesson complete</button>
             </section>
 
             <div class="end-cta">
-                <h3>That's Module 1 of 6.</h3>
-                <p>The full course goes from here to sensors, motor control, the Raspberry Pi, ROS, and a
-                    capstone autonomous rover you build and program yourself.</p>
+                <h3>That is one lesson of 33.</h3>
+                <p>The course continues into writing your own nodes with <code>rclpy</code>, services, actions and
+                    QoS, describing a robot with URDF and TF2, simulating it in Gazebo, navigating with Nav2 and
+                    SLAM, and a capstone autonomous patrol rover you bring up yourself. Written lessons and commands
+                    you run — no video.</p>
                 <div class="row">
-                    <a href="/storefront/#pricing" class="btn btn-primary">Unlock Robotics Engineering — $69</a>
+                    <a href="/storefront/#pricing" class="btn btn-primary">Unlock Robotics with ROS 2 — $69</a>
                     <a href="/academy/" class="btn">Create a free account</a>
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="lesson.js?v=20"></script>
+    <script src="lesson.js?v=21"></script>
 </body>
 </html>

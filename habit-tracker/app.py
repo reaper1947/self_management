@@ -1358,6 +1358,52 @@ def serve_academy(path):
         return send_from_directory(ACADEMY_DIR, path)
     return send_from_directory(ACADEMY_DIR, "index.html")
 
+# ── SEO: robots.txt + sitemap.xml ─────────────────────────────────────────────
+# The storefront is the only part of this host meant to be indexed. Everything
+# else is either Peter's private dashboard or a login wall, so it is excluded
+# explicitly rather than left for a crawler to discover and index by accident.
+
+SITE_ORIGIN = os.environ.get("SITE_ORIGIN", "https://www.peter1947.space")
+
+PUBLIC_URLS = [
+    ("/storefront/", "weekly", "1.0"),
+    ("/storefront/trial/robotics.html", "monthly", "0.8"),
+    ("/storefront/trial/calisthenics.html", "monthly", "0.8"),
+    ("/academy/", "monthly", "0.3"),
+]
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    body = "\n".join([
+        "User-agent: *",
+        "Allow: /storefront/",
+        "Disallow: /api/",
+        "Disallow: /dashboard/",
+        "Disallow: /terminal/",
+        "Disallow: /academy/app",
+        "Disallow: /academy/learn",
+        "Disallow: /academy/admin",
+        "",
+        f"Sitemap: {SITE_ORIGIN}/sitemap.xml",
+        "",
+    ])
+    return Response(body, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    urls = "".join(
+        f"<url><loc>{SITE_ORIGIN}{path}</loc>"
+        f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>"
+        for path, freq, prio in PUBLIC_URLS
+    )
+    body = ('<?xml version="1.0" encoding="UTF-8"?>'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+            f"{urls}</urlset>")
+    return Response(body, mimetype="application/xml")
+
+
 # ── Serve Standby Page (Default Root) ─────────────────────────────────────────
 
 STANDBY_DIR = os.path.join(os.path.dirname(__file__), "..", "standby_page")
@@ -1375,9 +1421,11 @@ def serve_standby_assets(path):
     target = os.path.join(STANDBY_DIR, path)
     if os.path.exists(target) and os.path.isfile(target):
         return send_from_directory(STANDBY_DIR, path)
-    
-    # Fallback to newtab.html for unknown routes not matching prefixes
-    return send_from_directory(STANDBY_DIR, "newtab.html")
+
+    # A real 404, not the standby page. Serving newtab.html here made every
+    # mistyped or crawled URL answer 200 with identical content, which reads to
+    # a search engine as a site full of duplicate pages.
+    return jsonify({"error": "Not found"}), 404
 
 # ── Serve Storefront ──────────────────────────────────────────────────────────
 

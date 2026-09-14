@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Peter1947 Academy — project-based courses in Calisthenics and Robotics Engineering. Run a full lesson free, no card required.">
+    <meta name="description" content="Peter1947 Academy — written, command-by-command courses in ROS 2 robotics and calisthenics. Run a full lesson free, no card required.">
     <meta name="theme-color" content="#060607">
-    <meta property="og:title" content="Peter1947 Academy — Calisthenics & Robotics">
-    <meta property="og:description" content="Master your body. Master robotics. Run a full lesson free.">
+    <link rel="canonical" href="https://www.peter1947.space/storefront/">
+    <meta property="og:site_name" content="Peter1947 Academy">
+    <meta property="og:title" content="Peter1947 Academy — ROS 2 Robotics &amp; Calisthenics">
+    <meta property="og:description" content="Two written curricula you work through: 33 ROS 2 lessons, 28 calisthenics lessons. Run a full lesson free.">
     <meta property="og:type" content="website">
-    <title>Peter1947 Academy — Calisthenics &amp; Robotics</title>
+    <meta property="og:url" content="https://www.peter1947.space/storefront/">
+    <meta property="og:image" content="https://www.peter1947.space/storefront/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Peter1947 Academy — ROS 2 Robotics &amp; Calisthenics">
+    <meta name="twitter:description" content="Two written curricula you work through: 33 ROS 2 lessons, 28 calisthenics lessons. Run a full lesson free.">
+    <meta name="twitter:image" content="https://www.peter1947.space/storefront/og-card.png">
+    <title>Peter1947 Academy — ROS 2 Robotics &amp; Calisthenics</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=21">
+    <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body>
     <div class="scanlines" aria-hidden="true"></div>
@@ -56,11 +66,11 @@
                 <a href="#paths" class="btn btn-ghost" data-i18n="hero_btn_courses">browse courses</a>
             </div>
             <ul class="hero-stats reveal">
-                <li><b data-count="520" data-suffix="+">0</b><span data-i18n="hero_stat_students">students</span></li>
+                <li><b data-count="61">0</b><span data-i18n="hero_stat_lessons">lessons</span></li>
                 <li><i>·</i></li>
-                <li><b data-count="130" data-suffix="+">0</b><span data-i18n="hero_stat_lessons">lessons</span></li>
+                <li><b data-count="14">0</b><span data-i18n="hero_stat_modules">modules</span></li>
                 <li><i>·</i></li>
-                <li><b data-count="4.9" data-decimals="1">0</b><span data-i18n="hero_stat_rating">avg rating</span></li>
+                <li><b data-count="2">0</b><span data-i18n="hero_stat_free">free to run now</span></li>
             </ul>
         </div>
     </header>
@@ -71,10 +81,10 @@
             <p class="tag reveal" data-i18n="sys_label">// stack</p>
             <pre class="terminal reveal" id="terminal" aria-label="Curriculum listing"><span class="p">peter1947:~$ </span>tree academy --depth 1
 academy
-├── calisthenics/       06 modules · 50+ lessons
+├── calisthenics/       06 modules · 28 lessons
 │   └── 02_pull-ups     ← free lesson
-├── robotics/           06 modules · 80+ lessons
-│   └── 01_first-circuit ← free lesson
+├── robotics/           08 modules · 33 lessons
+│   └── 01_nodes-topics   ← free lesson
 └── pricing.txt         $49 · $69 · $99 bundle
 
 <span class="p">peter1947:~$ </span>./enroll --trial
@@ -89,7 +99,7 @@ academy
             <div class="section-head reveal">
                 <p class="tag" data-i18n="paths_tag">// courses</p>
                 <h2 data-i18n="paths_title">Choose a path.</h2>
-                <p class="section-sub" data-i18n="paths_sub">Same philosophy on both tracks. Different hardware.</p>
+                <p class="section-sub" data-i18n="paths_sub">Same method on both tracks. One needs a bar, one needs a terminal.</p>
             </div>
             <div class="rule reveal" aria-hidden="true"></div>
 
@@ -106,8 +116,8 @@ academy
                 <a href="#robotics" class="path-row reveal" data-accent="rob">
                     <span class="path-idx">[02]</span>
                     <div class="path-main">
-                        <h3><span data-i18n="path_rob_name">robotics</span> <em data-i18n="path_rob_line">"from a blink to a rover."</em></h3>
-                        <p data-i18n="path_rob_desc">Electronics, Python, C++, ROS. Every module ends with working hardware. Capstone: an autonomous rover you built.</p>
+                        <h3><span data-i18n="path_rob_name">robotics</span> <em data-i18n="path_rob_line">"from your first node to a rover."</em></h3>
+                        <p data-i18n="path_rob_desc">The real ROS 2 workflow in Python: nodes, TF2, Gazebo, Nav2 and SLAM. Capstone: an autonomous patrol rover you bring up yourself.</p>
                     </div>
                     <span class="path-go"><span data-i18n="path_open">open track</span> →</span>
                 </a>
@@ -131,8 +141,8 @@ academy
                     <span class="clink" data-i18n="trial_start">&gt; start lesson</span>
                 </a>
                 <a href="/storefront/trial/robotics.html" class="trial-card reveal" data-accent="rob">
-                    <p class="fpath"><span data-i18n="trial_rob_title">robotics/01_first-circuit</span> <b class="free">free</b></p>
-                    <p data-i18n="trial_rob_desc">Ohm's law → breadboard → blink, line by line → debugging → your challenge.</p>
+                    <p class="fpath"><span data-i18n="trial_rob_title">robotics/01_nodes-topics</span> <b class="free">free</b></p>
+                    <p data-i18n="trial_rob_desc">The compute graph → run two nodes → inspect topics live → your challenge.</p>
                     <span class="clink" data-i18n="trial_start">&gt; start lesson</span>
                 </a>
             </div>
@@ -148,17 +158,17 @@ academy
             <div class="course-lead reveal">
                 <p class="tag">[01] calisthenics</p>
                 <h2>Own your bodyweight.</h2>
-                <p class="course-desc">A 12-week system: push-ups, pull-ups, dips, muscle-ups, handstands, straight-arm
-                    strength. Every week: one target, one video breakdown, one fallback if you're not ready.</p>
+                <p class="course-desc">Push-ups, pull-ups, dips, muscle-ups, handstands, levers, straight-arm strength —
+                    each as a progression with a fallback, ending in a 12-week plan you run yourself.</p>
                 <ul class="spec">
-                    <li><span>lessons</span><b>50+ HD tutorials</b></li>
-                    <li><span>format</span><b>week-by-week log</b></li>
+                    <li><span>lessons</span><b>28 written lessons</b></li>
+                    <li><span>modules</span><b>06 · assessment → programming</b></li>
+                    <li><span>format</span><b>progressions + self-checks</b></li>
                     <li><span>kit</span><b>a bar + a floor</b></li>
-                    <li><span>extras</span><b>mobility · nutrition · community</b></li>
                     <li><span>access</span><b>lifetime</b></li>
                 </ul>
                 <div class="buyline">
-                    <span class="price">$49</span><span class="was">$99</span>
+                    <span class="price">$49</span>
                     <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">&gt; buy</a>
                 </div>
             </div>
@@ -178,28 +188,30 @@ academy
         <div class="container course-wrap reverse">
             <div class="course-lead reveal">
                 <p class="tag">[02] robotics</p>
-                <h2>From a blink to a rover.</h2>
-                <p class="course-desc">Build small, understand every wire and line, build bigger. Ends with a fully
-                    autonomous obstacle-avoiding rover you assembled and programmed yourself.</p>
+                <h2>From your first node to an autonomous rover.</h2>
+                <p class="course-desc">The real ROS 2 workflow, command by command: the compute graph, rclpy nodes,
+                    services and actions, URDF and TF2, Gazebo, Nav2 and SLAM — ending in an autonomous patrol rover
+                    you bring up yourself.</p>
                 <ul class="spec">
-                    <li><span>lessons</span><b>80+ HD, circuit → code</b></li>
-                    <li><span>hardware</span><b>~$60–100 parts list</b></li>
-                    <li><span>code</span><b>Python + C++</b></li>
-                    <li><span>framework</span><b>ROS deep dive</b></li>
-                    <li><span>builds</span><b>10 hands-on projects</b></li>
+                    <li><span>lessons</span><b>33 written lessons</b></li>
+                    <li><span>modules</span><b>08 · setup → capstone</b></li>
+                    <li><span>version</span><b>ROS 2 Humble / Jazzy</b></li>
+                    <li><span>code</span><b>Python (rclpy)</b></li>
+                    <li><span>hardware</span><b>none — runs in Gazebo</b></li>
                 </ul>
                 <div class="buyline">
-                    <span class="price">$69</span><span class="was">$129</span>
+                    <span class="price">$69</span>
                     <a href="#" class="btn btn-primary buy-btn" data-i18n="buy_now">&gt; buy</a>
                 </div>
             </div>
             <pre class="ascii reveal" data-accent="rob" aria-hidden="true">
    $ ls robotics/
-   01_electronics   02_microcontrollers
-   03_sensors       04_raspberry-pi
-   05_ros           06_rover*
+   01_setup          02_rclpy
+   03_services       04_tf2-urdf
+   05_simulation     06_nav2
+   07_advanced       08_capstone*
 
-   * capstone — it drives, it avoids
+   * capstone — it maps, it patrols, it avoids
             </pre>
         </div>
     </section>
@@ -219,22 +231,24 @@ academy
 
             <div class="curr-panel active" id="curr-cal">
                 <ol class="modules">
-                    <li class="reveal"><span class="m-no">01</span><b>foundations</b><span class="m-desc">hollow body, scapular control, the hang. find your real level.</span><span class="m-free">free · academy</span></li>
-                    <li class="reveal"><span class="m-no">02</span><b>the pull-up</b><span class="m-desc">dead hang → active hang → negatives → assisted → first rep → volume.</span><span class="m-free">free lesson</span></li>
-                    <li class="reveal"><span class="m-no">03</span><b>push &amp; dips</b><span class="m-desc">incline to full push-ups, pike work, straight-bar &amp; ring dips.</span></li>
-                    <li class="reveal"><span class="m-no">04</span><b>core &amp; compression</b><span class="m-desc">leg raises, L-sit, hollow rocks — base for every skill.</span></li>
-                    <li class="reveal"><span class="m-no">05</span><b>the muscle-up</b><span class="m-desc">explosive pull, transition drills, clean bar &amp; ring reps.</span></li>
-                    <li class="reveal"><span class="m-no">06</span><b>straight-arm strength</b><span class="m-desc">handstand balance, intro planche &amp; front lever.</span></li>
+                    <li class="reveal"><span class="m-no">01</span><b>foundations &amp; assessment</b><span class="m-desc">how the course works, find your real level, joint prep, hollow body &amp; bracing.</span><span class="m-free">free lessons</span></li>
+                    <li class="reveal"><span class="m-no">02</span><b>static — support &amp; core</b><span class="m-desc">support hold, L-sit, planche lean &amp; tuck planche, handstand at the wall then free.</span></li>
+                    <li class="reveal"><span class="m-no">03</span><b>static — the pull chain</b><span class="m-desc">german hang, skin the cat, tuck back lever, tuck front lever, advanced levers.</span></li>
+                    <li class="reveal"><span class="m-no">04</span><b>dynamic — push</b><span class="m-desc">push-up progression, parallel-bar &amp; straight-bar dips, pike &amp; pseudo-planche.</span></li>
+                    <li class="reveal"><span class="m-no">05</span><b>dynamic — pull</b><span class="m-desc">pull-up progression, archer &amp; weighted, the muscle-up in two parts, explosive pulls.</span></li>
+                    <li class="reveal"><span class="m-no">06</span><b>programming</b><span class="m-desc">overload &amp; recovery, weekly split, deloads &amp; peaking, injury-proofing, your 12-week plan.</span></li>
                 </ol>
             </div>
             <div class="curr-panel" id="curr-rob">
                 <ol class="modules">
-                    <li class="reveal"><span class="m-no">01</span><b>electronics</b><span class="m-desc">voltage, current, resistance, the breadboard. blink an LED.</span><span class="m-free">free lesson</span></li>
-                    <li class="reveal"><span class="m-no">02</span><b>microcontrollers &amp; C++</b><span class="m-desc">arduino I/O, non-blocking timing, reading inputs.</span></li>
-                    <li class="reveal"><span class="m-no">03</span><b>sensors &amp; actuators</b><span class="m-desc">ultrasonic, IMU, line sensors; motors &amp; servos, safely.</span></li>
-                    <li class="reveal"><span class="m-no">04</span><b>raspberry pi &amp; python</b><span class="m-desc">serial links, threading, a real computer on the robot.</span></li>
-                    <li class="reveal"><span class="m-no">05</span><b>ROS fundamentals</b><span class="m-desc">nodes, topics, services; simulate before you burn a motor.</span></li>
-                    <li class="reveal"><span class="m-no">06</span><b>capstone: rover</b><span class="m-desc">sensor fusion, obstacle avoidance, a tuned control loop.</span></li>
+                    <li class="reveal"><span class="m-no">01</span><b>setup &amp; the ROS 2 graph</b><span class="m-desc">what ROS 2 is, install &amp; workspace, nodes/topics on the CLI, rqt &amp; ros2 bag.</span><span class="m-free">free lessons</span></li>
+                    <li class="reveal"><span class="m-no">02</span><b>nodes in python (rclpy)</b><span class="m-desc">publisher, subscribers &amp; callbacks, timers/params/logging, custom interfaces, launch files.</span></li>
+                    <li class="reveal"><span class="m-no">03</span><b>services, actions &amp; QoS</b><span class="m-desc">services, actions, QoS profiles, lifecycle nodes.</span></li>
+                    <li class="reveal"><span class="m-no">04</span><b>TF2 &amp; URDF</b><span class="m-desc">transforms, describing a robot, robot_state_publisher &amp; joint states.</span></li>
+                    <li class="reveal"><span class="m-no">05</span><b>simulation &amp; sensors</b><span class="m-desc">Gazebo &amp; ros_gz, simulated lidar/camera/IMU, reading sensor data in code.</span></li>
+                    <li class="reveal"><span class="m-no">06</span><b>navigation — Nav2 &amp; SLAM</b><span class="m-desc">the Nav2 stack, slam_toolbox, AMCL, costmaps &amp; planners, tuning &amp; recovery.</span></li>
+                    <li class="reveal"><span class="m-no">07</span><b>perception &amp; advanced</b><span class="m-desc">OpenCV with ROS 2, point clouds, multi-robot TF trees, executors &amp; performance.</span></li>
+                    <li class="reveal"><span class="m-no">08</span><b>capstone: autonomous rover</b><span class="m-desc">architecture, bringup &amp; teleop, mapping your space, autonomous patrol with Nav2.</span></li>
                 </ol>
             </div>
         </div>
@@ -254,10 +268,10 @@ academy
                     <p class="plan-name" data-i18n="price_cal_name">calisthenics</p>
                     <p class="plan-price">$49 <span data-i18n="price_per">// one-time</span></p>
                     <ul>
-                        <li>50+ HD video lessons</li>
-                        <li>12-week training log</li>
-                        <li>nutrition guide</li>
-                        <li>community access</li>
+                        <li>28 in-depth written lessons</li>
+                        <li>06 modules, assessment → programming</li>
+                        <li>a 12-week plan you run yourself</li>
+                        <li>lifetime access + every update</li>
                     </ul>
                     <a href="#" class="btn btn-ghost buy-btn" data-course="calisthenics" data-i18n="price_buy">&gt; get access</a>
                 </div>
@@ -277,41 +291,15 @@ academy
                     <p class="plan-name" data-i18n="price_rob_name">robotics</p>
                     <p class="plan-price">$69 <span data-i18n="price_per">// one-time</span></p>
                     <ul>
-                        <li>80+ HD video lessons</li>
-                        <li>parts list &amp; wiring diagrams</li>
-                        <li>ROS deep dive</li>
-                        <li>10 build projects</li>
+                        <li>33 in-depth written lessons</li>
+                        <li>08 modules, setup → capstone</li>
+                        <li>ROS 2 Humble / Jazzy, rclpy</li>
+                        <li>Nav2 + SLAM capstone in Gazebo</li>
                     </ul>
                     <a href="#" class="btn btn-ghost buy-btn" data-course="robotics" data-i18n="price_buy">&gt; get access</a>
                 </div>
             </div>
             <p class="note reveal" data-i18n="price_guarantee">peter1947:~$ # 14-day refund, no questions asked</p>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials" class="section testimonials">
-        <div class="container">
-            <div class="section-head reveal">
-                <p class="tag" data-i18n="tst_tag">// results</p>
-                <h2 data-i18n="tst_title">People who finished.</h2>
-            </div>
-            <div class="tst-list">
-                <figure class="tst reveal">
-                    <blockquote>"The progressions are the whole point. I'd failed at pull-ups for years — first clean muscle-up in week 9 following this exactly."</blockquote>
-                    <figcaption>— marcus_j <span>// started at 0 pull-ups</span></figcaption>
-                </figure>
-                <div class="rule dashed reveal" aria-hidden="true"></div>
-                <figure class="tst reveal">
-                    <blockquote>"I bounced off ROS twice in university. Peter builds it up from real hardware, so it finally clicked. My rover actually works."</blockquote>
-                    <figcaption>— sarah_t <span>// cs student</span></figcaption>
-                </figure>
-                <div class="rule dashed reveal" aria-hidden="true"></div>
-                <figure class="tst reveal">
-                    <blockquote>"Clear, practical, no fluff. Rare to find someone genuinely strong at both the engineering and the training side."</blockquote>
-                    <figcaption>— david_l <span>// software engineer</span></figcaption>
-                </figure>
-            </div>
         </div>
     </section>
 
@@ -332,8 +320,12 @@ academy
                     <div class="faq-a"><p>No. Both courses start from zero — your first push-up, your first line of code — and build in small, testable steps.</p></div>
                 </div>
                 <div class="faq-item">
+                    <button class="faq-q"><span>is this video or written?</span><i aria-hidden="true">+</i></button>
+                    <div class="faq-a"><p><b>Written.</b> Every lesson is text you read plus commands you run, ending in a self-check — not a video course. Run a free lesson first and you will see exactly what you are buying.</p></div>
+                </div>
+                <div class="faq-item">
                     <button class="faq-q"><span>what equipment do i need?</span><i aria-hidden="true">+</i></button>
-                    <div class="faq-a"><p>Calisthenics: a pull-up bar and a floor. Robotics: a ~$60–100 starter kit — exact parts list is in module 1.</p></div>
+                    <div class="faq-a"><p>Calisthenics: a pull-up bar and a floor. Robotics: a computer running Ubuntu with ROS 2 Humble or Jazzy — everything is simulated in Gazebo, so no robot hardware is required.</p></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-q"><span>how long do i keep access?</span><i aria-hidden="true">+</i></button>
@@ -392,7 +384,7 @@ academy
         </div>
     </footer>
 
-    <script src="translations.js?v=21"></script>
-    <script src="script.js?v=21"></script>
+    <script src="translations.js?v=22"></script>
+    <script src="script.js?v=22"></script>
 </body>
 </html>

@@ -32,9 +32,9 @@
     --border: var(--line);
     --primary: var(--amber);
 
-    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-    --prose:   "Newsreader", Georgia, "Times New Roman", serif;
-    --mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --display: "Archivo", "IBM Plex Sans Thai", "Helvetica Neue", Arial, sans-serif;
+    --prose:   "Newsreader", "Noto Serif Thai", Georgia, "Times New Roman", serif;
+    --mono:    "JetBrains Mono", "IBM Plex Sans Thai", ui-monospace, "SF Mono", Menlo, monospace;
     --ease:    cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 

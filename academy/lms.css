@@ -34,9 +34,9 @@
     --warn:     #f0b429;
     --danger:   #f0705f;
 
-    --prose: 'Newsreader', Georgia, 'Times New Roman', serif;
-    --font:  'Archivo', 'Helvetica Neue', Arial, sans-serif;
-    --mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --prose: 'Newsreader', 'Noto Serif Thai', Georgia, 'Times New Roman', serif;
+    --font:  'Archivo', 'IBM Plex Sans Thai', 'Helvetica Neue', Arial, sans-serif;
+    --mono:  'JetBrains Mono', 'IBM Plex Sans Thai', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
     --radius:    0px;
     --radius-sm: 0px;

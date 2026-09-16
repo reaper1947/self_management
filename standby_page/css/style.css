@@ -727,11 +727,11 @@ body {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 154, 46, 0.55);
     transition: color 0.2s ease;
 }
 .sr-storefront-link:hover,
 .sr-storefront-link:focus-visible {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 154, 46, 1);
     text-decoration: underline;
 }

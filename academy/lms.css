@@ -1,35 +1,48 @@
-/* =============================================================
-   Peter1947 Academy — LMS  (student + admin)  ·  clean dark
-   ============================================================= */
+/* ══════════════════════════════════════════════════════════════════════════
+   Peter1947 Academy — LMS  (student + admin)
+
+   Same identity as the storefront and the lesson pages: graphite ground, warm
+   chalk, one sodium amber. This is a tool people operate rather than a page
+   they read, so the type stack differs on purpose — Archivo for the interface,
+   JetBrains Mono for anything numeric or path-like, and Newsreader reserved
+   for lesson prose in the player, where the reading actually happens.
+
+   Corners are square here as everywhere else in the product.
+   ══════════════════════════════════════════════════════════════════════════ */
 
 :root {
-    --bg:       #0b0c0e;
-    --bg-2:     #101216;
-    --card:     #14161b;
-    --card-2:   #191c22;
-    --border:   #262a31;
-    --border-2: #343a44;
+    --bg:       #0a0d12;
+    --bg-2:     #0f141b;
+    --card:     #141a23;
+    --card-2:   #1a2230;
+    --border:   #232b36;
+    --border-2: #333d4a;
 
-    --text:     #e9eaec;
-    --muted:    #9aa0aa;
-    --faint:    #676d78;
+    --text:     #ece7dd;
+    --muted:    #9aa3ad;
+    --faint:    #646d78;
 
-    --accent:     #46d17f;
-    --accent-ink: #06180e;
-    --accent-dim: #1e6b41;
-    --cal:      #38bdf8;
-    --rob:      #a78bfa;
-    --warn:     #f5b544;
-    --danger:   #f87171;
+    --accent:     #ff9a2e;
+    --accent-ink: #150d02;
+    --accent-dim: #8d4d0b;
 
-    --font:  'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    /* Two tracks in a TOOL do earn their own colour — you scan for "which
+       course is this" dozens of times a session. Both are damped so they sit
+       under the amber instead of competing with it. */
+    --cal:      #7fb2d9;
+    --rob:      #b59ad6;
+    --warn:     #f0b429;
+    --danger:   #f0705f;
+
+    --prose: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --font:  'Archivo', 'Helvetica Neue', Arial, sans-serif;
     --mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-    --radius:   12px;
-    --radius-sm: 8px;
+    --radius:    0px;
+    --radius-sm: 0px;
     --nav-h:    58px;
-    --ease:     cubic-bezier(.22, 1, .36, 1);
-    --shadow:   0 16px 40px -18px rgba(0, 0, 0, .6);
+    --ease:     cubic-bezier(.22, .61, .36, 1);
+    --shadow:   0 18px 44px -22px rgba(0, 0, 0, .75);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,12 +55,18 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4 { line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+h1, h2, h3, h4 {
+    font-family: var(--font);
+    line-height: 1.16;
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.015em;
+}
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 img { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
-::selection { background: rgba(70, 209, 127, .3); }
+::selection { background: var(--accent); color: var(--accent-ink); }
 
 .mono { font-family: var(--mono); }
 .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
@@ -85,7 +104,7 @@ img { max-width: 100%; display: block; }
 .btn:hover { transform: translateY(-1px); background: #20242c; }
 .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
-.btn-primary:hover { background: #57df8e; border-color: #57df8e; box-shadow: 0 8px 24px -8px rgba(70, 209, 127, .55); }
+.btn-primary:hover { background: #ffb861; border-color: #ffb861; box-shadow: 0 8px 24px -8px rgba(255, 154, 46, .45); }
 .btn-ghost { background: transparent; }
 .btn-ghost:hover { background: var(--card-2); }
 .btn-sm { padding: .38rem .7rem; font-size: .8rem; }
@@ -110,9 +129,11 @@ img { max-width: 100%; display: block; }
     border: 1px solid var(--border); border-radius: var(--radius);
     padding: clamp(1.2rem, 3vw, 1.8rem); position: relative; overflow: hidden;
 }
+/* A flat amber rule, not a three-colour gradient — the track colours belong on
+   the course cards, where they tell you which course you are looking at. */
 .profile::before {
-    content: ""; position: absolute; inset: 0 0 auto; height: 3px;
-    background: linear-gradient(90deg, var(--cal), var(--accent), var(--rob));
+    content: ""; position: absolute; inset: 0 0 auto; height: 2px;
+    background: var(--accent);
 }
 .p-avatar {
     width: 84px; height: 84px; border-radius: 20px;
@@ -128,7 +149,7 @@ img { max-width: 100%; display: block; }
 .lvl-badge {
     font-family: var(--mono); font-weight: 700; font-size: .74rem;
     padding: .22rem .55rem; border-radius: 6px;
-    color: var(--accent); background: rgba(70, 209, 127, .12);
+    color: var(--accent); background: rgba(255, 154, 46, .14);
     border: 1px solid var(--accent-dim); letter-spacing: .03em;
 }
 .p-rank .rank-name { font-weight: 600; font-size: .9rem; }
@@ -137,7 +158,7 @@ img { max-width: 100%; display: block; }
 .xp-wrap { display: grid; gap: .4rem; }
 .xp-meta { display: flex; justify-content: space-between; font-size: .78rem; color: var(--faint); font-family: var(--mono); }
 .xp-track { height: 8px; border-radius: 5px; background: var(--bg-2); border: 1px solid var(--border); overflow: hidden; }
-.xp-fill { height: 100%; width: 0; border-radius: 5px; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); box-shadow: 0 0 12px rgba(70, 209, 127, .5); transition: width .8s var(--ease); }
+.xp-fill { height: 100%; width: 0; border-radius: 5px; background: linear-gradient(90deg, var(--accent-dim), var(--accent)); box-shadow: 0 0 12px rgba(255, 154, 46, .35); transition: width .8s var(--ease); }
 
 .p-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
 .p-stat { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .8rem .9rem; }
@@ -161,7 +182,7 @@ textarea, select {
     transition: border-color .18s, box-shadow .18s;
 }
 textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
-input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(70, 209, 127, .12); }
+input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255, 154, 46, .14); }
 label.field { display: block; }
 label.field > span { display: block; font-size: .78rem; color: var(--muted); margin-bottom: .35rem; }
 
@@ -192,13 +213,13 @@ label.field > span { display: block; font-size: .78rem; color: var(--muted); mar
 .cc-meta { display: flex; justify-content: space-between; font-size: .76rem; color: var(--faint); font-family: var(--mono); }
 .cc-foot { display: flex; align-items: center; gap: .6rem; margin-top: .3rem; }
 .badge { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; padding: .18rem .45rem; border-radius: 5px; border: 1px solid var(--border-2); color: var(--muted); }
-.badge.owned { color: var(--accent); border-color: var(--accent-dim); background: rgba(70, 209, 127, .1); }
+.badge.owned { color: var(--accent); border-color: var(--accent-dim); background: rgba(255, 154, 46, .12); }
 .badge.locked { color: var(--warn); border-color: rgba(245, 181, 68, .3); background: rgba(245, 181, 68, .08); }
 
 /* ---------- continue banner ---------- */
 .resume {
     display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-    background: linear-gradient(100deg, rgba(70, 209, 127, .1), transparent 70%);
+    background: linear-gradient(100deg, rgba(255, 154, 46, .12), transparent 70%);
     border: 1px solid var(--accent-dim); border-radius: var(--radius); padding: 1.1rem 1.3rem;
 }
 .resume .r-txt { flex: 1; min-width: 200px; }
@@ -277,7 +298,15 @@ label.field > span { display: block; font-size: .78rem; color: var(--muted); mar
 .video-frame .novideo { position: absolute; inset: 0; display: grid; place-items: center; color: var(--faint); font-size: .85rem; }
 
 /* prose */
-.lesson-body { font-size: .98rem; line-height: 1.75; }
+/* The one place in the app where someone settles in and reads, so it gets the
+   serif and a comfortable measure rather than the interface font. */
+.lesson-body {
+    font-family: var(--prose);
+    font-size: 1.08rem;
+    line-height: 1.72;
+    color: #ccd2d8;
+    max-width: 68ch;
+}
 .lesson-body > * + * { margin-top: 1rem; }
 .lesson-body h2 { font-size: 1.3rem; margin-top: 2rem; }
 .lesson-body h3 { font-size: 1.08rem; margin-top: 1.5rem; }

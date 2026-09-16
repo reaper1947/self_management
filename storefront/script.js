@@ -134,6 +134,11 @@
             }
 
             ctx.font = "10px 'JetBrains Mono', ui-monospace, monospace";
+            // Labels are drifting, so two hubs will sometimes pass close enough
+            // for their text to collide. Keep the boxes drawn so far and drop
+            // any label that would overlap one — a missing label reads as depth,
+            // two labels on top of each other reads as a bug.
+            const placed = [];
             for (const n of nodes) {
                 const inn = Math.min(1, Math.max(0, (t - n.delay) / 900)) * veil(n.x);
                 if (inn <= 0.01) continue;
@@ -155,11 +160,17 @@
                 ctx.arc(n.x, n.y, n.hub ? 3.2 : 1.8, 0, Math.PI * 2);
                 ctx.fill();
                 if (n.hub && W >= 860 && n.x > 40 && n.x < W - 40) {
-                    ctx.fillStyle = "rgba(190,199,208," + (inn * 0.58).toFixed(3) + ")";
                     // flip the label inboard rather than let it run off the edge
                     const w = ctx.measureText(n.label).width;
                     const x = (n.x + 10 + w > W - 14) ? n.x - 10 - w : n.x + 10;
-                    ctx.fillText(n.label, x, n.y + 3.5);
+                    const box = { l: x - 3, r: x + w + 3, t: n.y - 8, b: n.y + 8 };
+                    const clash = placed.some((p) =>
+                        box.l < p.r && box.r > p.l && box.t < p.b && box.b > p.t);
+                    if (!clash) {
+                        placed.push(box);
+                        ctx.fillStyle = "rgba(190,199,208," + (inn * 0.58).toFixed(3) + ")";
+                        ctx.fillText(n.label, x, n.y + 3.5);
+                    }
                 }
             }
         }
@@ -346,9 +357,15 @@
     function initCounters() {
         const nums = $$("[data-count]");
         if (!nums.length) return;
+
+        // The resting state is the real number. Counting up is an embellishment
+        // that happens if and when the element is actually scrolled into a
+        // visible tab — a page opened in the background, or captured for a link
+        // preview, must never sit there reading "0 lessons".
+        nums.forEach((el) => { el.textContent = el.dataset.count; });
+
         const run = (el) => {
             const target = parseFloat(el.dataset.count);
-            // No animation frames in a hidden tab — show the number, not a 0.
             if (reduced || document.hidden) { el.textContent = String(target); return; }
             const start = performance.now(), dur = 1100;
             const tick = (now) => {

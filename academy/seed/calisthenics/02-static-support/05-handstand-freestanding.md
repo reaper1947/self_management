@@ -1,36 +1,95 @@
-Freestanding handstand balance is a practice, not a strength exercise — done in short,
-frequent, fresh doses.
+Everything from the wall lesson still applies. What changes is that nothing
+catches you, so before you spend a single session chasing balance, you learn to
+fall.
 
-## Daily practice structure (10–15 min)
+## Learn to bail first
 
-1. Wrist prep — 2 min.
-2. **Wall line hold** — 2×30 s chest-to-wall to reset the shape.
-3. **Kick-up practice** — 15–25 attempts to balance, resting as needed. Quality of entry
-   matters: a controlled kick-up that stacks over the shoulders is the goal, not a hard kick.
-4. **Bail practice** if new — deliberately over-balance and turn out 5×.
+Fear is the largest single obstacle to a free handstand, and fear is rational
+until you have an exit. Practise both of these on a soft surface until they are
+automatic:
 
-## The balance skill
+**The pirouette-out** — the one you will use 95% of the time. As you feel
+yourself going over, turn one hand out, let the shoulders rotate, and step down
+to the side. You end up standing, facing sideways. Drill it deliberately twenty
+times before you need it.
 
-- **Hollow, not arched.** Most people over-arch and "banana." Film from the side weekly.
-- **Micro-corrections with the hands.** Weight forward on fingers to stop a forward fall;
-  press through the heel of the hand for a backward fall.
-- **Stack, then hold.** Don't chase a bad entry — bail and re-kick.
+**The forward roll-out** — for going over the front. Tuck the chin, bend the
+arms, and roll along the upper back. Never put a straight arm down to catch
+yourself: that is how wrists and elbows break.
 
-## Milestones
+Once you can bail without thinking, the handstand stops being frightening and
+starts being interesting. Everyone improves faster after this.
 
-| Level | Standard |
-|---|---|
-| Beginner | 1–3 s freestanding |
-| Intermediate | 10–20 s consistent, can self-correct |
-| Advanced | 30 s+, straight line, presses to handstand |
+## The kick-up
 
-## Next skills from here
+The most common mistake is kicking too hard. You are not launching yourself; you
+are placing your hips over your hands and letting the legs follow.
 
-- **Press to handstand** (straddle or pike) — strength + compression + balance.
-- **Handstand push-up** — bent-arm strength on top of the line.
+1. **Lunge** — strong front leg, arms already locked overhead by your ears.
+2. **Hands down about a shoulder-width apart**, fingers spread, a little before
+   your front foot.
+3. **Swing the back leg up**, push off the front foot gently.
+4. **Stack the hips over the shoulders.** This is the actual goal, not the legs.
+5. **Bring the legs together** at the top.
+
+Aim to arrive *slightly short* of vertical and let your fingers pull you the rest
+of the way. Kicking past vertical and relying on your shoulders to catch it is
+the habit that makes handstands exhausting.
+
+## Balance, in order of priority
+
+1. **Fingers.** Going over the front → press the fingertips down. This should
+   happen continuously, like a small constant conversation with the floor.
+2. **Heel of the hand.** Falling back → press the heel.
+3. **Shoulder shrug.** Push the floor away harder; it raises your centre of mass
+   and slows everything down.
+4. **Hip or leg adjustment.** Last resort. Splitting the legs is a real correction
+   but it costs you the shape.
+
+## The progression
+
+| Rung | What to do | Target |
+|---|---|---|
+| 1 | **Bails** — pirouette and roll-out | automatic, 20 reps each |
+| 2 | **Kick-up to the wall, controlled** | lands softly, no bang |
+| 3 | **Heel pulls** — off the wall, find balance | 5 s hold |
+| 4 | **Free kick-up, bail every time** | 20 attempts, no fear |
+| 5 | **Free handstand** | 10 s |
+| 6 | **Free handstand** | 30 s |
+| 7 | **Handstand shoulder taps** | 5 taps each side |
+
+## Programming it
+
+Same as the wall lesson, and it bears repeating because everybody ignores it:
+**short and often**. Ten to fifteen minutes, five or six days a week, first thing
+in the session.
+
+Set a target of **attempts**, not time. "Thirty kick-ups" is a session you can
+finish. "Hold a handstand for thirty seconds" is a session that ends in
+frustration.
+
+Track your **best hold each week**. It will go 3 s, 4 s, 3 s, 6 s, 4 s, 11 s. That
+is what learning a balance skill looks like from the inside — it is not linear and
+the bad days are not a sign of anything.
+
+## What goes wrong
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Always over-kicking | too much leg, not enough hip | practise kicking to a wall and stopping short |
+| Only balance for 1–2 s | correcting too late | more reps, smaller corrections, use the fingers earlier |
+| Shoulders tire in 10 s | not pushing tall | shrug harder; a sunk handstand is much harder work |
+| Great at the wall, hopeless free | the wall was doing the balancing | more heel pulls, fewer static wall holds |
+| Wrists hurt | volume | shorter sessions, more of them; parallettes for some sets |
+
+## Target
+
+**30 seconds of free handstand in a straight line.** That is a genuinely
+respectable skill and most people who claim it cannot actually do it.
 
 ## Self-check
 
-- [ ] Consistent 10 s freestanding holds
-- [ ] I practice 4–6 days/week in short sessions
-- [ ] Side-on video shows a straight (not arched) line
+- [ ] I can bail without thinking, in both directions
+- [ ] I kick up without slamming into the wall
+- [ ] 10 s free handstand
+- [ ] I correct with fingers first, hips last

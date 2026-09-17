@@ -101,9 +101,9 @@ Use `font-variant-numeric: tabular-nums` wherever digits line up.
 
 ## Copy rules
 
-Every number on the site traces to `academy/seed/`: **28** calisthenics lessons
-in **6** modules, **33** robotics lessons in **8** modules, **61** total, **2**
-free. The lessons are **written, not video** — say so plainly; the FAQ has an
+Every number on the site traces to `academy/seed/`: **31** calisthenics lessons
+in **6** modules, **33** robotics lessons in **8** modules, **64** total, **2**
+free standalone trial lessons. The lessons are **written, not video** — say so plainly; the FAQ has an
 entry for it.
 
 Do not add social proof that is not real. The site previously carried invented

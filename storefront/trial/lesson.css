@@ -387,3 +387,14 @@ td em { color: var(--amber); font-style: normal; }
     }
     html { scroll-behavior: auto; }
 }
+
+/* Course figures, same treatment as the LMS player. */
+.lesson img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.6rem 0;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    padding: 1rem;
+}

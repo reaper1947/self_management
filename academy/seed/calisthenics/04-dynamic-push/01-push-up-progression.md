@@ -1,40 +1,100 @@
-The push-up is the base of every dynamic push skill. Done to a real standard it also
-carries most people 80% of the way to their first dip.
+The push-up is the most under-rated exercise in calisthenics because everybody
+assumes they can already do it. Most people cannot do a good one, and the good one
+is a genuinely useful strength exercise well past the beginner stage.
 
-## The standard
+## What a real push-up is
 
-A rep counts when:
+- body in **one straight line** from heel to head — no sagging hips, no piked hips
+- hands roughly under the shoulders, **elbows tracking at about 45°** from the
+  torso, not flared to 90°
+- chest descends to **fist height** off the floor
+- **full lockout** at the top, shoulder blades allowed to spread
+- no bouncing, no head-bobbing
 
-- Body is one straight line from head to heel — **no sagging hips, no piking up**.
-- **Elbows track at ~45°** to the torso, not flared to 90°.
-- Chest comes to **fist height** (about 8–10 cm off the floor).
-- You lock out fully at the top and **protract** — spread the shoulder blades.
+## The physics
+
+![Fraction of bodyweight on the hands, by push-up variation](/academy/figures/pushup-load.svg)
+
+A push-up is a lever with your toes as the pivot and your hands as the support.
+Your hands do not carry your whole weight — they carry the share determined by
+where your centre of mass sits between your toes and your hands.
+
+That is roughly **64% of bodyweight at the top of a standard push-up, and about
+75% at the bottom** — the numbers move because your shoulders travel forward
+relative to your hands as you descend.
+
+Two useful consequences:
+
+**Raising your hands moves the load off them.** Hands on a wall is about 28%;
+hands on a low box is about 55%. This is a continuous dial, exactly like the
+planche lean, and it means you never need to do a bad push-up — there is always a
+height where you can do a good one.
+
+**Raising your feet moves the load on.** Feet elevated 30 cm is about 74% at the
+top, which is roughly what the *bottom* of a flat push-up asks. This is how you
+keep progressing without adding reps forever.
 
 ## The progression
 
-1. **Wall → incline push-ups** (hands on a bench/table); lower the surface as you get stronger. 3×12, then lower.
-2. **Full push-ups.** *Target: 3×12 strict.*
-3. **Tempo push-ups** — 3 s down, 1 s pause, up. *Target: 3×8.*
-4. **Feet-elevated push-ups** — shifts load to the shoulders. *Target: 3×10.*
-5. **Archer / one-arm progressions** — later, once dips and PPPs are solid.
+| Rung | What to do | Target |
+|---|---|---|
+| 1 | **Wall push-up** | 3×15 |
+| 2 | **Incline push-up** — hands waist-height | 3×12 |
+| 3 | **Knee push-up** — hips straight, not sitting back | 3×12 |
+| 4 | **Negative push-up** — 5 s lower, knees to return | 3×5 |
+| 5 | **Full push-up** | 3×8 |
+| 6 | **Full push-up, paused** — 2 s at the bottom | 3×8 |
+| 7 | **Feet-elevated push-up** | 3×8 |
+| 8 | **Diamond push-up** | 3×8 |
+| 9 | **Archer push-up** | 3×5 each side |
+| 10 | **Pseudo-planche push-up** | 3×5 |
+
+Do not skip rung 6. A paused push-up removes the stretch reflex at the bottom,
+which is where most of the "free" reps come from. If your paused numbers are far
+below your normal ones, you have been bouncing.
 
 ## Form cues
 
-- **Hollow body** — ribs down, glutes on.
-- **"Screw your hands into the floor"** — creates external-rotation torque, protects the shoulders.
-- **Full range or it doesn't count.**
+**Push the floor away at the top.** Let the shoulder blades spread. Most people
+lock the elbows and stop there; the last few centimetres come from the scapula and
+they are worth having — that is the serratus, and it is the muscle the planche
+will later demand.
 
-## Common mistakes
+**Elbows at 45°.** Flaring to 90° puts the shoulder in its least stable position.
+Tucking them to 0° turns it into a triceps exercise.
 
-| Mistake | Fix |
-|---|---|
-| Hips sag first | Brace harder; regress to incline |
-| Head pokes forward, chest high | Lead with the chest, neutral neck |
-| Elbows flare to 90° | Tuck toward 45°; arrow-shaped not T-shaped |
-| Bouncing out of the bottom | 1-second pause every rep |
+**Squeeze the glutes.** The most reliable way to stop the hips sagging.
+
+**Head neutral.** Chin tucked slightly. A head that reaches for the floor first is
+adding a rep that never happened.
+
+## What goes wrong
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Hips sag | brace | glutes; go back to knee push-ups and hold the line |
+| Hips pike up | avoiding the hard part | one line from heel to head, drop a rung |
+| Elbows flare wide | habit | consciously tuck to 45°, lighten the rung |
+| Head reaches first | cheating range | film one set from the side |
+| Shoulder pain at the bottom | depth plus flare | reduce depth to fist height, fix elbow path |
+| Wrist pain | wrist extension | push-up handles, fists, or dumbbells to keep the wrist neutral |
+
+## Programming it
+
+Three times a week, 3–5 sets. Choose the rung where **8 clean reps is hard but
+possible**, and progress reps to 12, then move up a rung and return to 8.
+
+Once you are past rung 7, treat push-ups as accessory volume and let dips carry
+the main pushing progression.
+
+## Target
+
+**3 sets of 8 paused full push-ups**, chest to fist height, body in one line.
+Then dips.
 
 ## Self-check
 
-- [ ] 3×12 strict full push-ups, straight line, chest to fist height
-- [ ] 3×8 tempo push-ups (3 s down + 1 s pause)
-- [ ] Full push-up with a 2-second bottom pause, no collapse
+- [ ] 3×8 paused push-ups, 2 s at the bottom
+- [ ] Filmed from the side and the line is straight
+- [ ] Shoulder blades spread at the top
+- [ ] No wrist or shoulder pain afterwards

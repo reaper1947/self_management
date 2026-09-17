@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────
    Peter1947 — storefront i18n (EN / TH)
    Terse, technical voice. Elements opt in with data-i18n="key".
-   Every claim here is checked against academy/seed — 28 + 33
+   Every claim here is checked against academy/seed — 31 + 33
    written lessons, 6 + 8 modules, no video, no hardware.
    ───────────────────────────────────────────────────────────── */
 const translations = {
@@ -86,7 +86,7 @@ const translations = {
         price_per: "// one-time",
         price_buy: "> get access",
         price_guarantee: "peter1947:~$ # 14-day refund, no questions asked",
-        price_cal_1: "28 in-depth written lessons",
+        price_cal_1: "31 in-depth written lessons",
         price_cal_2: "06 modules, assessment → programming",
         price_cal_3: "a 12-week plan you run yourself",
         price_cal_4: "lifetime access + every update",
@@ -205,7 +205,7 @@ const translations = {
         price_per: "// จ่ายครั้งเดียว",
         price_buy: "> รับสิทธิ์",
         price_guarantee: "peter1947:~$ # คืนเงินภายใน 14 วัน ไม่มีเงื่อนไข",
-        price_cal_1: "28 บทเรียนเชิงลึก แบบตัวหนังสือ",
+        price_cal_1: "31 บทเรียนเชิงลึก แบบตัวหนังสือ",
         price_cal_2: "06 โมดูล ประเมินระดับ → วางโปรแกรม",
         price_cal_3: "แผน 12 สัปดาห์ที่คุณรันเอง",
         price_cal_4: "สิทธิ์ตลอดชีพ + อัปเดตทุกครั้ง",

@@ -1,34 +1,93 @@
-Movements are only half the course. This module turns them into a plan that keeps working.
+You now have the skills. This module is how you turn them into a plan that keeps
+working for years instead of six weeks.
 
-## Progressive overload — the four levers
+## Overload: the only thing that makes you adapt
 
-You must make *something* harder over time. In calisthenics the levers are:
+Your body changes in response to demands it is not currently equipped to meet. No
+new demand, no reason to change. That is the whole of training theory, and
+everything else is detail about how to increase the demand without breaking.
 
-1. **Reps / seconds** — +1 rep or +5 s per week.
-2. **Leverage** — tuck → advanced tuck → straddle → full.
-3. **Load** — weighted pull-ups/dips, +2.5 kg per 1–2 weeks.
-4. **Density** — same work in less time (shorter rests), or more sets.
+In calisthenics you have **five dials**, and it matters that you know all of them,
+because most people only know the first two:
 
-Pick **one lever per exercise per week**. Write down what you changed.
+1. **Reps** — 5 → 6 → 7
+2. **Sets** — 3 → 4 → 5
+3. **Leverage** — tuck → advanced tuck → straddle. The dial this sport is built on.
+4. **Time under tension** — a 2-second pause, a 5-second lower, a longer hold
+5. **External load** — a weighted vest, a dip belt
 
-## Intensity vs volume
+Dial 4 is worth writing down properly, because "go slower" is not a number and a
+number is what you need in order to repeat it next week:
 
-- **Static skills & explosive work** = high intensity, low volume, long rest, 2×/week.
-- **Dynamic strength (pull-ups, dips, push-ups)** = moderate volume, 2–3×/week.
-- **Prehab / mobility** = low intensity, high frequency, daily.
+![How tempo notation works](/academy/figures/tempo.svg)
 
-## Recovery is the training
+Leverage is the one that makes calisthenics work, and it is also the one to be
+most careful with, because a change in leverage is a much larger jump than a
+change in reps. When in doubt, turn a different dial.
 
-Strength is built between sessions. The non-negotiables:
+**Turn exactly one dial per week.** Two at once and you cannot attribute the
+result — good or bad — to anything.
 
-- **Sleep 7–9 h.** The single biggest lever.
-- **Protein ~1.6–2.2 g/kg/day.** Enough total calories to support your goal.
-- **48 h** between hard sessions for the same movement pattern and joint.
-- If a joint (elbow, wrist, shoulder) aches into the next session, **that's the ceiling** —
-  reduce volume there for 1–2 weeks.
+## The recovery half
+
+Training is the stimulus. **Adaptation happens during recovery.** Train without
+recovering and you accumulate fatigue instead of fitness, which feels like
+training hard and produces nothing.
+
+The three tissues in this course recover on completely different timescales, and
+this is the fact that most programmes get wrong:
+
+| Tissue | Recovers in | What that means |
+|---|---|---|
+| Muscle | 24–72 h | can be trained 3–4× a week comfortably |
+| Tendon and ligament | days to weeks | 2× a week, and volume rises slowly |
+| Nervous system | 24–48 h after maximal work | limits how often you can go truly heavy |
+
+This is exactly why the course says **push-ups three times a week and front levers
+twice**. It is not arbitrary and it is not caution. They are different tissues with
+different clocks.
+
+## Specificity
+
+You get good at what you practise. Pull-ups build pull-ups. Front levers build
+front levers. There is transfer between related skills — a strong front lever
+helps a front lever pull, a strong dip helps a muscle-up — but it is partial, and
+it shrinks as skills get more specific.
+
+The practical version: **if you want a skill, train the skill or its direct
+progressions.** General conditioning is good for you and it is not a substitute.
+
+## Fatigue management
+
+Fatigue is not one thing:
+
+- **Metabolic** — the burn during a set. Gone in minutes.
+- **Muscular** — soreness, reduced force. One to three days.
+- **Connective** — joint ache, stiffness. Days to weeks, and the sneaky one.
+- **Neural** — everything feels heavy, coordination is off. One to two days after
+  truly maximal work.
+
+The dangerous one is connective, because it accumulates quietly and then presents
+as an injury rather than as tiredness. The whole point of tracking your weekly
+straight-arm seconds is to see it coming.
+
+## How to progress, concretely
+
+Pick a rung where you can do the target **with clean form and one rep or a few
+seconds in reserve**. Then:
+
+- **Week 1–3:** add reps or seconds, roughly 10% a week
+- **Week 4:** deload — half the volume, same movements
+- **Week 5:** move up a rung, return to the bottom of the rep range
+- Repeat
+
+That cycle is boring and it works for years. The alternative — pushing until
+something hurts, then taking three weeks off — is how most people spend their
+first five years.
 
 ## Self-check
 
-- [ ] I know which lever I'm progressing on each main exercise
-- [ ] Hard sessions for the same pattern are 48 h apart
-- [ ] Sleep and protein are actually handled, not just "planned"
+- [ ] I can name all five progression dials
+- [ ] I change exactly one per week
+- [ ] I know why statics are twice a week and dynamics three times
+- [ ] My plan has a deload week built in before I need it

@@ -81,7 +81,62 @@ def main() -> int:
             failures.append(f"i18n key missing from EN: {key}")
         if key + ":" not in th_block:
             failures.append(f"i18n key missing from TH: {key}")
-    print(f"\ni18n: {len(keys)} keys used on the storefront")
+    print(f"i18n: {len(keys)} keys used on the storefront")
+
+    failures += check_courses(storefront)
+    return report(failures)
+
+
+def check_courses(storefront: str) -> list[str]:
+    """Each seed course must be internally consistent, and the storefront must
+    quote the counts the seed actually has.
+
+    The storefront has claimed a lesson count that the course did not have
+    before, so this is checked rather than trusted.
+    """
+    import json
+
+    failures: list[str] = []
+    counts = {}
+    for course in ("calisthenics", "robotics"):
+        seed = os.path.join(ROOT, "academy", "seed", course)
+        manifest = json.load(open(os.path.join(seed, "manifest.json"), encoding="utf-8"))
+        lessons = [l for m in manifest["modules"] for l in m["lessons"]]
+        counts[course] = (len(lessons), len(manifest["modules"]))
+
+        figures_dir = os.path.join(ROOT, "academy", "figures")
+        have = set(os.listdir(figures_dir)) if os.path.isdir(figures_dir) else set()
+        for lesson in lessons:
+            path = os.path.join(seed, lesson["file"])
+            if not os.path.isfile(path):
+                failures.append(f"{course}: manifest points at a missing file: {lesson['file']}")
+                continue
+            body = open(path, encoding="utf-8").read()
+            for fig in re.findall(r"/academy/figures/([\w.-]+\.svg)", body):
+                if fig not in have:
+                    failures.append(f"{course}/{lesson['file']}: missing figure {fig}")
+
+        md_files = [f for _, _, fs in os.walk(seed) for f in fs if f.endswith(".md")]
+        if len(md_files) != len(lessons):
+            failures.append(f"{course}: {len(md_files)} .md files on disk but "
+                            f"{len(lessons)} in the manifest — stale lesson files?")
+
+    total = sum(c for c, _ in counts.values())
+    print("seed: " + ", ".join(f"{k} {c} lessons / {m} modules"
+                               for k, (c, m) in counts.items())
+          + f" — {total} total")
+
+    for course, (count, modules) in counts.items():
+        if f"{count} in-depth written lessons" not in storefront:
+            failures.append(f"storefront does not quote {course}'s real lesson "
+                            f"count ({count})")
+    if f'data-count="{total}"' not in storefront:
+        failures.append(f"storefront hero does not quote the real total ({total})")
+
+    return failures
+
+
+def report(failures: list[str]) -> int:
 
     if failures:
         print("\nFAIL")

@@ -397,3 +397,17 @@ table.data tr:hover td { background: var(--card); }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* Course figures. They are SVG on a transparent ground, drawn in the site's
+   own palette, so they need room and a rule rather than a frame — a box around
+   a diagram that already has its own edges reads as a picture of a picture. */
+.lesson-body figure, .lesson-body p > img { margin: 1.8rem 0; }
+.lesson-body img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 1rem;
+}
+.lesson-body p:has(> img) { margin: 1.8rem 0; }

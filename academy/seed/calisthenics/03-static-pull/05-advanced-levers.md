@@ -1,37 +1,90 @@
-Taking the front and back lever from tuck to full is a 1–3 year project. Here is how the
-progression is structured and programmed.
+The last rungs. From here, progress is measured in months and the difference
+between people who get these and people who do not is almost entirely patience.
 
-## The leverage ladder
+## What "advanced" means here
 
-Each step lengthens the lever (moves mass away from the axis), roughly:
+Straddle, half-lay and full lay — front and back — plus the ability to move
+between them. At these levels the load is close to your maximum, which changes
+three things:
 
-`tuck → advanced tuck → single-leg → straddle (wide → narrow) → full`
+- **Volume must come down.** Sets of 5 s, not 20. You cannot accumulate the same
+  total time under tension near your limit, and trying to is how elbows break.
+- **Frequency must stay the same.** Two sessions a week. Not three because you are
+  keen.
+- **Eccentrics become the main driver.** Holds maintain what you have; slow lowers
+  build what you do not.
 
-Move up a step when you can hold the current one **for ~15 s across 3 sets** with verified
-straight arms and a clean line.
+## The remaining ladder
 
-## The three exercises per skill
+| Rung | Front lever | Back lever |
+|---|---|---|
+| straddle | 88% of full | 88% of full |
+| half-lay | roughly 93% | roughly 93% |
+| full | 100% | 100% |
 
-1. **Isometric holds** — 4–6 sets of 5–15 s at your current step, plus 1–2 sets at the
-   next-harder step for 3–5 s ("exposure").
-2. **Eccentrics** — lower from a stronger position (inverted hang or tuck) to horizontal
-   over 4–6 s. 3×3.
-3. **Raises / pulls** — front lever raises, back lever pull-outs, straight-arm pulldowns.
-   3×5–8. These build the concentric strength that makes holds feel easy.
+Half-lay — one leg straight, one bent to 90° — is the single most useful
+intermediate on the whole ladder and most people skip it. It sits almost exactly
+between straddle and full, and it is asymmetric, which teaches you to hold the
+position without relying on perfect balance.
 
-## Weekly structure
+## Techniques that actually move you forward
 
-Two pull-focus days. Levers are **straight-arm** work: separate them by 48 h from heavy
-**bent-arm** pulling (weighted pull-ups) so the elbows recover. Deload every 4–6 weeks.
+**Eccentric lowers.** From an inverted hang, lower slowly through the position you
+want. 5–8 seconds. 3 sets at the end of a session. This is the highest-yield
+exercise in the whole module.
 
-## Straddle → full is mostly hips
+**Isometric ladders.** Hold your best rung for 5 s, drop to the rung below for
+10 s, then the one below that for 15 s, all without letting go. Brutal, effective,
+and it accumulates time under tension where it counts.
 
-Closing a straddle adds surprising difficulty. Bridge it with **narrow straddle** holds and
-**one-leg** holds (much harder than they look). Point the toes — it genuinely matters for
-the line and the leverage.
+**Weighted easier rungs.** Add 5 kg to an advanced tuck rather than moving to
+straddle. The lever stays manageable while the load rises — and because the load
+is added at your centre, it is a cleaner stimulus than a longer lever.
+
+**Band assistance at the hips.** A band under the hips reduces effective d
+continuously, which lets you hold the *full* position for enough time to learn its
+shape.
+
+## Pulling between the levers
+
+Once you can hold both, train transitions: front lever → inverted hang → back
+lever, slowly, under control. This is where the two halves of the module become
+one skill, and it is the most honest test of whether you own the positions or
+merely visit them.
+
+## What goes wrong
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Stuck at straddle for months | normal | widen the straddle, add half-lay, add eccentrics |
+| Elbow pain returning | volume climbed with intensity | cut total straight-arm seconds by half for 2 weeks |
+| Can hold it, cannot pull into it | pulling strength, not holding strength | front lever pulls and rows |
+| Shape degrades at the end of sets | too close to maximum | stop sets earlier; end while it is clean |
+| No progress for 8 weeks | often under-recovery, not under-training | deload a week, sleep more, then reassess |
+
+## Programming it
+
+Twice a week, and a realistic session looks like:
+
+1. joint prep — 10 min
+2. one entry drill — 3 sets
+3. best-rung holds — 4 sets, stopping clean
+4. eccentrics — 3 sets of one slow lower
+5. back-off holds at a comfortable rung — 2 sets of 15–20 s
+
+That is 15–20 minutes of actual lever work, and it is enough. The people who get
+these skills are not the ones doing more; they are the ones still doing it in
+three years.
+
+## Target
+
+**Straddle front lever, 8 seconds, clean.** Beyond that you are in territory where
+this course stops giving you rungs and starts giving you principles — which is as
+it should be.
 
 ## Self-check
 
-- [ ] Straddle front **or** back lever held 10 s+
-- [ ] I run holds + eccentrics + raises every week, not just holds
-- [ ] Elbows and biceps tendons are pain-free with the current volume
+- [ ] I train levers exactly twice a week
+- [ ] Eccentrics are in every lever session
+- [ ] My straight-arm weekly total is written down
+- [ ] I stop sets while the shape is still good

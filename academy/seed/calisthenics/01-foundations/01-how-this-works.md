@@ -1,39 +1,78 @@
-Welcome. This course turns "I train sometimes" into a deliberate practice that takes you
-from the basics to expert-level bodyweight skills.
+Welcome. This course turns "I train sometimes" into a deliberate practice that
+takes you from the basics to expert-level bodyweight skills — and, more
+importantly, teaches you the reasoning, so you can coach yourself when the plan
+inevitably meets real life.
 
 ## The two tracks
 
 Every calisthenics skill is one of two things:
 
-- **Static** — holding your bodyweight still against gravity: the support hold, L-sit,
-  handstand, german hang, back lever, front lever, planche.
-- **Dynamic** — moving your bodyweight through a range: the push-up, dip, pull-up,
-  muscle-up, explosive work.
+- **Static** — holding your bodyweight still against gravity: the support hold,
+  the L-sit, the handstand, the german hang, the back lever, the front lever,
+  the planche.
+- **Dynamic** — moving your bodyweight through a range: the push-up, the dip,
+  the pull-up, the muscle-up, explosive work.
 
-They train different qualities (static = tendon stiffness and straight-arm strength;
-dynamic = contractile strength and control through range), so the course runs them in
-**parallel**. You'll always have one static and one dynamic focus at a time.
+They build different qualities. Statics develop **straight-arm strength** and
+tendon stiffness — connective tissue adapts slowly, and it is the usual reason a
+lever plateaus. Dynamics develop **contractile strength through range**, which is
+what actually moves you. Train them in parallel and each supports the other.
+Train only one and you become the person who can do twenty pull-ups and cannot
+hold a tuck front lever for five seconds — or the reverse.
 
-## How a lesson is built
+So the course runs both at once. At any moment you will have **one static focus
+and one dynamic focus**, and no more.
 
-1. **What it is** and why it matters.
-2. **The progression** — an ordered ladder of easier-to-harder variations. You only ever
-   train the step you're on, plus a taste of the next.
-3. **Form cues** — the two or three things that actually matter.
-4. **Common mistakes** — how the movement fails, and the fix.
-5. **A target** — the concrete standard that says "move to the next step."
-6. **Self-check** — a short checklist before you progress.
+## How every lesson is built
 
-## The rules of progression
+The shape never changes, so you always know where to look:
 
-- **One step at a time.** Chasing the end skill is how people plateau for years.
-- **Quality first.** A clean rep with a 2-second pause beats five sloppy ones.
-- **Progress one variable per week** — reps, seconds, leverage, or load. Not all at once.
-- **Log everything.** "Felt hard" is not data. "3×5 negatives, 4s each" is.
+1. **What it is** — the skill, and what it is actually for.
+2. **The physics** — why it is hard, in numbers. This is the part most courses
+   skip, and it is the part that lets you diagnose your own sticking point.
+3. **The progression** — an ordered ladder. You train the rung you are on, plus
+   a taste of the next one. Never more.
+4. **Form cues** — the two or three that matter. Not fifteen.
+5. **What goes wrong** — the specific failure modes, and the specific fix.
+6. **Programming it** — sets, reps or seconds, frequency, rest.
+7. **The target** — a number that says "move on."
+8. **Self-check** — tick it before you progress.
+
+## The five rules of progression
+
+**One rung at a time.** Chasing the end skill is how people spend three years not
+getting it. The ladder exists because each rung prepares tissue for the next.
+
+**Quality before quantity.** One clean rep with a two-second pause is worth more
+than five that use momentum. Momentum is the enemy of adaptation: it lets the
+movement happen without the tissue being loaded.
+
+**One variable per week.** Reps, seconds, leverage, or load — pick one and change
+it. If you change three at once and something starts to hurt, you have learned
+nothing about which one did it.
+
+**Log everything.** "Felt hard" is not data. "3×5 negatives, 4 s each, last set
+broke down" is data. You cannot apply progressive overload to a feeling.
+
+**Deload before you need to.** Connective tissue recovers more slowly than
+muscle and gives you very little warning. Module 6 covers this properly.
 
 ## What you need
 
-A **pull-up bar**, a **floor**, and ideally **parallettes** (or two low, stable surfaces)
-and a **resistance band**. That's the whole kit. Rings are a bonus, not a requirement.
+A **pull-up bar**, a **floor**, and ideally **parallettes** (or two low, stable
+surfaces of equal height) and a **resistance band**. That is the entire kit.
 
-Next: an honest assessment so your training actually fits you.
+Rings are a wonderful addition and not a requirement. Where they change things,
+the course says so — mostly they make everything harder by removing stability,
+which is useful later and counterproductive early.
+
+## How long this actually takes
+
+Honestly: the first pull-up takes most people 6–12 weeks from a dead hang. A
+clean muscle-up takes most people 9–18 months from their first pull-up. A full
+front lever takes years, and plenty of strong people never get one.
+
+The course is built so that every one of those stages is *itself* worth training,
+rather than a waiting room for the next thing.
+
+Next: the physics. Twenty minutes here will save you months of guessing.

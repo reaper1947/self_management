@@ -33,6 +33,11 @@ COPY academy/ /app/academy/
 # Copy the standby page
 COPY standby_page/ /app/standby_page/
 
+# Operator tools. make_student.py is documented as
+# `docker exec ... python3 /app/tools/make_student.py`, which only works if the
+# directory is actually in the image — it was not, so that instruction failed.
+COPY tools/ /app/tools/
+
 # Copy the built React app from Stage 1 into the backend's dist folder
 COPY --from=build /app/dashboard/dist /app/habit-tracker/dist
 

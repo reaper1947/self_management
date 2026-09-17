@@ -13,7 +13,12 @@ services:
       - ./media:/app/media
     environment:
       # Inject your passwords and keys here (Do not push real keys to GitHub)
-      - APP_PASSWORD=${APP_PASSWORD:-1105}
+      #
+      # No default, on purpose. APP_PASSWORD gates the admin panel and — through
+      # nginx auth_request — the web terminal, so a fallback committed to a
+      # public repo is a published credential. The ":?" form makes compose
+      # refuse to start instead, which is the failure mode you want.
+      - APP_PASSWORD=${APP_PASSWORD:?set APP_PASSWORD in .env — it gates /academy/admin and /terminal/}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}

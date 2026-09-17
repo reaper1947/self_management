@@ -90,7 +90,11 @@ def test_streak():
 def test_markdown():
     print("\n[markdown]")
     h = render_markdown("# Hi\n\nSome **bold** and `code`.\n\n- a\n- b\n")
-    check("heading", "<h1>Hi</h1>" in h)
+    # The real markdown package runs the `toc` extension, which stamps an id on
+    # every heading ('<h1 id="hi">Hi</h1>'); the bare-environment fallback emits
+    # a plain '<h1>'. Both are correct, so assert only on what matters. This
+    # test passed solely because it had never been run with markdown installed.
+    check("heading", "<h1" in h and ">Hi</h1>" in h)
     check("bold", "<strong>bold</strong>" in h)
     check("inline code", "<code>code</code>" in h)
     check("list", "<li>a</li>" in h and "<ul>" in h)

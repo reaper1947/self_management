@@ -9,7 +9,7 @@ from flask import (
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-import sqlite3, json, os, re, secrets, sys, uuid
+import hmac, sqlite3, json, os, re, secrets, sys, uuid
 from datetime import datetime, timedelta
 
 # When this process came up — the admin dashboard reports uptime, which is the
@@ -37,7 +37,26 @@ app.config["MAX_CONTENT_LENGTH"] = 256 * 1024 * 1024  # 256 MB uploads
 CORS(app, supports_credentials=True)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "habit_tracker.db")
-APP_PASSWORD = os.environ.get("APP_PASSWORD")
+
+# The single admin credential. It gates the admin panel and, through
+# /api/auth/verify_nginx, the web terminal — so an unset value must fail
+# closed, never open. See admin_password_configured() below.
+APP_PASSWORD = os.environ.get("APP_PASSWORD") or ""
+MIN_ADMIN_PASSWORD = 12
+
+
+def admin_password_configured() -> bool:
+    return len(APP_PASSWORD) >= MIN_ADMIN_PASSWORD
+
+
+if not admin_password_configured():
+    print(
+        "\n*** APP_PASSWORD is not set (or is shorter than "
+        f"{MIN_ADMIN_PASSWORD} characters).\n"
+        "*** Admin login is DISABLED until it is, which also locks /terminal/.\n"
+        "*** Set it in .env and restart.\n",
+        file=sys.stderr,
+    )
 
 # Uploaded videos / documents live here (volume-mounted in production).
 MEDIA_DIR = os.environ.get("MEDIA_DIR", os.path.join(os.path.dirname(__file__), "..", "media"))
@@ -200,9 +219,19 @@ def require_auth(f):
 @app.route("/api/auth/login", methods=["POST"])
 def login():
     data = request.get_json(force=True)
-    
-    # Admin Login
-    if data.get("password") == APP_PASSWORD:
+
+    # Admin login.
+    #
+    # The comparison is deliberately written out rather than `supplied ==
+    # APP_PASSWORD`. With no APP_PASSWORD set that expression was None == None
+    # for a request that simply omitted the field — an empty POST granted an
+    # admin session, and with it the web terminal. Refuse unless a password is
+    # actually configured and a string was actually supplied, and compare in
+    # constant time so the check leaks nothing about the value.
+    supplied = data.get("password")
+    if (admin_password_configured()
+            and isinstance(supplied, str)
+            and hmac.compare_digest(supplied, APP_PASSWORD)):
         session["logged_in"] = True
         session["role"] = "admin"
         return jsonify({"ok": True, "role": "admin"})

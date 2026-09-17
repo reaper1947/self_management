@@ -193,6 +193,40 @@ The Dashboard answers *how many*. The Monitor answers *where*.
 
 ---
 
+## 6a. APP_PASSWORD — read this before the next deploy
+
+`APP_PASSWORD` is the single admin credential. It gates `/academy/admin` **and**,
+through nginx `auth_request`, the web terminal at `/terminal/` — which is a shell
+on the server. Treat it accordingly.
+
+It lives in `.env` on the server (`/home/next/peter_folder/.env`) and is passed
+to the container by `--env-file`. It is not in git and must never be.
+
+**Two things changed, and one of them can lock you out:**
+
+1. `docker-compose.yml` no longer falls back to a default. It used to read
+   `${APP_PASSWORD:-1105}`, so a missing `.env` entry silently gave the site a
+   password that is published in a public repository. Compose now refuses to
+   start instead.
+2. **The app requires at least 12 characters.** Below that, admin login is
+   disabled and the server prints a warning at startup. If your current password
+   is short, set a longer one *before* you redeploy or you will not be able to
+   log in.
+
+```bash
+# on the server
+nano /home/next/peter_folder/.env      # APP_PASSWORD=<20+ random characters>
+bash start_docker.sh                   # restart to pick it up
+```
+
+Why the minimum exists: with no password configured the old login compared
+`data.get("password") == APP_PASSWORD`, which for an empty POST was
+`None == None` — an unauthenticated request granted an admin session, and with
+it the terminal. The check now refuses unless a password is genuinely configured
+and a string was genuinely supplied, and compares in constant time.
+
+---
+
 ## 6b. Testing the course as a real student
 
 The admin login (`APP_PASSWORD`) sees the admin views. It **cannot** walk the

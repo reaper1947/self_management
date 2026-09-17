@@ -411,3 +411,60 @@ table.data tr:hover td { background: var(--card); }
     padding: 1rem;
 }
 .lesson-body p:has(> img) { margin: 1.8rem 0; }
+
+/* ── Monitor panel ─────────────────────────────────────────────────────────
+   Charts are inline SVG scaled to their box, so they inherit the palette and
+   need no library. The funnel table is the important one: it is read as a
+   shape, so the bar column carries the meaning and the numbers confirm it. */
+
+.mon-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.mon-charts { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.chart-title {
+    display: flex; align-items: baseline; justify-content: space-between; gap: .8rem;
+    font-family: var(--mono); font-size: .74rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--faint); margin: 0 0 .9rem;
+}
+.chart-title b {
+    font-family: var(--font); font-weight: 800; font-stretch: 115%;
+    font-size: 1.05rem; letter-spacing: -.01em; text-transform: none;
+    color: var(--text); font-variant-numeric: tabular-nums;
+}
+.chart-title b.warn { color: var(--warn); font-size: .8rem; font-weight: 600; }
+
+.spark { width: 100%; display: block; }
+.spark-ax {
+    display: flex; justify-content: space-between; gap: .6rem;
+    font-family: var(--mono); font-size: .64rem; color: var(--faint);
+    margin-top: .5rem; padding-top: .45rem; border-top: 1px solid var(--border);
+}
+
+table.funnel { font-size: .86rem; }
+table.funnel td, table.funnel th { padding: .42rem .6rem; }
+table.funnel .n { font-family: var(--mono); font-size: .7rem; color: var(--faint); }
+table.funnel .mod {
+    display: block; font-family: var(--mono); font-size: .64rem;
+    color: var(--faint); letter-spacing: .06em;
+}
+table.funnel .num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: .78rem; }
+table.funnel .barcell { width: 40%; min-width: 120px; }
+table.funnel .bar { display: block; height: 8px; background: var(--accent); opacity: .85; min-width: 1px; }
+table.funnel tr.worst .bar { background: var(--warn); }
+table.funnel tr.worst td { color: var(--warn); }
+
+.sys-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem 1.4rem; }
+.sys-grid > div { display: flex; flex-direction: column; gap: .3rem; }
+.sys-grid span {
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--faint);
+}
+.sys-grid b {
+    font-family: var(--mono); font-size: .92rem; color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+.warn { color: var(--warn); }
+
+@media (max-width: 720px) {
+    .grid[style*="1fr 1fr"] { grid-template-columns: 1fr !important; }
+}

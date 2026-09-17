@@ -9,7 +9,12 @@ from flask import (
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-import sqlite3, json, os, secrets, uuid
+import sqlite3, json, os, re, secrets, sys, uuid
+from datetime import datetime, timedelta
+
+# When this process came up — the admin dashboard reports uptime, which is the
+# quickest way to tell "the container restarted" from "the data is wrong".
+_STARTED_AT = datetime.utcnow()
 
 # Stripe is optional (legacy — payments now go through Buy Me a Coffee).
 try:
@@ -1021,6 +1026,149 @@ def admin_lms_overview():
             "recent_signups": recent_signups, "recent_completions": recent_completions,
             "per_course": per_course,
         })
+
+
+@app.route("/api/admin/lms/stats", methods=["GET"])
+def admin_lms_stats():
+    """Everything the overview does not answer: trend, drop-off, and health.
+
+    The overview says how many. This says *where* — which day activity changed,
+    which lesson people stop at, which students have gone quiet, and whether the
+    content and the box it runs on are in good shape.
+    """
+    _require_admin()
+    days = max(7, min(90, int(request.args.get("days", 30))))
+
+    with get_db() as db:
+        # ── daily series ────────────────────────────────────────────────────
+        def series(sql):
+            rows = db.execute(sql, (f"-{days} days",)).fetchall()
+            return {r["d"]: r["n"] for r in rows}
+
+        signups = series("""SELECT date(created_at) d, COUNT(*) n FROM students
+                            WHERE created_at >= date('now', ?) GROUP BY d""")
+        completions = series("""SELECT date(completed_at) d, COUNT(*) n
+                                FROM lesson_progress
+                                WHERE completed=1 AND completed_at >= date('now', ?)
+                                GROUP BY d""")
+        actives = series("""SELECT date(completed_at) d, COUNT(DISTINCT student_id) n
+                            FROM lesson_progress
+                            WHERE completed=1 AND completed_at >= date('now', ?)
+                            GROUP BY d""")
+        today = datetime.utcnow().date()
+        daily = []
+        for i in range(days - 1, -1, -1):
+            d = (today - timedelta(days=i)).isoformat()
+            daily.append({"date": d, "signups": signups.get(d, 0),
+                          "completions": completions.get(d, 0),
+                          "active": actives.get(d, 0)})
+
+        # ── per-lesson funnel ───────────────────────────────────────────────
+        # Where people stop is the single most useful number a course owner has.
+        funnel = []
+        for c in db.execute("SELECT id, title FROM courses ORDER BY sort, id"):
+            rows = db.execute(
+                """SELECT l.id, l.title, l.sort, m.title AS module, m.sort AS msort,
+                          COALESCE(SUM(lp.completed), 0)     AS done,
+                          COALESCE(COUNT(lp.id), 0)          AS started,
+                          COALESCE(AVG(NULLIF(lp.seconds,0)), 0) AS avg_seconds
+                     FROM lessons l
+                     JOIN modules m ON m.id = l.module_id
+                     LEFT JOIN lesson_progress lp ON lp.lesson_id = l.id
+                    WHERE l.course_id = ? AND l.published = 1
+                 GROUP BY l.id
+                 ORDER BY m.sort, l.sort""", (c["id"],)).fetchall()
+            lessons = [{"title": r["title"], "module": r["module"],
+                        "done": r["done"], "started": r["started"],
+                        "avg_seconds": round(r["avg_seconds"] or 0)} for r in rows]
+            first = lessons[0]["done"] if lessons else 0
+            for l in lessons:
+                l["retained"] = round(l["done"] / first * 100) if first else 0
+            # the biggest single drop between consecutive lessons
+            worst, worst_at = 0, None
+            for a, b in zip(lessons, lessons[1:]):
+                drop = a["done"] - b["done"]
+                if drop > worst:
+                    worst, worst_at = drop, b["title"]
+            funnel.append({"course": c["id"], "title": c["title"],
+                           "lessons": lessons, "worst_drop": worst,
+                           "worst_drop_at": worst_at})
+
+        # ── students who have gone quiet ────────────────────────────────────
+        at_risk = [dict(r) for r in db.execute(
+            """SELECT s.id, s.email, s.name,
+                      COUNT(lp.id) AS done,
+                      MAX(lp.completed_at) AS last_seen,
+                      CAST(julianday('now') - julianday(MAX(lp.completed_at)) AS INT) AS days_quiet
+                 FROM students s
+                 JOIN lesson_progress lp ON lp.student_id = s.id AND lp.completed = 1
+             GROUP BY s.id
+               HAVING days_quiet >= 14
+             ORDER BY days_quiet DESC LIMIT 20""")]
+
+        # ── purchases by source ─────────────────────────────────────────────
+        by_source = [dict(r) for r in db.execute(
+            """SELECT COALESCE(NULLIF(source,''),'unknown') AS source,
+                      course_id, COUNT(*) n
+                 FROM purchases GROUP BY source, course_id ORDER BY n DESC""")]
+
+        # ── content health ──────────────────────────────────────────────────
+        figures_dir = os.path.join(os.path.dirname(__file__), "..", "academy", "figures")
+        have_figs = set(os.listdir(figures_dir)) if os.path.isdir(figures_dir) else set()
+        content = []
+        for c in db.execute("SELECT id, title FROM courses ORDER BY sort, id"):
+            rows = db.execute(
+                "SELECT title, body_md, published, is_free FROM lessons WHERE course_id=?",
+                (c["id"],)).fetchall()
+            words = [len((r["body_md"] or "").split()) for r in rows]
+            missing_figs, empty = [], []
+            for r in rows:
+                body = r["body_md"] or ""
+                if len(body.split()) < 80:
+                    empty.append(r["title"])
+                for fig in re.findall(r"/academy/figures/([\w.\-]+\.svg)", body):
+                    if fig not in have_figs:
+                        missing_figs.append(f"{r['title']}: {fig}")
+            content.append({
+                "course": c["id"], "title": c["title"],
+                "lessons": len(rows),
+                "unpublished": sum(1 for r in rows if not r["published"]),
+                "free": sum(1 for r in rows if r["is_free"]),
+                "words": sum(words),
+                "avg_words": round(sum(words) / len(words)) if words else 0,
+                "thin_lessons": empty,
+                "missing_figures": missing_figs,
+            })
+
+    # ── the box it runs on ──────────────────────────────────────────────────
+    def dir_size(path):
+        total = 0
+        for root, _, files in os.walk(path):
+            for f in files:
+                try:
+                    total += os.path.getsize(os.path.join(root, f))
+                except OSError:
+                    pass
+        return total
+
+    try:
+        db_bytes = os.path.getsize(DB_PATH)
+    except OSError:
+        db_bytes = 0
+
+    system = {
+        "db_bytes": db_bytes,
+        "media_bytes": dir_size(MEDIA_DIR) if os.path.isdir(MEDIA_DIR) else 0,
+        "figures": len(have_figs),
+        "python": sys.version.split()[0],
+        "started_at": _STARTED_AT.isoformat(timespec="seconds") + "Z",
+        "uptime_seconds": int((datetime.utcnow() - _STARTED_AT).total_seconds()),
+        "utc_now": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+    }
+
+    return jsonify({"days": days, "daily": daily, "funnel": funnel,
+                    "at_risk": at_risk, "purchases_by_source": by_source,
+                    "content": content, "system": system})
 
 
 @app.route("/api/admin/lms/students", methods=["GET"])

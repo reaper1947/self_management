@@ -167,6 +167,73 @@ the grant helper). Until then, manual granting is 20 seconds per sale.
 Watch **average progress** — if people buy and stall at < 20%, the early lessons need work
 or the onboarding email is missing.
 
+### Admin → Monitor
+
+The Dashboard answers *how many*. The Monitor answers *where*.
+
+- **Signups / completions / active students** — one bar per day, 7 / 30 / 90 days.
+  Hover a bar for the exact date and number.
+- **Where people stop** — every lesson in order, with how many finished it, what
+  percentage of your first-lesson audience is still there, and the drop from the
+  previous lesson. The biggest single drop is highlighted in amber.
+
+  This is the most valuable number you have. A course business lives or dies on
+  where the drop-off is, and it is almost never where you expect. If half your
+  buyers stop at lesson 5, lesson 5 is the problem — not your marketing.
+- **Gone quiet (14 days+)** — students who started and then stopped. These are the
+  people worth emailing.
+- **Access grants by source** — `bmc` (real sales), `admin` (you granted it),
+  `free`, `stripe`.
+- **Content health** — lesson counts, word counts, and three problems it will
+  flag for you: lessons under 80 words, figures referenced but missing from
+  `academy/figures/`, and anything left unpublished.
+- **System** — database and media size, figure count, Python version, uptime.
+  Uptime is the quickest way to tell "the container restarted" from "the numbers
+  are wrong".
+
+---
+
+## 6b. Testing the course as a real student
+
+The admin login (`APP_PASSWORD`) sees the admin views. It **cannot** walk the
+course the way a buyer does — XP, streaks, locked lessons, the player, progress
+saving. To find bugs in that experience you need a real student account.
+
+Make one for yourself, on the machine that holds the database:
+
+```bash
+python3 tools/make_student.py you@example.com
+```
+
+It asks for a password at the prompt (twice, not echoed), creates the account,
+and grants it **every course**. The password is never passed as an argument, so
+it stays out of your shell history and out of `ps`.
+
+In Docker:
+
+```bash
+sudo docker exec -it self_management_dashboard      python3 /app/tools/make_student.py you@example.com
+```
+
+Other uses:
+
+```bash
+python3 tools/make_student.py you@example.com --grant-only   # account exists, add courses
+python3 tools/make_student.py you@example.com --revoke       # take the courses away again
+```
+
+Then sign in at `/academy/` with that email and walk the whole course. Worth
+checking specifically:
+
+- does every lesson render — figures, tables, code blocks?
+- does "mark complete" stick after a reload?
+- do XP, level and streak move when they should?
+- are paid lessons actually locked on a second account with no grant?
+- does the player work on a phone?
+
+Use a **separate email from any real customer account**, and revoke it when you
+are done if you do not want it in your student numbers.
+
 ---
 
 ## 7. Levels & XP (so you can answer student questions)

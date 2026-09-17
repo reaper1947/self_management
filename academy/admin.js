@@ -47,6 +47,7 @@
         $$(".adm-tab").forEach((t) => t.addEventListener("click", () => switchTab(t.dataset.p)));
         await refreshCourses();
         renderDash();
+        renderMonitor();
         renderCoursesTab();
         renderStudents();
         renderGrants();
@@ -59,6 +60,174 @@
 
     async function refreshCourses() {
         courses = await api("/admin/lms/courses");
+    }
+
+
+    /* ═══════════ MONITOR ═══════════
+       The dashboard answers "how many". This answers "where" — which day
+       activity moved, which lesson people stop at, who has gone quiet, and
+       whether the content and the box are healthy. Charts are inline SVG on
+       purpose: no library, and they inherit the palette. */
+
+    let statsDays = 30;
+
+    function svgBars(rows, key, color, h = 64) {
+        const max = Math.max(1, ...rows.map((r) => r[key]));
+        const n = rows.length;
+        const bw = 100 / n;
+        const bars = rows.map((r, i) => {
+            const v = r[key];
+            const bh = (v / max) * 100;
+            return `<rect x="${(i * bw).toFixed(3)}%" y="${(100 - bh).toFixed(2)}%" `
+                 + `width="${(bw * 0.72).toFixed(3)}%" height="${bh.toFixed(2)}%" `
+                 + `fill="${color}" opacity="${v ? 0.9 : 0.18}">`
+                 + `<title>${r.date}: ${v}</title></rect>`;
+        }).join("");
+        const first = rows.length ? rows[0].date : "";
+        const last = rows.length ? rows[rows.length - 1].date : "";
+        return `<svg class="spark" viewBox="0 0 100 100" preserveAspectRatio="none" `
+             + `style="height:${h}px" role="img" aria-label="${key} per day, peak ${max}">`
+             + `${bars}</svg>`
+             + `<div class="spark-ax"><span>${first}</span><span>peak ${max}</span>`
+             + `<span>${last}</span></div>`;
+    }
+
+    function funnelRows(f) {
+        const max = Math.max(1, ...f.lessons.map((l) => l.done));
+        return f.lessons.map((l, i) => {
+            const w = (l.done / max) * 100;
+            const drop = i > 0 ? f.lessons[i - 1].done - l.done : 0;
+            const worst = drop > 0 && drop === f.worst_drop ? ' class="worst"' : "";
+            return `<tr${worst}>`
+                 + `<td class="n">${String(i + 1).padStart(2, "0")}</td>`
+                 + `<td>${escapeHtml(l.title)}<span class="mod">${escapeHtml(l.module)}</span></td>`
+                 + `<td class="barcell"><span class="bar" style="width:${w.toFixed(1)}%"></span></td>`
+                 + `<td class="num">${l.done}</td>`
+                 + `<td class="num">${l.retained}%</td>`
+                 + `<td class="num">${drop > 0 ? "−" + drop : ""}</td></tr>`;
+        }).join("");
+    }
+
+    function uptimeLabel(seconds) {
+        if (seconds < 3600) return Math.round(seconds / 60) + " min";
+        if (seconds < 86400) return (seconds / 3600).toFixed(1) + " h";
+        return (seconds / 86400).toFixed(1) + " days";
+    }
+
+    async function renderMonitor() {
+        const el = $("#p-monitor");
+        el.innerHTML = '<div class="spinner"></div>';
+        let s;
+        try {
+            s = await api("/admin/lms/stats?days=" + statsDays);
+        } catch (e) {
+            el.innerHTML = '<p class="muted">Could not load stats.</p>';
+            return;
+        }
+
+        const totals = s.daily.reduce((a, d) => ({
+            signups: a.signups + d.signups,
+            completions: a.completions + d.completions,
+        }), { signups: 0, completions: 0 });
+        const peakActive = Math.max(0, ...s.daily.map((d) => d.active));
+        const allMissing = s.content.reduce((a, c) => a.concat(c.missing_figures), []);
+        const allThin = s.content.reduce((a, c) => a.concat(c.thin_lessons), []);
+
+        const rangeBtns = [7, 30, 90].map((d) =>
+            `<button class="btn btn-sm${d === statsDays ? " btn-primary" : ""}" `
+            + `data-days="${d}">${d}d</button>`).join("");
+
+        const charts = [
+            ["Signups", String(totals.signups), "signups", "var(--accent)"],
+            ["Lessons completed", String(totals.completions), "completions", "var(--cal)"],
+            ["Active students", "peak " + peakActive, "active", "var(--rob)"],
+        ].map(([title, big, key, color]) =>
+            `<div class="card card-p"><p class="chart-title">${title}<b>${big}</b></p>`
+            + svgBars(s.daily, key, color) + `</div>`).join("");
+
+        const funnels = s.funnel.map((f) => {
+            const note = f.worst_drop
+                ? `<b class="warn">biggest drop −${f.worst_drop} at `
+                  + `${escapeHtml(f.worst_drop_at || "")}</b>`
+                : "<b>no drop-off yet</b>";
+            return `<div class="card card-p" style="margin-bottom:1rem">`
+                 + `<p class="chart-title">${escapeHtml(f.title)}${note}</p>`
+                 + `<div style="overflow-x:auto"><table class="data funnel">`
+                 + `<tr><th></th><th>Lesson</th><th>Completions</th><th class="num">n</th>`
+                 + `<th class="num">kept</th><th class="num">drop</th></tr>`
+                 + funnelRows(f) + `</table></div></div>`;
+        }).join("");
+
+        const atRisk = s.at_risk.length
+            ? s.at_risk.map((a) =>
+                `<div class="res-item"><span>${escapeHtml(a.name || a.email)}</span>`
+                + `<span class="muted">${a.done} done</span>`
+                + `<span class="sz">${a.days_quiet}d</span></div>`).join("")
+            : '<p class="muted">Nobody — or nobody has started yet.</p>';
+
+        const bySource = s.purchases_by_source.length
+            ? s.purchases_by_source.map((p) =>
+                `<div class="res-item"><span>${escapeHtml(p.source)}</span>`
+                + `<span class="muted">${escapeHtml(p.course_id)}</span>`
+                + `<span class="sz">${p.n}</span></div>`).join("")
+            : '<p class="muted">No grants yet.</p>';
+
+        const contentRows = s.content.map((c) => {
+            const probs = [];
+            if (c.thin_lessons.length) probs.push(c.thin_lessons.length + " thin (&lt;80 words)");
+            if (c.missing_figures.length) probs.push(c.missing_figures.length + " missing figures");
+            if (c.unpublished) probs.push(c.unpublished + " unpublished");
+            return `<tr><td>${escapeHtml(c.title)}</td>`
+                 + `<td class="num">${c.lessons}</td><td class="num">${c.free}</td>`
+                 + `<td class="num">${c.unpublished}</td>`
+                 + `<td class="num">${c.words.toLocaleString()}</td>`
+                 + `<td class="num">${c.avg_words}</td>`
+                 + `<td class="${probs.length ? "warn" : "muted"}">`
+                 + `${probs.join(" · ") || "clean"}</td></tr>`;
+        }).join("");
+
+        const sysGrid = [
+            // fmtBytes() returns "" for 0 so file lists can hide an unknown
+            // size; here a real zero is information, so say so.
+            ["database", fmtBytes(s.system.db_bytes) || "0 B"],
+            ["media", fmtBytes(s.system.media_bytes) || "0 B"],
+            ["figures", s.system.figures],
+            ["python", s.system.python],
+            ["uptime", uptimeLabel(s.system.uptime_seconds)],
+            ["server time (UTC)", s.system.utc_now.replace("T", " ").replace("Z", "")],
+        ].map(([k, v]) => `<div><span>${k}</span><b>${escapeHtml(String(v))}</b></div>`).join("");
+
+        el.innerHTML =
+            `<div class="mon-head"><h3 class="section-title" style="margin:0">`
+          + `Last ${s.days} days</h3><div class="row">${rangeBtns}`
+          + `<button class="btn btn-sm btn-ghost" id="mon-refresh">Refresh</button></div></div>`
+          + `<div class="grid mon-charts">${charts}</div>`
+          + `<h3 class="section-title">Where people stop</h3>${funnels}`
+          + `<div class="grid" style="grid-template-columns:1fr 1fr">`
+          + `<div class="card card-p"><h3 class="section-title" style="margin-top:0">`
+          + `Gone quiet (14 days+)</h3>${atRisk}</div>`
+          + `<div class="card card-p"><h3 class="section-title" style="margin-top:0">`
+          + `Access grants by source</h3>${bySource}</div></div>`
+          + `<h3 class="section-title">Content health</h3>`
+          + `<div class="card card-p" style="overflow-x:auto"><table class="data">`
+          + `<tr><th>Course</th><th class="num">Lessons</th><th class="num">Free</th>`
+          + `<th class="num">Unpublished</th><th class="num">Words</th>`
+          + `<th class="num">Avg</th><th>Problems</th></tr>${contentRows}</table>`
+          + (allMissing.length
+              ? `<p class="warn" style="margin-top:.8rem">Missing figures: `
+                + allMissing.map(escapeHtml).join(", ") + `</p>` : "")
+          + (allThin.length
+              ? `<p class="muted" style="margin-top:.8rem">Thin lessons: `
+                + allThin.map(escapeHtml).join(", ") + `</p>` : "")
+          + `</div>`
+          + `<h3 class="section-title">System</h3>`
+          + `<div class="card card-p"><div class="sys-grid">${sysGrid}</div></div>`;
+
+        $$("[data-days]", el).forEach((b) => b.addEventListener("click", () => {
+            statsDays = Number(b.dataset.days);
+            renderMonitor();
+        }));
+        $("#mon-refresh", el).addEventListener("click", renderMonitor);
     }
 
     /* ═══════════ DASHBOARD ═══════════ */

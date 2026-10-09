@@ -32,9 +32,29 @@ app = Flask(__name__,
     static_folder=os.path.join(os.path.dirname(__file__), "dist"),
     static_url_path="/dashboard/static"
 )
-app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super_secret_peter1947_key")
+# The session key signs every cookie, admin included — and the admin cookie is
+# also what nginx checks before opening /terminal/. The repo is public, so a
+# default written here is a key anyone can read and forge sessions with. With
+# FLASK_SECRET_KEY unset, use a random per-process key instead: sessions then
+# end on every restart, which is the safe way to be wrong.
+app.secret_key = os.environ.get("FLASK_SECRET_KEY") or ""
+if len(app.secret_key) < 32:
+    app.secret_key = secrets.token_hex(32)
+    print(
+        "\n*** FLASK_SECRET_KEY is not set (or is shorter than 32 characters).\n"
+        "*** Using a random key — everyone is logged out on each restart.\n"
+        "*** Set it in .env:  python3 -c 'import secrets; print(secrets.token_hex(32))'\n",
+        file=sys.stderr,
+    )
 app.config["MAX_CONTENT_LENGTH"] = 256 * 1024 * 1024  # 256 MB uploads
-CORS(app, supports_credentials=True)
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+# Every frontend is same-origin behind nginx (and Vite proxies /api in dev), so
+# CORS is only for the site's own hosts. Credentials with no origin list would
+# let any website make logged-in requests and read the answers.
+CORS(app, supports_credentials=True, origins=[
+    "https://peter1947.space", "https://www.peter1947.space",
+    "http://localhost:5173", "http://127.0.0.1:5173",
+])
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "habit_tracker.db")
 

@@ -44,3 +44,5 @@ cf/
 *.log
 .env
 cookies.txt
+*.swp
+*.swo

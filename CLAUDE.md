@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Peter's personal "Self Management Dashboard" plus a commercial course site (Peter1947 Academy),
 all served by **one Flask app** and reverse-proxied by nginx behind a Cloudflare tunnel at
-`peter1947.space`. Active development happens on the **`docker-method`** branch, not `main`.
+`peter1947.space`. Development happens on **`main`** (the old `docker-method` branch was
+merged in PR #1 and is now behind it).
 
 ## Repository layout (each is a separately-served frontend)
 
@@ -19,13 +20,16 @@ all served by **one Flask app** and reverse-proxied by nginx behind a Cloudflare
 | `storefront/` | `/storefront/` | static HTML/JS (terminal-themed marketing site + `trial/` public free lessons) | none |
 | `academy/seed/` | (loaded into SQLite on startup) | Markdown course content + `manifest.json` | none |
 | `docs/*-guide.md` | download / repo reference | full written course guides (source of truth for the seed) | `build_seed_from_guide.py` splits them |
+| `academy/figures/*.svg` | used by course lessons | generated diagrams — don't hand-edit | `python3 tools/make_figures.py` |
+| `tools/` | (copied to `/app/tools` in the image) | operator scripts: figures, test student, site smoke check | none |
 
 `habit-tracker/frontend/`, `habit-tracker/main.jsx`, `habit-tracker/dist/` (checked-in),
 `habit-tracker/cf/`, and `requiements.txt` (sic) are **legacy** — the live SPA is `dashboard/`.
 
 The storefront and academy are hand-rolled multi-page static sites (vanilla HTML/CSS/JS, no
-build, no framework). Cache-bust by bumping the `?v=` query on `<link>`/`<script>` when you
-edit CSS/JS.
+build, no framework). Visual rules (duotone colour, "everything drawn comes from the
+curriculum", type) live in `DESIGN.md` — read it before adding UI. Cache-bust by bumping
+the `?v=` query on `<link>`/`<script>` when you edit CSS/JS.
 
 **The LMS (`academy/`)** — clean dark theme in `lms.css`, shared helpers in `lms.js`:
 - `index.html` (`academy.js`) — login/signup.
@@ -63,6 +67,19 @@ boots under the **stdlib Flask** (`stripe` / `google.antigravity` / `markdown` i
 all optional), so `python3 -c "import app; app.DB_PATH='/tmp/x.db'; app.init_db(); ..."`
 with `app.test_client()` is the practical way to exercise endpoints here.
 
+Site smoke check (from anywhere): `python3 tools/verify_site.py` — boots the app with
+`test_client()`, walks every public route, fails if an unknown path returns 200, if a
+removed marketing claim (fake lesson counts / testimonials) reappears, or if a `data-i18n`
+key is missing from EN or TH. Run it after storefront/academy edits.
+
+Course figures: `python3 tools/make_figures.py` regenerates `academy/figures/*.svg`.
+The physics (centre of mass, lever arms, torque ratios) is computed from Winter's
+segment model in `tools/figures.py` — change a number there, not in the SVG or lesson text.
+
+Test student (to walk the course as a student, not admin):
+`python3 tools/make_student.py you@example.com` (`--grant-only`, `--revoke`); prompts for
+the password. In prod: `sudo docker exec -it <container> python3 /app/tools/make_student.py …`.
+
 After editing `docs/*-guide.md`: `python3 build_seed_from_guide.py` regenerates
 `academy/seed/`, then **Admin → Reseed from files** (reseed matches lessons by slug, so
 lesson ids and student progress survive).
@@ -92,8 +109,12 @@ relative paths resolve inside the container. Route order matters: the catch-all
 academy/ storefront/`. Vite `base` is `/dashboard/` and Flask's `static_url_path` is
 `/dashboard/static`, so the SPA must stay mounted at that subpath.
 
-**Two independent auth systems**, both cookie-session based (`app.secret_key`):
-- *Admin* (Peter): `POST /api/auth/login` with `password == APP_PASSWORD` → `session["logged_in"]`, `role=admin`. Guards dashboard APIs via `@require_auth` and LMS admin via `_require_admin()`. Also `role=student` via `magic_token` in the `users` table.
+**Two independent auth systems**, both cookie-session based (`app.secret_key`, SameSite=Lax;
+CORS allows only the site's own origins + localhost:5173):
+- *Admin* (Peter): `POST /api/auth/login` with `password == APP_PASSWORD` (constant-time
+  compare). **Fails closed**: if `APP_PASSWORD` is unset or < 12 chars, admin login is
+  disabled — which also locks `/terminal/`. Never reintroduce a default password.
+  On success → `session["logged_in"]`, `role=admin`. Guards dashboard APIs via `@require_auth` and LMS admin via `_require_admin()`. Also `role=student` via `magic_token` in the `users` table.
 - *Academy students*: `students` table (werkzeug password hashes), `session["student_logged_in"]` / `student_id`. `/api/student/*` and `/api/lms/*` endpoints. Course ownership = a row in `purchases` (`source` = stripe/bmc/admin/free) OR the course's `access_mode='free'`.
 
 **LMS data model** (all in `habit_tracker.db`): `courses` (slug PK, `bmc_url`, `access_mode`),
@@ -106,6 +127,20 @@ stored. Markdown → HTML via `md_render.py` (real `markdown` package, or a rege
 **Web terminal.** systemd runs `ttyd` on host port 7681 (`ttyd.service`, no auth). nginx
 exposes it at `/terminal/` and gates every request with `auth_request /api/auth/verify_nginx`,
 which checks the admin session. nginx reaches ttyd via `host.docker.internal`.
+ttyd itself has **no auth** and binds `0.0.0.0:7681`, so the nginx check is the only gate —
+anything that reaches 7681 directly (the LAN, or a tunnel ingress pointed at it) gets a
+shell. The admin session cookie is therefore as sensitive as a shell login: never give
+`FLASK_SECRET_KEY` a default (the repo is public). Unset → random per-process key.
+
+**Hosting** (outside the repo, in `~/.cloudflared/` + systemd). DNS is on Cloudflare.
+- `www.peter1947.space` → tunnel `dashboard-tunnel` (`cloudflared-dashboard.service`,
+  `dashboard-config.yml`) → nginx `localhost:5173` → this app. This is the live site.
+- `peter1947.space` (apex) is in the same ingress, but as of 2026-10 it serves a GoDaddy
+  Website Builder page, not this app.
+- `report.peter1947.space` → tunnel `n8n-report` (`cloudflared-n8n.service`, `config.yml`)
+  → n8n on `localhost:5678`. Not part of this repo.
+- A third `cloudflared.service` uses `/etc/cloudflared/config.yml` (root-only).
+- Host also runs traefik on :80/:443 (docker) — not part of this repo.
 
 **Dashboard persistence.** The React app has no per-feature API. It stores habit/scheduler/
 gym state as JSON blobs through the generic key/value store: `GET/POST/DELETE /api/data/<key>`
@@ -128,8 +163,9 @@ so big videos go on YouTube/Vimeo/Bunny as a URL, not an upload.
 
 ## Environment variables
 
-Loaded from `.env` (gitignored) at repo root: `APP_PASSWORD`, `OPENROUTER_API_KEY` (legacy),
-`GEMINI_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `FLASK_SECRET_KEY`,
+Loaded from `.env` (gitignored) at repo root: `APP_PASSWORD` (≥12 chars or admin is
+disabled), `FLASK_SECRET_KEY` (≥32 chars or a random key is used), `OPENROUTER_API_KEY`
+(legacy), `GEMINI_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
 `BMC_USERNAME` (Buy Me a Coffee page slug), `MEDIA_DIR`.
 `habit-tracker/habit_tracker.db` and `media/` are volume-mounted so they survive rebuilds —
 never commit them (both gitignored) and don't delete them. `backup.sh` includes `media/`.
